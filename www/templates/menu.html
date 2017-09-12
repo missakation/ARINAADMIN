@@ -1,0 +1,138 @@
+<!--Ari-->
+<style>
+    .item {
+        border-color: transparent;
+        margin: 0px;
+    }
+
+    .icon {
+        font-size: 30px;
+    }
+
+    .grade-b .menu-content,
+    .grade-c .menu-content {
+        border-right: 1px solid rgb(62, 75, 100);
+        border-left: 1px solid rgb(62, 75, 100);
+    }
+
+    .item-complex .item-content,
+    .item-radio .item-content {
+        background-color: transparent;
+    }
+
+    .item.menuit .item-content {
+        color: white;
+    }
+
+    .scroll-content {
+        margin-top: 0px;
+        padding-top: 0px;
+    }
+
+    .my-container {
+        background-image: url('img/111.jpeg');
+        background-repeat: repeat;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        background-size: cover;
+        height: 100%;
+        width: 100%;
+        border-bottom: transparent;
+        position: absolute;
+    }
+
+    .headerr .item-content {
+        background-color: transparent !important;
+        background-image: url('img/loggo.png');
+        background-size: 66px 30px;
+        background-position: center;
+        background-repeat: no-repeat;
+        border-color: transparent !important;
+    }
+
+    .transp .item-content {
+        background-color: transparent !important;
+        color: #2ab041;
+        border-color: transparent !important;
+    }
+
+    .headerr .item-content {
+        background-color: transparent !important;
+        background-image: url('img/loggo.png');
+        background-size: 66px 30px;
+        background-position: center;
+        background-repeat: no-repeat;
+        border-color: transparent !important;
+    }
+
+    .view {
+        background-color: transparent;
+    }
+</style>
+<ion-side-menus enable-menu-with-back-views="false">
+    <ion-side-menu-content drag-content="false">
+        <ion-nav-bar class="bar-stable">
+            <ion-nav-back-button>
+            </ion-nav-back-button>
+
+            <ion-nav-buttons side="left">
+                <button class="button button-icon button-clear ion-android-menu" menu-toggle="left"></button>
+            </ion-nav-buttons>
+        </ion-nav-bar>
+        <ion-nav-view name="menuContent"></ion-nav-view>
+    </ion-side-menu-content>
+    <ion-side-menu side="left">
+
+        <ion-content class="my-container">
+
+            <ion-list>
+                <ion-item class="headerr menuit item-icon-left" menu-toggle="left" style="padding-top:5px;height:44px;background-color: rgba(62, 75, 100, 1)"
+                    href="#/app/adminbookings">
+
+                </ion-item>
+
+
+                <a href="#/app/adminbookings" style="text-decoration:none">
+                    <div class="row" menu-toggle="left" style="padding:0 7px;background-color: rgba(62, 75, 100, 0.90);border:transparent">
+                        <div> <img src="img/Reserveicon.png" align="center" style="margin-left:8px;margin-top:10px;margin-right:7px;color:white;width:32px;height:32px">
+                        </div>
+                        <h5 align="left" style="color:white;font-size:16px;line-height:37px">Schedule</h5>
+
+                    </div>
+                </a>
+                <ion-item class="transp menuit item-icon-left" menu-toggle="left" style="color:white;background-color: rgba(62, 75, 100, 0.90);border:transparent;padding:2.5px"
+                    href="#/app/adminpage">
+                    <i class="icon ion-ios-home"></i> My Stadiums
+                </ion-item>
+
+
+                <ion-item menu-toggle="left" class="transp menuit item-icon-left" style="background-color: rgba(62, 75, 100, 0.90);border:transparent;padding:2.5px"
+                    href="#/app/customers">
+                    <i class="icon ion-android-contact" style="font-size:35px"></i> Customers
+                </ion-item>
+
+
+                <ion-item menu-toggle="left" href="#/app/adminbalances" style="border-color:rgb(64, 64, 64)">
+                    Balances
+                </ion-item>
+
+                <ion-item menu-toggle="left" href="#/app/history" style="border-color:rgb(64, 64, 64)">
+                    History
+                </ion-item>
+
+                <ion-item menu-toggle="left" href="#/app/adminpromotions" style="border-color:rgb(64, 64, 64)">
+                    Promotions
+                </ion-item>
+
+                <ion-item menu-toggle="left" href="#/app/feedbacks" style="border-color:rgb(64, 64, 64)">
+                    Contact Us
+                </ion-item>
+
+                <ion-item menu-toggle="left" href="#/app/logout" style="border-color:rgb(64, 64, 64)">
+                    Log Out
+                </ion-item>
+
+            </ion-list>
+        </ion-content>
+    </ion-side-menu>
+</ion-side-menus>

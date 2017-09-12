@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<widget id="com.ionicframework.ArinaAdmin" version="1.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+  <name>ArinaAdmin</name>
+  <description>
+        An Ionic Framework and Cordova project.
+    </description>
+  <author email="you@example.com" href="http://example.com.com/">Missak Boyajian</author>
+  <content src="index.html" />
+  <access origin="*" />
+  <preference name="webviewbounce" value="false" />
+  <preference name="UIWebViewBounce" value="false" />
+  <preference name="DisallowOverscroll" value="true" />
+  <preference name="android-minSdkVersion" value="15" />
+  <preference name="BackupWebStorage" value="none" />
+  <feature name="StatusBar">
+    <param name="ios-package" onload="true" value="CDVStatusBar" />
+  </feature>
+  <feature name="DatePicker">
+    <param name="ios-package" value="DatePicker" />
+  </feature>
+  <feature name="DatePickerPlugin">
+    <param name="android-package" value="com.okaybmd.cordova.plugin.datepicker.DatePickerPlugin" />
+  </feature>
+  <feature name="InAppBrowser">
+    <param name="ios-package" value="CDVInAppBrowser" />
+    <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
+  </feature>
+  <preference name="KeepRunning" value="True" />
+  <preference name="ShowTitle" value="True" />
+  <preference name="InAppBrowserStorageEnabled" value="True" />
+  <preference name="SuppressesIncrementalRendering" value="True" />
+  <preference name="windows-target-version" value="10.0" />
+  <plugin name="cordova-plugin-device" spec="~1.1.1" />
+  <plugin name="cordova-plugin-console" spec="~1.0.2" />
+  <plugin name="cordova-plugin-whitelist" spec="~1.2.1" />
+  <plugin name="cordova-plugin-statusbar" spec="~2.1.0" />
+  <plugin name="ionic-plugin-keyboard" spec="~1.0.8" />
+  <plugin name="cordova-plugin-datepicker" version="0.9.2" src="https://github.com/VitaliiBlagodir/cordova-plugin-datepicker.git" />
+  <plugin name="cordova-plugin-inappbrowser" version="1.4.1-dev" src="https://github.com/apache/cordova-plugin-inappbrowser" />
+  <plugin name="cordova-plugin-facebook4" version="1.7.2" src="https://github.com/jeduan/cordova-plugin-facebook4.git">
+    <param name="APP_ID" value="884613608316881" />
+    <param name="APP_NAME" value="FootballChallenge" />
+    <param name="android-minSdkVersion" value="15" />
+  </plugin>
+</widget>
