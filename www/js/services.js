@@ -177,7 +177,12 @@ angular.module('football.services', [])
                                                 //"telephone": miniministadiums.child("telephone").val(),
                                                 "price": minischedule.child("price").val(),
                                                 "color": color,
-                                                "references": minischedule.child("references").val()
+                                                "references": minischedule.child("references").val(),
+                                                "isrecurring": minischedule.child("isrecurring").val(),
+                                                "recurringkey": minischedule.child("recurringkey").val(),
+                                                "onlyrecurring":minischedule.child("onlyrecurring").val(),
+                                                "minute":minischedule.child("minute").val(),
+                                                "hour":minischedule.child("hour").val()
 
                                             };
 
@@ -568,9 +573,21 @@ angular.module('football.services', [])
                     // Write the new post's data simultaneously in the posts list and the user's post list.
                     var updates = {};
 
+                    var recurringkey = "";
+                    if (counter != 1) {
+                        var recurringkey = firebase.database().ref().child('stadiums').push().key;
+                    }
+
                     for (var index = 0; index < counter; index++) {
 
-                        var newkey = subkey + year.toString() + month.toString() + day.toString() + hour.toString() + minute.toString();
+                        var newkey = subkey
+                            + year.toString()
+                            + month.toString()
+                            + day.toString()
+                            + hour.toString()
+                            + minute.toString()
+                            + recurringkey;
+
                         var mainkey = newkey;
 
 
@@ -603,7 +620,10 @@ angular.module('football.services', [])
                             references: "",
                             telephone: details.telephone,
                             combined: details.combined,
-                            reservationnumber: details.stadiumname.charAt(0) + subkey.charAt(0) + year.toString() + month.toString() + day.toString() + hour.toString() + minute.toString()
+                            reservationnumber: details.stadiumname.charAt(0) + subkey.charAt(0) + year.toString() + month.toString() + day.toString() + hour.toString() + minute.toString(),
+                            isrecurring: counter != 1,
+                            recurringkey: newkey,
+                            onlyrecurring: recurringkey
                         };
 
                         var extraslots = {
@@ -618,7 +638,14 @@ angular.module('football.services', [])
                         for (i = 1; i < numslots; i++) {
                             search.date.setMinutes(search.date.getMinutes() + 30);
 
-                            newkey = subkey + search.date.getFullYear().toString() + search.date.getMonth().toString() + search.date.getDate().toString() + search.date.getHours().toString() + search.date.getMinutes().toString();
+                            newkey = subkey +
+                                search.date.getFullYear().toString() +
+                                search.date.getMonth().toString() +
+                                search.date.getDate().toString() +
+                                search.date.getHours().toString() +
+                                search.date.getMinutes().toString() +
+                                recurringkey;
+
                             var refdata = {
                                 key: newkey
                             }
@@ -702,30 +729,57 @@ angular.module('football.services', [])
 
                 var id = user.uid;
 
-                updates['/stadiums/' + booking.key
-                    + '/ministadiums/' + booking.minikey
-                    + '/schedules/' + booking.year + '/' + booking.month + '/' + booking.day + '/' + booking.daykey] = null;
+                var counter = 1;
+                if (booking.isrecurring) {
+                    counter = 54;
+                }
 
-                updates['/stadiumshistory/' + booking.key
-                    + '/ministadiums/' + booking.minikey
-                    + '/schedules/' + booking.year + '/' + booking.month + '/' + booking.day + '/' + booking.daykey] = null;
+                for (var index = 0; index < counter; index++) {
 
-
-
-                booking.references.forEach(function (element) {
+                    var newkey = booking.minikey
+                        + booking.year.toString()
+                        + booking.month.toString()
+                        + booking.day.toString()
+                        + booking.hour.toString()
+                        + booking.minute.toString()
+                        + booking.onlyrecurring;
 
                     updates['/stadiums/' + booking.key
                         + '/ministadiums/' + booking.minikey
-                        + '/schedules/' + booking.year + '/' + booking.month + '/' + booking.day + '/' + element.key] = null;
+                        + '/schedules/' + booking.year + '/' + booking.month + '/' + booking.day + '/' + newkey] = null;
 
                     updates['/stadiumshistory/' + booking.key
                         + '/ministadiums/' + booking.minikey
-                        + '/schedules/' + booking.year + '/' + booking.month + '/' + booking.day + '/' + element.key] = null;
+                        + '/schedules/' + booking.year + '/' + booking.month + '/' + booking.day + '/' + newkey] = null;
 
-                }, this);
+
+
+                    booking.references.forEach(function (element) {
+
+                        updates['/stadiums/' + booking.key
+                            + '/ministadiums/' + booking.minikey
+                            + '/schedules/' + booking.year + '/' + booking.month + '/' + booking.day + '/' + newkey] = null;
+
+                        updates['/stadiumshistory/' + booking.key
+                            + '/ministadiums/' + booking.minikey
+                            + '/schedules/' + booking.year + '/' + booking.month + '/' + booking.day + '/' + newkey] = null;
+
+                    }, this);
+
+                    var BookDate = new Date();
+                    BookDate.setFullYear(booking.year);
+                    BookDate.setMonth(booking.month);
+                    BookDate.setDate(booking.day);
+
+                    BookDate.setDate(BookDate.getDate() + 7);
+
+                    booking.year = BookDate.getFullYear();
+                    booking.month = BookDate.getMonth();
+                    booking.day = BookDate.getDate();
+
+                }
 
                 return firebase.database().ref().update(updates);
-
 
             },
             AddUser: function (newuser, newPostKey) {
@@ -900,9 +954,9 @@ angular.module('football.services', [])
                 var id = user.uid;
 
                 var updates = {};
-                 updates['/admins/' + id + '/mycustomers/'+Customer.key +'/telephone'] = Customer.telephone;
-                 updates['/admins/' + id + '/mycustomers/'+Customer.key +'/firstname'] = Customer.firstname;
-                
+                updates['/admins/' + id + '/mycustomers/' + Customer.key + '/telephone'] = Customer.telephone;
+                updates['/admins/' + id + '/mycustomers/' + Customer.key + '/firstname'] = Customer.firstname;
+
                 return firebase.database().ref().update(updates);
 
             },

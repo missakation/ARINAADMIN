@@ -153,7 +153,7 @@ angular.module('football.controllers')
         };
     })
 
-    .controller('AdminScheduleController', function ($scope, AdminStore, $ionicPopup, $ionicLoading, $timeout, $state) {
+    .controller('AdminScheduleController', function ($scope, $ionicPopover, AdminStore, $ionicPopup, $ionicLoading, $timeout, $state) {
 
 
         var today = new Date();
@@ -162,9 +162,31 @@ angular.module('football.controllers')
             date: today
         }
 
-        $scope.scheduleswithday = [];
+        $scope.SelectedBooking = {};
 
+        $scope.scheduleswithday = [];
         $scope.nostadium = false;
+
+        // .fromTemplate() method
+        var template1 = '<ion-popover-view><ion-header-bar> <h1 class="title">My Popover Title</h1> </ion-header-bar> <ion-content> Hello! </ion-content></ion-popover-view>';
+
+        $scope.popover1 = $ionicPopover.fromTemplate(template1, {
+            scope: $scope
+        });
+
+
+        $ionicPopover.fromTemplateUrl('templates/my-popover-editbooking.html', {
+            scope: $scope
+        }).then(function (popover) {
+            $scope.popover1 = popover;
+        });
+
+
+        $scope.openEditPopover = function ($event, item) {
+            $scope.SelectedBooking = item;
+            $scope.popover1.show($event);
+
+        };
 
         try {
             var today = new Date();
@@ -202,6 +224,8 @@ angular.module('football.controllers')
         }
 
         //comment4
+
+
 
         $scope.ReloadPage = function () {
 
@@ -270,7 +294,7 @@ angular.module('football.controllers')
             $scope.editmode = !$scope.editmode;
         }
 
-        $scope.DeleteBooking = function (item, type) {
+        $scope.DeleteBooking = function (type) {
 
             var message = ""
 
@@ -292,9 +316,9 @@ angular.module('football.controllers')
             confirmPopup.then(function (res) {
                 if (res) {
 
-                    AdminStore.DeleteBooking(item, type)
+                    AdminStore.DeleteBooking($scope.SelectedBooking, type)
                         .then(function (value) {
-                            AdminStore.GetCustomerByCode(item.user, function (result) {
+                            AdminStore.GetCustomerByCode($scope.SelectedBooking.user, function (result) {
                                 if (result == "") {
                                     alert("Could Not Update User Infos");
                                 }
@@ -320,6 +344,7 @@ angular.module('football.controllers')
                                             title: 'Cancelled',
                                             template: 'Successfully Cancelled'
                                         });
+                                        $scope.popover1.hide();
                                     }
                                 }
 
@@ -1285,7 +1310,7 @@ angular.module('football.controllers')
         }
     })
 
-    .controller('CustomerDetailsController', function ($scope,$ionicHistory, $state, $ionicPopover, AdminStore, $ionicPopup, $ionicLoading, $stateParams) {
+    .controller('CustomerDetailsController', function ($scope, $ionicHistory, $state, $ionicPopover, AdminStore, $ionicPopup, $ionicLoading, $stateParams) {
 
         $scope.Customer = $state.params.Customer;
         console.log($scope.Customer);
@@ -1300,7 +1325,7 @@ angular.module('football.controllers')
                     });
 
                     alertPopup.then(function (res) {
-                        $ionicHistory.goBack();                        
+                        $ionicHistory.goBack();
                     })
 
                 }, function (error) {
@@ -1317,7 +1342,7 @@ angular.module('football.controllers')
         }
     })
 
-    .controller('CustomerCreateController', function ($scope, $ionicPopover, AdminStore, $ionicPopup, $ionicLoading) {
+    .controller('CustomerCreateController', function ($scope, $ionicHistory, $ionicPopover, AdminStore, $ionicPopup, $ionicLoading) {
         $scope.newcustomer = {
             name: "",
             lastname: "",
@@ -1337,17 +1362,43 @@ angular.module('football.controllers')
             else {
                 try {
 
+                    var user = firebase.auth().currentUser;
+                    var id = user.uid;
 
-                    var newPostKey = firebase.database().ref().child('players').push().key;
-                    AdminStore.AddUser($scope.newcustomer, newPostKey).then(function (value) {
-                        $scope.newcustomer.key = newPostKey;
-                    }, function (error) {
-                        var alertPopup = $ionicPopup.alert({
-                            title: 'Error',
-                            template: error.message
-                        });
+                    var query = firebase.database().ref('/admins/' + id + '/mycustomers').orderByChild("telephone").equalTo($scope.newcustomer.telephone.trim());
+
+                    query.once('value', function (snapshot) {
+
+                        if (snapshot.exists()) {
+                            var alertPopup = $ionicPopup.alert({
+                                title: 'Error',
+                                template: 'This Number Already Exists'
+                            });
+                        }
+                        else {
+                            var newPostKey = firebase.database().ref().child('players').push().key;
+                            AdminStore.AddUser($scope.newcustomer, newPostKey).then(function (value) {
+                                var alertPopup = $ionicPopup.alert({
+                                    title: 'Success',
+                                    template: 'Customer Saved'
+                                });
+
+                                alertPopup.then(function (res) {
+                                    $ionicHistory.goBack();
+                                })
+                            }, function (error) {
+                                var alertPopup = $ionicPopup.alert({
+                                    title: 'Error',
+                                    template: error.message
+                                });
+
+                            })
+                        }
+
 
                     })
+
+
                 }
                 catch (error) {
                     alert(error.message)
