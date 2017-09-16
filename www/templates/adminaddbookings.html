@@ -101,16 +101,18 @@
 
             <div style="padding-left:10px;padding-right:10px">
                 <div class="col" align="center">
-                    <!--<p style="background-color:lightgray">Date</p>-->
-                    <!--<label class="item item-input ">
+                   <!-- <p style="background-color:lightgray">Date</p>
+                    <label class="item item-input ">
                     <input type="datetime-local" ng-model="search.date">
-                </label>-->
+                </label>
 
-
+					
                     <div class="item" style="width:100%;padding:none;border:none;color:white;background-color:#21ab41;border-radius:10px" ion-datetime-picker
                         ng-model="search.date" minute-step="15">
                         {{search.date| date: "MMMM dd, yyyy - HH:mm"}}
-                    </div>
+                    </div>-->
+					<input class="button open-button" ng-readonly="true" on-tap="openPickerView()" style="border-radius:0px;color:white;width:100%;line-height:40px;padding-bottom:0px;margin-bottom:0px;background-color:#2ab041"
+			 ng-model="search.text">
 
                 </div>
 

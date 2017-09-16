@@ -53,8 +53,8 @@
     </div>
 
     <script id="templates/my-popover-editbooking.html" type="text/ng-template">
-        <ion-popover-view style="height:300px;width:300px;">
-            
+        <ion-popover-view style="height:500px;width:300px;">
+
             <ion-content>
                 <button class="button button-balanced button-full" style="border-radius:5px" ng-click="addcustomer()">
                     Edit
@@ -73,6 +73,18 @@
 
                 <button class="button button-balanced button-full" style="border-radius:5px" ng-click="DeleteBooking(2)">
                     Cancel Didn't Show Up
+                </button>
+
+                <button class="button button-calm button-full" style="border-radius:5px" ng-click="ChooseWinner(0)">
+                    Team1  Win
+                </button>
+
+                <button class="button button-calm button-full" style="border-radius:5px" ng-click="ChooseWinner(1)">
+                    Draw
+                </button>
+
+                <button class="button button-calm button-full" style="border-radius:5px" ng-click="ChooseWinner(2)">
+                    Team2 win
                 </button>
 
                 </div>
@@ -120,6 +132,9 @@
                         {{items.name}}
 
                     </div>
+                    <div ng-click="gogamedetails(items)">
+                        TEAM 1 VS TEAM 2
+                    </div>
                     <div style="width:20%;padding:0px;border-left:1px solid #5f7485;border-right:1px solid #5f7485;background-color:rgb(62, 83, 100);padding:0px;color:white;border-right:1px solid #5f7485;font-family:'roboto'">
                         {{items.telephone}}
 
@@ -130,7 +145,7 @@
                     <div ng-click="openEditPopover($event,items)" style="width:10%;padding:0px;background-color:rgb(62, 83, 100);font-size: 22px; color:white;border-right:1px solid #5f7485;font-family:'roboto'">
                         &bull;&bull;&bull;
                     </div>
-                </div> 
+                </div>
             </div>
 
         </div>

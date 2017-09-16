@@ -73,6 +73,16 @@ angular.module('football', ['ionic', 'football.controllers', 'ion-datetime-picke
                 }
             })
 
+            .state('app.gamedetails', {
+                url: '/gamedetails/:gameid',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/gamedetails.html',
+                        controller: 'GameDetailsController'
+                    }
+                }
+            })
+
             .state('app.customers', {
                 url: '/customers',
                 views: {

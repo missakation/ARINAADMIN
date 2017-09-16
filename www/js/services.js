@@ -180,11 +180,15 @@ angular.module('football.services', [])
                                                 "references": minischedule.child("references").val(),
                                                 "isrecurring": minischedule.child("isrecurring").val(),
                                                 "recurringkey": minischedule.child("recurringkey").val(),
-                                                "onlyrecurring":minischedule.child("onlyrecurring").val(),
-                                                "minute":minischedule.child("minute").val(),
-                                                "hour":minischedule.child("hour").val()
+                                                "onlyrecurring": minischedule.child("onlyrecurring").val(),
+                                                "minute": minischedule.child("minute").val(),
+                                                "hour": minischedule.child("hour").val()
 
                                             };
+
+                                        if (minischedule.child("type").val() == "T") {
+                                            Data.challengekey = minischedule.child("challengekey").val();
+                                        }
 
                                         SchedulesByDay.push(Data);
                                     }
@@ -960,6 +964,153 @@ angular.module('football.services', [])
                 return firebase.database().ref().update(updates);
 
             },
+            GetChallengeByKey: function (myid, key, callback) {
+
+                try {
+                    ChallengeDetails = {};
+                    var team1players = [];
+                    var team2players = [];
+                    firebase.database().ref('/challenges/' + key).once('value', function (challenges) {
+
+                        if (challenges.exists()) {
+
+                            var challengedate = new Date();
+
+
+                            var isadmin = challenges.child("admin").val() == myid;
+
+                            challengedate.setMinutes(challenges.child("minute").val());
+                            challengedate.setFullYear(challenges.child("year").val());
+                            challengedate.setMonth(challenges.child("month").val());
+                            challengedate.setHours(challenges.child("hour").val());
+                            challengedate.setDate(challenges.child("day").val());
+
+                            if (challenges.child("team1players").exists()) {
+
+                                challenges.child("team1players").forEach(function (pl) {
+
+                                    var data = {
+
+                                        key: pl.key,
+                                        status: pl.child("status").val()
+
+                                    }
+                                    team1players.push(data);
+
+                                })
+
+                            }
+
+                            if (challenges.child("team2players").exists()) {
+
+                                challenges.child("team2players").forEach(function (p2) {
+
+                                    var data2 = {
+
+                                        key: p2.key,
+                                        status: p2.child("status").val()
+
+                                    }
+                                    team2players.push(data2);
+
+                                })
+
+                            }
+
+                            var challengedata = {
+                                key: challenges.key,
+                                accepted: challenges.child("accepted").val(),
+                                day: challenges.child("day").val(),
+                                hour: challenges.child("hour").val(),
+                                minute: challenges.child("minute").val(),
+                                month: challenges.child("month").val(),
+                                stadiums: challenges.child("stadiums").val(),
+                                team1adminid: challenges.child("team1adminid").val(),
+                                team1key: challenges.child("team1key").val(),
+                                team1logo: challenges.child("team1logo").val(),
+                                team1name: challenges.child("team1name").val(),
+                                team1rank: challenges.child("team1rank").val(),
+                                team1jersey: challenges.child("team1jersey").val(),
+
+                                team2adminid: challenges.child("team2adminid").val(),
+                                team2key: challenges.child("team2key").val(),
+                                team2logo: challenges.child("team2logo").val(),
+                                team2name: challenges.child("team2name").val(),
+                                team2rank: challenges.child("team2rank").val(),
+                                team2jersey: challenges.child("team2jersey").val(),
+
+                                challengeradmin: challenges.child("challengeradmin").val(),
+                                year: challenges.child("year").val(),
+                                date: challengedate,
+                                isadmin: isadmin,
+                                team1players: team1players,
+                                team2players: team2players,
+
+                                adminphoto: challenges.child("adminphoto").val(),
+                                admintelephon: challenges.child("admintelephon").val(),
+                                adminname: challenges.child("adminname").val(),
+                                numplayers: challenges.child("numplayers").val()
+
+
+                            }
+
+                            ChallengeDetails = challengedata;
+                        }
+                        console.log(ChallengeDetails);
+                        // alert(JSON.stringify(ChallengeDetails));
+                        callback(ChallengeDetails);
+
+                    }, function (error) {
+                        alert(error.message);
+                    });
+
+                } catch (error) {
+                    alert(error.message);
+                }
+
+            },
+
+            ChooseWinner: function (Challenge, Winner) {
+                var updates = {};
+
+                var mainkey = Challenge.stadiums.ministadiumkey
+                    + Challenge.year.toString()
+                    + Challenge.month.toString()
+                    + Challenge.day.toString()
+                    + Challenge.hour.toString()
+                    + Challenge.minute.toString();
+
+                switch (Winner) {
+                    case 1:
+                        //updates['/stadiums/' + Challenge.stadiums.stadiumkey + '/ministadiums/' + Challenge.stadiums.ministadiumkey + '/schedules/' + Challenge.year + '/' + Challenge.month + '/' + Challenge.day + '/' + mainkey + '/status'] = 1;
+                        updates['/challenges/' + Challenge.challengekey + '/status'] = 1;
+                        updates['/teams/' + Challenge.team1key + '/upcominteamgmatches/' + Challenge.key + '/status'] = 1;
+                        updates['/teams/' + Challenge.team2key + '/upcominteamgmatches/' + Challenge.key + '/status'] = 2;
+                        break;
+
+                    case 2:
+                        //updates['/stadiums/' + Challenge.stadiums.stadiumkey + '/ministadiums/' + Challenge.stadiums.ministadiumkey + '/schedules/' + Challenge.year + '/' + Challenge.month + '/' + Challenge.day + '/' + mainkey + '/status'] = 2;
+                        updates['/challenges/' + Challenge.challengekey + '/status'] = 2;
+                        updates['/teams/' + Challenge.team1key + '/upcominteamgmatches/' + Challenge.key + '/status'] = 2;
+                        updates['/teams/' + Challenge.team2key + '/upcominteamgmatches/' + Challenge.key + '/status'] = 1;
+
+                        break;
+
+                    case 3:
+                       // updates['/stadiums/' + Challenge.stadiums.stadiumkey + '/ministadiums/' + Challenge.stadiums.ministadiumkey + '/schedules/' + Challenge.year + '/' + Challenge.month + '/' + Challenge.day + '/' + mainkey + '/status'] = 3;
+                        updates['/challenges/' + Challenge.challengekey + '/status'] = 3;
+                        updates['/teams/' + Challenge.team1key + '/upcominteamgmatches/' + Challenge.key + '/status'] = 3;
+                        updates['/teams/' + Challenge.team2key + '/upcominteamgmatches/' + Challenge.key + '/status'] = 3;
+                        break;
+
+                    default:
+                        break;
+                }
+
+                return firebase.database().ref().update(updates);
+
+
+            }
 
 
         }
