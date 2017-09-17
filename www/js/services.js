@@ -182,7 +182,8 @@ angular.module('football.services', [])
                                                 "recurringkey": minischedule.child("recurringkey").val(),
                                                 "onlyrecurring": minischedule.child("onlyrecurring").val(),
                                                 "minute": minischedule.child("minute").val(),
-                                                "hour": minischedule.child("hour").val()
+                                                "hour": minischedule.child("hour").val(),
+                                                "type":minischedule.child("type").val()
 
                                             };
 

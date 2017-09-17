@@ -15,6 +15,10 @@
     .item-input input {
         padding-left: 40px;
     }
+
+    .popover .scroll-content {
+        padding: 0px 10px;
+    }
 </style>
 
 <ion-view>
@@ -30,13 +34,6 @@
             <input type="date" ng-model="search.date " ng-change="ReloadPage()" style="text-align:center;border:none;background-color:rgb(45,62,75);color:white">
         </label>
         </ion-nav-title>
-        <ion-nav-buttons side="right">
-            <button class="button button-small" style="border: 1px solid #21ab41;color:white;background:transparent" side="right" ng-click="GoEditMode()">
-            Edit
-        </button>
-
-        </ion-nav-buttons>
-
 
     </ion-nav-bar>
     <div class="bar bar-subheader" style="border:none;background-color:rgb(45,62,75)">
@@ -53,38 +50,26 @@
     </div>
 
     <script id="templates/my-popover-editbooking.html" type="text/ng-template">
-        <ion-popover-view style="height:500px;width:300px;">
+        <ion-popover-view style="background-color:rgb(45,62,75);margin:0px;padding:0 10px;height:300px;width:220px;">
 
             <ion-content>
                 <button class="button button-balanced button-full" style="border-radius:5px" ng-click="addcustomer()">
                     Edit
                 </button>
-                <button class="button button-balanced button-full" style="border-radius:5px" ng-click="DeleteBooking(0)">
-                    Cancel
+                <button class="button button-assertive button-full" style="border-radius:5px" ng-click="DeleteBooking(0)">
+                        Cancel
                 </button>
 
-                <button class="button button-balanced button-full" style="border-radius:5px" ng-show="SelectedBooking.isrecurring" ng-click="DeleteBooking(3)">
-                    Cancel All
+                <button class="button button-assertive button-full" style="border-radius:5px" ng-show="SelectedBooking.isrecurring" ng-click="DeleteBooking(3)">
+                        Cancel All
                 </button>
 
-                <button class="button button-balanced button-full" style="border-radius:5px" ng-click="DeleteBooking(1)">
-                    Cancel Due Weather
+                <button class="button button-assertive button-full" style="border-radius:5px" ng-click="DeleteBooking(1)">
+                        Cancel Due Weather
                 </button>
 
-                <button class="button button-balanced button-full" style="border-radius:5px" ng-click="DeleteBooking(2)">
-                    Cancel Didn't Show Up
-                </button>
-
-                <button class="button button-calm button-full" style="border-radius:5px" ng-click="ChooseWinner(0)">
-                    Team1  Win
-                </button>
-
-                <button class="button button-calm button-full" style="border-radius:5px" ng-click="ChooseWinner(1)">
-                    Draw
-                </button>
-
-                <button class="button button-calm button-full" style="border-radius:5px" ng-click="ChooseWinner(2)">
-                    Team2 win
+                <button class="button button-assertive button-full" style="border-radius:5px" ng-click="DeleteBooking(2)">
+                        Cancel Didn't Show Up
                 </button>
 
                 </div>
@@ -120,7 +105,7 @@
 
 
                 <!--<div class="row" style="background-color:{{items.color}}">-->
-                <div class="row" style="line-height:30px;padding:0px;font-weight:400;background-color:rgb(62, 83, 100)">
+                <div class="row" ng-click="openEditPopover($event,items)" style="line-height:30px;padding:0px;font-weight:400;background-color:rgb(62, 83, 100)">
 
 
                     <!--ng-repeat="data in ctrl.data"-->
@@ -128,11 +113,11 @@
                         {{items.fullstartdate | date : 'H:mm'}}-{{items.fullenddate | date : 'H:mm'}}
 
                     </div>
-                    <div style="width:25%;padding:0px;background-color:rgb(62, 83, 100);color:white;font-family:'roboto';height:20px">
+                    <div style="width:35%;padding:0px;background-color:rgb(62, 83, 100);color:white;font-family:'roboto';height:20px">
                         {{items.name}}
 
                     </div>
-                    <div ng-click="gogamedetails(items)">
+                    <div ng-show="items.type == 'T'" ng-click="gogamedetails(items)">
                         TEAM 1 VS TEAM 2
                     </div>
                     <div style="width:20%;padding:0px;border-left:1px solid #5f7485;border-right:1px solid #5f7485;background-color:rgb(62, 83, 100);padding:0px;color:white;border-right:1px solid #5f7485;font-family:'roboto'">
@@ -142,9 +127,7 @@
                     <div style="width:20%;padding:0px;background-color:rgb(62, 83, 100);color:white;border-right:1px solid #5f7485;font-family:'roboto'">
                         {{items.price}}
                     </div>
-                    <div ng-click="openEditPopover($event,items)" style="width:10%;padding:0px;background-color:rgb(62, 83, 100);font-size: 22px; color:white;border-right:1px solid #5f7485;font-family:'roboto'">
-                        &bull;&bull;&bull;
-                    </div>
+
                 </div>
             </div>
 
