@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('football', ['ionic', 'football.controllers', 'ion-datetime-picker', 'football.services', 'ngCordova', 'ionic.rating', 'auth0', 'angular-storage', 'angular-jwt'])
+angular.module('football', ['ionic', 'football.controllers', 'ion-datetime-picker', 'football.services', 'ngCordova', 'jett.ionic.filter.bar', 'ionic.rating', 'auth0', 'angular-storage', 'angular-jwt'])
 
     .run(function ($ionicPlatform) {
         $ionicPlatform.ready(function () {
@@ -28,7 +28,10 @@ angular.module('football', ['ionic', 'football.controllers', 'ion-datetime-picke
 
     })
 
-    .config(function ($stateProvider, $urlRouterProvider, authProvider, jwtInterceptorProvider) {
+    .config(function ($stateProvider, $urlRouterProvider,$ionicConfigProvider, authProvider, jwtInterceptorProvider,$ionicFilterBarConfigProvider) {
+		$ionicConfigProvider.views.maxCache(0);
+		$ionicFilterBarConfigProvider.theme('royal');
+		
         $stateProvider
             .state('app',
             {

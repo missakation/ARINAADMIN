@@ -1981,7 +1981,7 @@ angular.module('football.controllers')
     })
 
 
-    .controller('CustomerController', function ($scope, $state, $ionicPopover, AdminStore, $ionicPopup, $ionicLoading) {
+    .controller('CustomerController', function ($scope, $state, $ionicPopover, AdminStore, $ionicPopup, $ionicLoading,$ionicFilterBar) {
 
         $ionicLoading.show({
             content: 'Loading',
@@ -1994,8 +1994,9 @@ angular.module('football.controllers')
             console.log(mycustomers);
             $ionicLoading.hide();
             $scope.mycustomers = mycustomers;
-            console.log($scope.mycustomers);
-
+			$scope.filteredCustomers = $scope.mycustomers;
+            //console.log($scope.mycustomers);
+			console.log($scope.filteredCustomers);
         });
 
         $scope.OpenCustomerDetails = function (item) {
@@ -2003,6 +2004,52 @@ angular.module('football.controllers')
                 Customer: item
             });
         }
+		
+		//Filter bar stuff
+        var filterBarInstance;
+
+        //function getItems () {
+        //    var items = [];
+        //    for (var x = 1; x < 2000; x++) {
+        //        items.push({text: 'This is item number ' + x + ' which is an ' + (x % 2 === 0 ? 'EVEN' : 'ODD') + ' number.'});
+        //    }
+        //    $scope.items = items;
+        //}
+
+        //getItems();
+
+        //$scope.$digest();
+        $scope.showFilterBar = function () {
+            filterBarInstance = $ionicFilterBar.show({
+                items: $scope.mycustomers,
+                update: function (filteredItems, filterText) {
+                    if (filterText != "" && filterText != null) {
+                        console.log("filterText is: " + filterText)
+                        $scope.filteredCustomers = filteredItems;
+                    }
+                    else {
+                        console.log("filterText non empty is: " + filterText)
+                        $scope.filteredCustomers = $scope.mycustomers;
+                    }
+                }//,
+                //filterProperties: ['displayname', 'firstname', 'lastname']
+            });
+        };
+
+
+        $scope.refreshItems = function () {
+            if (filterBarInstance) {
+                filterBarInstance();
+                filterBarInstance = null;
+            }
+
+            $timeout(function () {
+                getItems();
+                $scope.$broadcast('scroll.refreshComplete');
+            }, 1000);
+        };
+
+        //------------filter bar stuff ----/
     })
 
     .controller('CustomerDetailsController', function ($scope, $ionicHistory, $state, $ionicPopover, AdminStore, $ionicPopup, $ionicLoading, $stateParams) {
