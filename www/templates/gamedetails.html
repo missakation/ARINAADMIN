@@ -63,10 +63,6 @@
 						<h5 class="whitetext" style="font-weight:bold;text-transform: capitalize">
 							{{challenge.team1name}}
 						</h5>
-						<h6 style="color:darkturquoise">
-							{{challenge.team1rankdescription}}
-						</h6>
-						<img src="img/Jerseys/{{challenge.team1jersey}}.png" style="width:40px;height:40px ">
 					</div>
 				</div>
 				<div class="col" style="padding:0px">
@@ -76,12 +72,7 @@
 						<h3 class="whitetext" style="font-weight:bold;color:white">
 							VS
 						</h3>
-						<h6 style="margin-top:70px;color:#5f7485" align="center"> DIFFICULTY </h6>
 
-						<div style="font-size:14px;width:33%;padding:0px;margin:5px 0 -25px 0;color:white" align="center">
-							<h5 style="margin-bottom:4px;padding:0px;font-weight:bold;color:white">{{challenge.difficultytext}} </h5>
-							<img src="img/difficulty/{{challenge.difficulty}}" align="left" style="margin:0 0 10px 0;height:10px">
-						</div>
 
 
 					</div>
@@ -94,10 +85,7 @@
 						<h5 class="whitetext" style="font-weight:bold;text-transform: capitalize">
 							{{challenge.team2name}}
 						</h5>
-						<h6 style="color:darkturquoise">
-							{{challenge.team2rankdescription}}
-						</h6>
-						<img src="img/Jerseys/{{challenge.team2jersey}}.png" style="width:40px;height:40px ">
+
 					</div>
 				</div>
 
@@ -111,7 +99,38 @@
 
 				<div style="width:20%;padding:0px">
 
-					<img src="{{challenge.adminphoto}}" style="border-radius:50% ; height:65px ; width:65px; margin-top:-10px" />
+					<img src="{{challenge.adminphoto}}" style="margin-left:5px;border-radius:50% ; height:65px ; width:65px; margin-top:-10px" />
+
+				</div>
+
+				<div align="center" style="width:50%;padding:0px 5px">
+
+
+
+					<h6 style="color:#5f7485"> CONTACT </h6>
+					<h5 class="whitetext" style="font-weight:bold">
+						(+961) {{challenge.admintelephon}}
+					</h5>
+				</div>
+				<div class="col" style="padding:0px">
+
+					<h6 style="color:#5f7485;border-left:1px solid #5f7485" align="center"> LAST SEEN </h6>
+					<h5 align="center" class="whitetext" style="padding-top:10px;margin-top:-10px;font-weight:bold;border-left:1px solid #5f7485">
+						{{challenge.lastseen.text}}
+					</h5>
+				</div>
+			</div>
+		</div>
+
+		<div class="card" style="padding:0px;margin:5px;background-color:rgb(62, 83, 100)">
+			<h5 align="center" class="whitetext" style="text-transform: capitalize;font-size:15px;margin:5px 0 0 0; font-weight:bold">
+				Captain {{challenge.adminname}}
+			</h5>
+			<div class="row" style="padding:0px;background-color:rgb(62, 83, 100)">
+
+				<div style="width:20%;padding:0px">
+
+					<img src="{{challenge.adminphoto}}" style="margin-left:5px;border-radius:50% ; height:65px ; width:65px; margin-top:-10px" />
 
 				</div>
 
@@ -135,21 +154,23 @@
 
 
 		</div>
-		<div class="row">
+		<div class="card" align="center" style="font-weight:bold;font-size:15px;color:white;padding:0px;margin:5px;background-color:rgb(62, 83, 100)"> Choose The Winner
+			<div class="row" style="background-color:rgb(62, 83, 100);margin-top:5px;padding:0px">
 
-			<div class="col" ng-click="SelectWinner(1)">
-				TEAM 1 WINNER
+				<div class="col button button-full" ng-click="SelectWinner(1)" style="font-weight:400;font-size:14px;margin:5px; border-radius:5px;background-color:#2ab041">
+					{{challenge.team1name}} WIN
+				</div>
+
+				<div class="col button button-full" ng-click="SelectWinner(3)" style="font-weight:400;font-size:14px;margin:5px; border-radius:5px;background-color:orange">
+					DRAW
+				</div>
+
+				<div class="col button button-full" ng-click="SelectWinner(2)" style="font-weight:400;font-size:14px;margin:5px; border-radius:5px;background-color:#2ab041">
+					{{challenge.team2name}} WIN
+				</div>
+
 			</div>
-
-			<div class="col" ng-click="SelectWinner(3)">
-				DRAW
 			</div>
-
-			<div class="col" ng-click="SelectWinner(2)">
-				TEAM 2 WINNER
-			</div>
-
-		</div>
 
 
 

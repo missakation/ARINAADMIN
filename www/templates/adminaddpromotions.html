@@ -1,25 +1,22 @@
-
-
 <ion-view view-title="Promotions">
 
-    <style>
-        .h3, h2, h1, h4, p {
-            color: white;
-        }
-</style>
- <ion-view view-title="Add a Booking">
+    <ion-view view-title="Add a Booking">
 
-    <ion-nav-bar class="headercolor">
-        <ion-nav-back-button>
-        </ion-nav-back-button>
-     
-    
-    <ion-content style="background-color: rgb(62, 83, 100)">
-
-                    <div class="list">
+        <ion-nav-bar class="headercolor">
+            <ion-nav-back-button>
+            </ion-nav-back-button>
 
 
-                        <label class="item item-input item-select">
+            <ion-content style="background-color: rgb(45, 62, 75)">
+                <label class="item item-input" style="color:white;border:none;border-radius:10px">
+                <i style="padding-left:10px;font-size:30px" class="icon ion-pricetag"></i>
+                <span class="input-label" style="padding-left:10px;width:30%;color:white">Price L.L. </span>
+                <input type="number" ng-model="extrainfo.bookingprice" style="text-align:right;color:white">
+            </label>
+                <div class="list">
+
+
+                    <label class="item item-input item-select">
                             <div class="input-label">
                                 Stadium:
                             </div>
@@ -29,7 +26,7 @@
                             </select>
                         </label>
 
-                        <label class="item item-input item-select">
+                    <label class="item item-input item-select">
                             <div class="input-label">
                                 Date:
                             </div>
@@ -44,40 +41,40 @@
                             </select>
                         </label>
 
-                        <label class="item item-input">
+                    <label class="item item-input">
                             <span class="input-label">Start Time</span>
                             <input type="time" ng-model="promotion.starttime">
                         </label>
 
-                        <label class="item item-input">
+                    <label class="item item-input">
                             <span class="input-label">End Time</span>
                             <input type="time" ng-model="promotion.endtime">
                         </label>
 
-                        <label class="item item-input">
+                    <label class="item item-input">
                             <span class="input-label">Discount %</span>
                             <input type="number" ng-model="promotion.discount">
                         </label>
 
-                        <label class="item item-input">
+                    <label class="item item-input">
                             <span class="input-label">New Price</span>
                             <input type="number" ng-model="promotion.newprice">
                         </label>
 
-                        <ion-list>
+                    <ion-list>
 
-                            <ion-checkbox ng-model="promotion.weekly">Weekly</ion-checkbox>
+                        <ion-checkbox ng-model="promotion.weekly">Weekly</ion-checkbox>
 
-                        </ion-list>
+                    </ion-list>
 
 
-                    </div>
-                    
-                        <button class="button button-calm button-full" ng-click="addpromotion()">
+                </div>
+
+                <button class="button button-calm button-full" ng-click="addpromotion()">
                             Save
                         </button>
 
 
 
-    </ion-content>
-</ion-view>
+            </ion-content>
+    </ion-view>

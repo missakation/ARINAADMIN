@@ -3,21 +3,13 @@
 
         color: white
     }
-.maw
-{
-    
-}
 
     .row .col {
         color: white;
     }
 
 
-    .row:last-child .col {
-        border-bottom: solid 1px grey;
-    }
-
-    .test {}
+  
 
     body {
         background-color: lightgrey;
@@ -30,7 +22,11 @@
 
     .item-input {
         padding: 5px;
-        background-color: rgb(46, 62, 75) !important
+        background-color: rgb(62, 83, 100) !important
+    }
+
+    .item-select select {
+        background-color: rgb(62, 83, 100) !important
     }
 </style>
 
@@ -47,7 +43,7 @@
     </ion-nav-bar>
 
 
-    <ion-content style="background-color:rgb(62, 83, 100);padding:0 10px">
+    <ion-content style="background-color:rgb(46, 62, 75);padding:0 10px">
 
         <script id="templates/my-popover-addcustomer.html" type="text/ng-template">
             <ion-popover-view style="height:300px;width:300px;">
@@ -81,7 +77,7 @@
             <ion-popover-view style="height:400px;width:300px">
                 <ion-content>
 
-                    <div class="list list-inset">
+                    <div class="list list-inset" style="margin:5px 10px;background-color:transparent">
                         <label class="item item-input" style="margin-top:-5px">
                             <i class="icon ion-search placeholder-icon"  style="color:#2ab041"></i>
                             <input type="tel" placeholder="Search" ng-model="searchText"  style="color:white">
@@ -89,10 +85,13 @@
                     </div>
 
                     <ion-list>
-                        <ion-item ng-repeat="item in mycustomers | filter:searchText" ng-click="closePopover(item)" style="background-color:rgb(62, 83, 100)">
-                            <h4 style="color:white">
-                                {{item.firstname}} - (+961) {{item.telephone}}
-                            </h4>
+                        <ion-item ng-repeat="item in mycustomers | filter:searchText" ng-click="closePopover(item)" style="border-bottom:0px;padding:0px;background-color:rgb(62, 83, 100)">
+                            <div class="row" style="border-bottom:1px solid #5f7485;padding:5px">
+                                <div class="col" style="color:white" style="padding:0px">
+                                    {{item.firstname}}
+                                </div>
+                                <div class="col" style="color:white" style="padding:0px"> (+961) {{item.telephone}}
+                                </div>
                         </ion-item>
 
 
@@ -102,29 +101,19 @@
         </script>
 
 
-        <div style="padding-left:10px;padding-right:10px">
+        <div>
             <div class="col" align="center">
-                <!-- <p style="background-color:lightgray">Date</p>
-                    <label class="item item-input ">
-                    <input type="datetime-local" ng-model="search.date">
-                </label>
-
-					
-                    <div class="item" style="width:100%;padding:none;border:none;color:white;background-color:#21ab41;border-radius:10px" ion-datetime-picker
-                        ng-model="search.date" minute-step="15">
-                        {{search.date| date: "MMMM dd, yyyy - HH:mm"}}
-                    </div>-->
                 <input class="button open-button" ng-readonly="true" on-tap="openPickerView()" style="border-radius:0px;color:white;width:100%;line-height:40px;padding-bottom:0px;margin-bottom:0px;background-color:#2ab041"
                     ng-model="search.text">
 
             </div>
 
 
-            <div class="row" style="padding:0px">
+            <div class="row" style="padding-left:10px;padding-right:10px">
 
                 <div class="col col-75" style="padding:0px">
 
-                    <input ng-change="LoadCustomer1()" maxlength="8" ng-model="searchtel.currenttelephone" style="margin-top:10px;text-align:center;padding:25px;background-color:rgba(0, 0, 0, 0.4);padding-left:20px;color:#2ab041;border-radius:5px"
+                    <input ng-change="LoadCustomer1()" maxlength="8" ng-model="searchtel.currenttelephone" style="margin-top:10px;text-align:center;padding:25px;background-color:rgba(0, 0, 0, 0.2);padding-left:20px;color:#2ab041;border-radius:5px"
                         placeholder="Phone number +(961)" type="text" required>
 
                 </div>
@@ -141,19 +130,37 @@
             </h5>
         </div>
 
-        </br>
 
-        <h5 style="color:white">
-            Name : {{selectedcustomer.firstname}} {{ selectedcustomer.lastname}}
+        <h4 align="center" style="color:white">
+            {{selectedcustomer.firstname}} {{ selectedcustomer.lastname}} STATS
+        </h4>
+        </div>
+        <div align="center" class="row">
+            <div class="col">Bookings</div>
+            <div class="col ">Cancelled</div>
+            <div class="col">X Show Up</div>
+        </div>
+
+        <div align="center" class="row">
+            <!--ng-repeat="data in ctrl.data"-->
+            <div class="col">{{selectedcustomer.bookings}}</div>
+            <div class="col">{{selectedcustomer.cancelled}}</div>
+            <div class="col">{{selectedcustomer.didnotshowup}}</div>
+        </div>
+
+        <h5 style="color:white;margin-top:0px;border-top:1px solid #5f7485">
+
         </h5>
-        </br>
+
         <label class="item item-input" style="color:white;border:none;border-radius:10px">
-                <span class="input-label" style="width:30%;color:white">Price L.L. </span>
+                <i style="padding-left:10px;font-size:30px" class="icon ion-pricetag"></i>
+                <span class="input-label" style="padding-left:10px;width:30%;color:white">Price L.L. </span>
                 <input type="number" ng-model="extrainfo.bookingprice" style="text-align:right;color:white">
             </label>
         </br>
         <label class="item item-input item-select" style="color:white;border:none;border-radius:10px">
-                <div class="input-label" style="color:white;border:none;border-radius:10px">
+             <i style="padding-left:10px;font-size:30px" class="ion-android-time"></i>   
+            <div class="input-label" style="padding-left:10px;color:white;border:none;border-radius:10px">
                     Duration(mins)
                 </div>
                 <select style="color:white;border:none; " ng-model="extrainfo.duration">
@@ -167,7 +174,8 @@
             </label>
         </br>
         <label class="item item-input item-select" style="color:white;border:none;border-radius:10px">
-                <div class="input-label"  style="width:50%;color:white;border:none;">
+            <i style="padding-left:10px;font-size:30px" class="ion-ios-location-outline"></i>       
+            <div class="input-label"  style="padding-left:10px;width:50%;color:white;border:none;">
                     Select Stadium
                 </div>
                 <select ng-selected="stadiumdata.subkey" ng-init="stadiumdata.subkey=myministadiums[0].name" ng-trim="true" ng-model="stadiumdata.subkey" style="color:white;border:none"  ng-change="changeprice()">
@@ -180,7 +188,8 @@
             </label>
         </br>
         <label class="item item-input item-select" style="color:white;border:none;border-radius:10px">
-                <div class="input-label" style="color:white;border:none">
+            <i style="padding-left:10px;font-size:30px" class="ion-android-refresh"></i>        
+            <div class="input-label" style="padding-left:10px;color:white;border:none">
                     Recurring
                 </div>
                 <select style="color:white;border:none" ng-model="extrainfo.recurring">
@@ -194,26 +203,7 @@
                 </select>
             </label>
 
-        <h4 align="center" style="color:white">
-            PLAYER STATS
-        </h4>
-        </div>
-        <div class="row">
-            <div class="col">Bookings</div>
-            <div class="col ">Cancelled</div>
-            <div class="col">X Show Up</div>
-        </div>
 
-        <div class="row">
-            <!--ng-repeat="data in ctrl.data"-->
-            <div class="col">{{selectedcustomer.bookings}}</div>
-            <div class="col">{{selectedcustomer.cancelled}}</div>
-            <div class="col">{{selectedcustomer.didnotshowup}}</div>
-        </div>
-
-
-        <br />
-        <br />
     </ion-content>
     <br />
     <div class="bar bar-footer " style="background-color:transparent">
