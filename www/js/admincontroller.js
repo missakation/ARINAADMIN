@@ -320,55 +320,66 @@ angular.module('football.controllers')
                 template: message
             });
             confirmPopup.then(function (res) {
+
+
                 if (res) {
-
-                    AdminStore.DeleteBooking($scope.SelectedBooking, type)
-                        .then(function (value) {
-                            AdminStore.GetCustomerByCode($scope.SelectedBooking.user, function (result) {
-                                if (result == "") {
-                                    alert("Could Not Update User Infos");
-                                }
-                                else {
-
-                                    if (type == 0) {
-
-                                        result.cancelled = result.cancelled * 1 + 1;
+                    if (type != 3) {
+                        AdminStore.DeleteBooking($scope.SelectedBooking, type)
+                            .then(function (value) {
+                                AdminStore.GetCustomerByCode($scope.SelectedBooking.user, function (result) {
+                                    if (result == "") {
+                                        alert("Could Not Update User Infos");
                                     }
-                                    else
-                                        if (type == 1) {
+                                    else {
 
-                                            result.cancelledweather = result.cancelledweather * 1 + 1;
+                                        if (type == 0) {
+
+                                            result.cancelled = result.cancelled * 1 + 1;
                                         }
-                                        else {
-                                            result.didnotshowup = result.didnotshowup * 1 + 1;
+                                        else
+                                            if (type == 1) {
+
+                                                result.cancelledweather = result.cancelledweather * 1 + 1;
+                                            }
+                                            else {
+                                                result.didnotshowup = result.didnotshowup * 1 + 1;
+                                            }
+
+
+                                        AdminStore.UpdateScores(result)
+                                        {
+                                            var alertPopup = $ionicPopup.alert({
+                                                title: 'Cancelled',
+                                                template: 'Successfully Cancelled'
+                                            });
+                                            $scope.popover1.hide();
                                         }
-
-
-                                    AdminStore.UpdateScores(result)
-                                    {
-                                        var alertPopup = $ionicPopup.alert({
-                                            title: 'Cancelled',
-                                            template: 'Successfully Cancelled'
-                                        });
-                                        $scope.popover1.hide();
                                     }
-                                }
 
 
+                                });
+
+
+                            }, function (error) {
+                                var alertPopup = $ionicPopup.alert({
+                                    title: 'Error',
+                                    template: error.message
+                                });
+
+                                alertPopup.then(function (res) {
+                                });
+
+                            })
+                    }
+                    else {
+                        AdminStore.GetBookingsByRecurringId($scope.SelectedBooking, function (result) {
+                            AdminStore.DeleteRecurringBooking(result).then(function (results) {
+                                alert("DONE");
                             });
-
-
                         }, function (error) {
-                            var alertPopup = $ionicPopup.alert({
-                                title: 'Error',
-                                template: error.message
-                            });
-
-                            alertPopup.then(function (res) {
-                            });
 
                         })
-
+                    }
                 } else {
 
                 }
@@ -461,14 +472,6 @@ angular.module('football.controllers')
 
 
         }
-
-
-
-        //var commentsRef = firebase.database().ref('/stadiums');
-        //commentsRef.on('child_added', function (data) {
-        //    alert("WIHA");
-        //});
-
 
     })
 
@@ -1825,7 +1828,7 @@ angular.module('football.controllers')
                 template: message
             });
             confirmPopup.then(function (res) {
-                AdminStore.ChooseWinner($scope.challenge,Winner).then(function () {
+                AdminStore.ChooseWinner($scope.challenge, Winner).then(function () {
                     var alertPopup = $ionicPopup.alert({
                         title: 'Success',
                         template: 'Game Result Saved'
@@ -1978,7 +1981,7 @@ angular.module('football.controllers')
     })
 
 
-    .controller('CustomerController', function ($scope, $state, $ionicPopover, AdminStore, $ionicPopup, $ionicLoading,$ionicFilterBar) {
+    .controller('CustomerController', function ($scope, $state, $ionicPopover, AdminStore, $ionicPopup, $ionicLoading, $ionicFilterBar) {
 
         $ionicLoading.show({
             content: 'Loading',
@@ -1991,9 +1994,9 @@ angular.module('football.controllers')
             console.log(mycustomers);
             $ionicLoading.hide();
             $scope.mycustomers = mycustomers;
-			$scope.filteredCustomers = $scope.mycustomers;
+            $scope.filteredCustomers = $scope.mycustomers;
             //console.log($scope.mycustomers);
-			console.log($scope.filteredCustomers);
+            console.log($scope.filteredCustomers);
         });
 
         $scope.OpenCustomerDetails = function (item) {
@@ -2001,8 +2004,8 @@ angular.module('football.controllers')
                 Customer: item
             });
         }
-		
-		//Filter bar stuff
+
+        //Filter bar stuff
         var filterBarInstance;
 
         //function getItems () {

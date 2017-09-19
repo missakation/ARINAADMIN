@@ -91,6 +91,7 @@ angular.module('football.services', [])
                 //alert(Availables.length());
                 return Availables;
             },
+
             GetMyStadiumsByDay: function (search, callback) {
 
 
@@ -183,7 +184,7 @@ angular.module('football.services', [])
                                                 "onlyrecurring": minischedule.child("onlyrecurring").val(),
                                                 "minute": minischedule.child("minute").val(),
                                                 "hour": minischedule.child("hour").val(),
-                                                "type":minischedule.child("type").val()
+                                                "type": minischedule.child("type").val()
 
                                             };
 
@@ -207,6 +208,97 @@ angular.module('football.services', [])
                 });
 
             },
+
+            GetBookingsByRecurringId: function (Booking, callback) {
+
+
+                SchedulesByDay = [];
+                var user = firebase.auth().currentUser;
+
+                var id = user.uid;
+
+                firebase.database().ref('/stadiums/' + Booking.key + '/ministadiums/' + Booking.minikey + '/schedules').once('value', function (snapshot) {
+                    SchedulesByDay = [];
+                    snapshot.forEach(function (years) {
+                        //var mininame = ministadiums.child("name").val();
+                        years.forEach(function (months) {
+
+                            months.forEach(function (days) {
+
+                                days.forEach(function (schedules) {
+
+                                    if (schedules.child('maindata').val()) {
+
+                                        if (Booking.RecurringId == schedules.child("RecurringId").val()) {
+
+
+                                            var startdate = schedules.child("fullstartdate").val();
+                                            var startdate = new Date();
+
+
+                                            startdate.setMinutes(schedules.child('minute').val());
+                                            startdate.setFullYear(schedules.child('year').val());
+                                            startdate.setMonth(schedules.child('month').val());
+                                            startdate.setHours(schedules.child('hour').val());
+                                            startdate.setDate(schedules.child('day').val());
+
+                                            var enddate = new Date();
+
+                                            enddate.setMinutes(schedules.child('minute').val());
+                                            enddate.setFullYear(schedules.child('year').val());
+                                            enddate.setMonth(schedules.child('month').val());
+                                            enddate.setHours(schedules.child('hour').val());
+                                            enddate.setDate(schedules.child('day').val());
+
+                                            enddate.setMinutes(enddate.getMinutes() + schedules.child('duration').val() * 1);
+
+
+                                            var Data =
+                                                {
+
+                                                    "daykey": schedules.key,
+                                                    "key": Booking.key,
+                                                    "name": schedules.child("name").val(),
+
+                                                    "minikey": Booking.minikey,
+                                                    "mininame": schedules.child("description").val(),
+                                                    "day": schedules.child("day").val(),
+                                                    "month": schedules.child("month").val(),
+                                                    "year": schedules.child("year").val(),
+                                                    "minute": schedules.child("minute").val(),
+                                                    "hour": schedules.child("hour").val(),
+                                                    "fullenddate": enddate,
+                                                    "fullstartdate": startdate,
+
+                                                    "starthour": schedules.child('hour').val(),
+                                                    "startminute": schedules.child('minute').val() == 0 ? "00" : schedules.child('minute').val(),
+
+                                                    "firstname": schedules.child("firstname").val(),
+                                                    "references": schedules.child("references").val(),
+
+                                                    "isrecurring": schedules.child("isrecurring").val(),
+                                                    "recurringkey": schedules.child("recurringkey").val(),
+                                                    "onlyrecurring": schedules.child("onlyrecurring").val()
+
+
+                                                };
+
+                                            SchedulesByDay.push(Data);
+                                        }
+
+                                    }
+                                })
+
+                            });
+                        })
+                    });
+                    callback(SchedulesByDay);
+                }, function (error) {
+
+                });
+
+            },
+
             GetMyBalances: function (month, callback) {
 
 
@@ -567,7 +659,6 @@ angular.module('football.services', [])
                             + day.toString()
                             + hour.toString()
                             + minute.toString()
-                            + recurringkey;
 
                         var mainkey = newkey;
 
@@ -624,8 +715,7 @@ angular.module('football.services', [])
                                 search.date.getMonth().toString() +
                                 search.date.getDate().toString() +
                                 search.date.getHours().toString() +
-                                search.date.getMinutes().toString() +
-                                recurringkey;
+                                search.date.getMinutes().toString()
 
                             var refdata = {
                                 key: newkey
@@ -637,7 +727,6 @@ angular.module('football.services', [])
                                 for (var key in details.combined) {
                                     extrakeys.push(key);
                                 }
-                                console.log(extrakeys);
                                 extrakeys.forEach(function (element) {
                                     updates['/stadiums/' + key + '/ministadiums/' + subkey + '/schedules/' + year + '/' + month + '/' + day + '/' + newkey] = extraslots;
                                     updates['/stadiumshistory/' + key + '/ministadiums/' + subkey + '/schedules/' + year + '/' + month + '/' + day + '/' + newkey] = extraslots;
@@ -710,20 +799,31 @@ angular.module('football.services', [])
 
                 var id = user.uid;
 
-                var counter = 1;
+                /*var counter = 1;
                 if (booking.isrecurring) {
                     counter = 54;
-                }
+                }*/
 
-                for (var index = 0; index < counter; index++) {
+                //for (var index = 0; index < counter; index++) {
 
-                    var newkey = booking.minikey
-                        + booking.year.toString()
-                        + booking.month.toString()
-                        + booking.day.toString()
-                        + booking.hour.toString()
-                        + booking.minute.toString()
-                        + booking.onlyrecurring;
+                var newkey = booking.minikey
+                    + booking.year.toString()
+                    + booking.month.toString()
+                    + booking.day.toString()
+                    + booking.hour.toString()
+                    + booking.minute.toString();
+
+                updates['/stadiums/' + booking.key
+                    + '/ministadiums/' + booking.minikey
+                    + '/schedules/' + booking.year + '/' + booking.month + '/' + booking.day + '/' + newkey] = null;
+
+                updates['/stadiumshistory/' + booking.key
+                    + '/ministadiums/' + booking.minikey
+                    + '/schedules/' + booking.year + '/' + booking.month + '/' + booking.day + '/' + newkey] = null;
+
+
+
+                booking.references.forEach(function (element) {
 
                     updates['/stadiums/' + booking.key
                         + '/ministadiums/' + booking.minikey
@@ -733,32 +833,56 @@ angular.module('football.services', [])
                         + '/ministadiums/' + booking.minikey
                         + '/schedules/' + booking.year + '/' + booking.month + '/' + booking.day + '/' + newkey] = null;
 
+                }, this);
+
+                /*var BookDate = new Date();
+                BookDate.setFullYear(booking.year);
+                BookDate.setMonth(booking.month);
+                BookDate.setDate(booking.day);
+            
+                BookDate.setDate(BookDate.getDate() + 7);
+            
+                booking.year = BookDate.getFullYear();
+                booking.month = BookDate.getMonth();
+                booking.day = BookDate.getDate();*/
+
+                //}
+
+                return firebase.database().ref().update(updates);
+
+            },
+            DeleteRecurringBooking: function (book) {
+                var updates = {};
+                book.forEach(function (booking) {
+
+                    var user = firebase.auth().currentUser;
+
+                    var id = user.uid;
+
+                    updates['/stadiums/' + booking.key
+                        + '/ministadiums/' + booking.minikey
+                        + '/schedules/' + booking.year + '/' + booking.month + '/' + booking.day + '/' + booking.daykey] = null;
+
+                    updates['/stadiumshistory/' + booking.key
+                        + '/ministadiums/' + booking.minikey
+                        + '/schedules/' + booking.year + '/' + booking.month + '/' + booking.day + '/' + booking.daykey] = null;
+
 
 
                     booking.references.forEach(function (element) {
 
                         updates['/stadiums/' + booking.key
                             + '/ministadiums/' + booking.minikey
-                            + '/schedules/' + booking.year + '/' + booking.month + '/' + booking.day + '/' + newkey] = null;
+                            + '/schedules/' + booking.year + '/' + booking.month + '/' + booking.day + '/' + element.key] = null;
 
                         updates['/stadiumshistory/' + booking.key
                             + '/ministadiums/' + booking.minikey
-                            + '/schedules/' + booking.year + '/' + booking.month + '/' + booking.day + '/' + newkey] = null;
+                            + '/schedules/' + booking.year + '/' + booking.month + '/' + booking.day + '/' + element.key] = null;
 
                     }, this);
+                }, this);
 
-                    var BookDate = new Date();
-                    BookDate.setFullYear(booking.year);
-                    BookDate.setMonth(booking.month);
-                    BookDate.setDate(booking.day);
-
-                    BookDate.setDate(BookDate.getDate() + 7);
-
-                    booking.year = BookDate.getFullYear();
-                    booking.month = BookDate.getMonth();
-                    booking.day = BookDate.getDate();
-
-                }
+                //console.log(updates);
 
                 return firebase.database().ref().update(updates);
 
@@ -1068,7 +1192,7 @@ angular.module('football.services', [])
                         break;
 
                     case 3:
-                       // updates['/stadiums/' + Challenge.stadiums.stadiumkey + '/ministadiums/' + Challenge.stadiums.ministadiumkey + '/schedules/' + Challenge.year + '/' + Challenge.month + '/' + Challenge.day + '/' + mainkey + '/status'] = 3;
+                        // updates['/stadiums/' + Challenge.stadiums.stadiumkey + '/ministadiums/' + Challenge.stadiums.ministadiumkey + '/schedules/' + Challenge.year + '/' + Challenge.month + '/' + Challenge.day + '/' + mainkey + '/status'] = 3;
                         updates['/challenges/' + Challenge.challengekey + '/status'] = 3;
                         updates['/teams/' + Challenge.team1key + '/upcominteamgmatches/' + Challenge.key + '/status'] = 3;
                         updates['/teams/' + Challenge.team2key + '/upcominteamgmatches/' + Challenge.key + '/status'] = 3;
