@@ -37,9 +37,7 @@ angular.module('football.controllers')
 
         $scope.addstadium = function (stadium) {
 
-            //   alert(stadium.name);
             try {
-
 
                 AdminStore.AddStadium(stadium)
                     .then(function (value) {
@@ -54,7 +52,6 @@ angular.module('football.controllers')
                         alertPopup.then(function (res) {
                             // Custom functionality....
                         });
-                        //$scope.allfreestadiums.
 
                     })
             }

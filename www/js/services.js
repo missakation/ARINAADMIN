@@ -210,13 +210,10 @@ angular.module('football.services', [])
             GetMyBalances: function (month, callback) {
 
 
-                //alert(search.date.getMonth());
-                //     alert("TEST");
                 MyBalances = [];
                 var user = firebase.auth().currentUser;
                 var id = user.uid;
 
-                //alert(id);
                 try {
 
                     firebase.database().ref('/stadiums').orderByChild("admin").equalTo(id).on('value', function (snapshot) {
@@ -239,14 +236,11 @@ angular.module('football.services', [])
                                                 monthschedule.forEach(function (dayschedule) {
 
                                                     dayschedule.forEach(function (schedule, i) {
-                                                        //  alert(i);
 
                                                         if (schedule.child('maindata').val()) {
                                                             var total;
                                                             var price;
                                                             var booked = false;
-
-                                                            //  alert(counter);
 
                                                             if (dayschedule.child('bookedadmin').exists()) {
 
@@ -315,16 +309,10 @@ angular.module('football.services', [])
 
             AddStadium: function (stadiums) {
 
-
-                //alert(user.teamname);
-                // Get a key for a new Post.
-
                 var user = firebase.auth().currentUser;
                 var id = user.uid;
 
-
                 var stadium = {
-
                     admin: id,
                     name: stadiums.name,
                     telephone: stadiums.telephone != null ? stadiums.telephone : "",
@@ -341,8 +329,6 @@ angular.module('football.services', [])
                 };
                 var newPostKey = firebase.database().ref().child('stadiums').push().key;
 
-
-                //alert(newPostKey);
                 // Write the new post's data simultaneously in the posts list and the user's post list.
                 var updates = {};
                 updates['/stadiums/' + stadiums.name] = stadium;
@@ -353,8 +339,6 @@ angular.module('football.services', [])
 
             AddMiniStadium: function (key, stadiums) {
 
-
-                //alert(user.teamname);
                 // Get a key for a new Post.
                 try {
 
@@ -427,8 +411,6 @@ angular.module('football.services', [])
                     alert(error.message);
                 }
 
-
-                //alert(Availables.length());
                 return Customers;
             },
             GetCustomerByCode: function (code, callback) {
@@ -455,7 +437,6 @@ angular.module('football.services', [])
                             customerinfo = Data;
                         }
 
-
                         callback(customerinfo);
                     }, function (error) {
                         alert(error.message);
@@ -465,8 +446,6 @@ angular.module('football.services', [])
                     alert(error.message);
                 }
 
-
-                //alert(Availables.length());
                 return Customers;
             },
 
@@ -510,14 +489,11 @@ angular.module('football.services', [])
                 catch (error) {
                     alert(error.message);
                 }
-
-
                 //alert(Availables.length());
                 return Customers;
             },
 
             AddBooking: function (stadiumdata, search, details) {
-                //alert("here");
 
                 try {
 
@@ -815,7 +791,6 @@ angular.module('football.services', [])
 
                         }
 
-
                     var mycustomer =
                         {
                             uid: newPostKey,
@@ -855,7 +830,6 @@ angular.module('football.services', [])
                                 updates['/admins/' + id + '/mycustomers/' + newPostKey] = mycustomer;
                                 return firebase.database().ref().update(updates);
                                 // ready = true;
-
                             }
 
                         });
@@ -929,15 +903,11 @@ angular.module('football.services', [])
                         });
                     }
 
-
-
-
                     callback(MyPromotions);
                 }, function (error) {
                     alert(error.message);
                 });
 
-                //alert(Availables.length());
                 return Availables;
             },
             DeletePromotion: function (promotion) {
@@ -1110,9 +1080,7 @@ angular.module('football.services', [])
 
                 return firebase.database().ref().update(updates);
 
-
             }
-
 
         }
     })
