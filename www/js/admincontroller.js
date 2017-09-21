@@ -704,27 +704,47 @@ angular.module('football.controllers')
                 $scope.notselected = true;
             }
             else {
-                try {
 
+                var user = firebase.auth().currentUser;
+                var id = user.uid;
 
-                    var newPostKey = firebase.database().ref().child('players').push().key;
-                    AdminStore.AddUser($scope.newcustomer, newPostKey).then(function (value) {
-                        $scope.newcustomer.key = newPostKey;
-                        $scope.closePopover1($scope.newcustomer);
+                var query = firebase.database().ref('/admins/' + id + '/mycustomers').orderByChild("telephone").equalTo($scope.newcustomer.telephone.trim());
 
-                    }, function (error) {
+                query.once('value', function (snapshot) {
+
+                    if (snapshot.exists()) {
                         var alertPopup = $ionicPopup.alert({
                             title: 'Error',
-                            template: error.message
+                            template: 'This Number Already Exists'
                         });
+                    }
+                    else {
+                        var newPostKey = firebase.database().ref().child('players').push().key;
+                        AdminStore.AddUser($scope.newcustomer, newPostKey).then(function (value) {
 
-                    })
-                }
-                catch (error) {
-                    alert(error.message)
-                }
+                            var alertPopup = $ionicPopup.alert({
+                                title: 'Success',
+                                template: 'Customer Saved'
+                            });
+
+                            alertPopup.then(function (res) {
+                                $scope.newcustomer.key = newPostKey;
+                                $scope.closePopover1($scope.newcustomer);
+                            })
+
+                        }, function (error) {
+                            var alertPopup = $ionicPopup.alert({
+                                title: 'Error',
+                                template: error.message
+                            });
+
+                        })
+                    }
+
+
+                })
+
             }
-
         }
 
         // .fromTemplate() method
