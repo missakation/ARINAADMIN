@@ -374,7 +374,6 @@ angular.module('football.controllers')
                     else {
                         AdminStore.GetBookingsByRecurringId($scope.SelectedBooking, function (result) {
                             AdminStore.DeleteRecurringBooking(result).then(function (results) {
-                                alert("DONE");
                             });
                         }, function (error) {
 
