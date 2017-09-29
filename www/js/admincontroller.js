@@ -589,7 +589,10 @@ angular.module('football.controllers')
                 selectedDate.setDate(selectedDate.getDate());
                 return weekday[selectedDate.getDay()] + monthChar[selectedDate.getMonth()] + " " + selectedDate.getDate();
             }
-            for (var i = 0; i < 6; i++) {
+			selectedDate.setDate(selectedDate.getDate() + 2);
+            for (var i = 0; i < 7; i++) 
+			{
+				console.log("i is:" + i);
                 if (weekdayFull[selectedDate.getDay()] == selectedDay)
                     return weekday[selectedDate.getDay()] + monthChar[selectedDate.getMonth()] + " " + selectedDate.getDate();
                 selectedDate.setDate(selectedDate.getDate() + 1);
@@ -646,10 +649,14 @@ angular.module('football.controllers')
                         var correctDate;
                         var selectedDate = output[0];
                         var selectedTime = output[1];
-                        if (!Date.parse(selectedDate)) {
+                        if (!Date.parse(selectedDate) || Date.parse(selectedDate) === undefined || Date.parse(selectedDate) === null) 
+						{
                             selectedDate = getDateFromDayName(selectedDate);
+							console.log("Output is: " + output[0]);
                             console.log(selectedDate);
                         }
+						else
+							console.log("why?");
                         $scope.search.date = new Date(selectedDate + " " + selectedTime + ", " + (new Date()).getFullYear());
                         //$scope.search.players = (output[2].split(" "))[1];
                         console.log($scope.search.date);
