@@ -299,6 +299,10 @@ angular.module('football.controllers')
         $scope.GoEditMode = function () {
             $scope.editmode = !$scope.editmode;
         }
+		
+		$scope.setToday = function(){
+			$scope.search.date = new Date();
+		}
 
         $scope.DeleteBooking = function (type) {
 

@@ -34,7 +34,11 @@
             <input type="date" ng-model="search.date " ng-change="ReloadPage()" style="text-align:center;border:none;background-color:rgb(45,62,75);color:white">
         </label>
         </ion-nav-title>
-
+		<ion-nav-buttons side="right">
+        <button class="button button-icon button-light" style="color:white" ng-click="setToday()">
+			Today
+		</button>
+    </ion-nav-buttons>
     </ion-nav-bar>
     <div class="bar bar-subheader" style="border:none;background-color:rgb(45,62,75)">
 
