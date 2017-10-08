@@ -1,3 +1,13 @@
+<style>
+.checkbox input:checked:before, .checkbox input:checked + .checkbox-icon:before {
+
+background-color:#2ab041; 
+border-color:#2ab041
+}
+    </style>
+
+
+
 <ion-view view-title="Promotions">
 
     <ion-view view-title="Add a Booking">
@@ -8,30 +18,31 @@
 
 
             <ion-content style="background-color: rgb(45, 62, 75)">
-                <label class="item item-input" style="color:white;border:none;border-radius:10px">
-                <i style="padding-left:10px;font-size:30px" class="icon ion-pricetag"></i>
-                <span class="input-label" style="padding-left:10px;width:30%;color:white">Price L.L. </span>
-                <input type="number" ng-model="extrainfo.bookingprice" style="text-align:right;color:white">
-            </label>
+
                 <div class="list">
 
 
                     <label class="item item-input item-select">
-                            <div class="input-label">
+                       <i style="padding-left:10px;font-size:30px;color:white"  class="icon ion-location"></i>
+                            <div class="input-label" style="padding-left:10px;width:30%;color:white">
                                 Stadium:
                             </div>
-                            <select ng-model="promotion.ministadium">
-                                <option selected>All</option>
+                            <select ng-model="promotion.ministadium" ng-change="changeprice()">
                                 <option ng-repeat="item in myministadiums">{{item.name}}</option>
                             </select>
                         </label>
-
+                    <label class="item item-input" style="color:white;border:none;border-radius:10px">
+                <i style="padding-left:10px;font-size:30px" class="icon ion-pricetag"></i>
+                <span class="input-label" style="padding-left:10px;width:30%;color:white">Price L.L. </span>
+                <input type="number" ng-model="promotion.price" style="text-align:right;color:white">
+            </label>
                     <label class="item item-input item-select">
-                            <div class="input-label">
+                            <div class="input-label" style="color:white">
                                 Date:
                             </div>
                             <select ng-model="promotion.date">
-                                <option selected>Monday</option>
+                                <option selected>All</option>
+                                <option >Monday</option>
                                 <option >Tuesday</option>
                                 <option >Wednesday</option>
                                 <option >Thursday</option>
@@ -42,35 +53,35 @@
                         </label>
 
                     <label class="item item-input">
-                            <span class="input-label">Start Time</span>
+                            <span class="input-label" style="color:white">Start Time</span>
                             <input type="time" ng-model="promotion.starttime">
                         </label>
 
                     <label class="item item-input">
-                            <span class="input-label">End Time</span>
+                            <span class="input-label" style="color:white">End Time</span>
                             <input type="time" ng-model="promotion.endtime">
                         </label>
 
                     <label class="item item-input">
-                            <span class="input-label">Discount %</span>
+                            <span class="input-label" style="color:white"> Discount %</span>
                             <input type="number" ng-model="promotion.discount">
                         </label>
 
                     <label class="item item-input">
-                            <span class="input-label">New Price</span>
-                            <input type="number" ng-model="promotion.newprice">
+                            <span class="input-label"  style="color:white"> New Price</span>
+                            <input type="number" ng-change="RefreshDiscount()" ng-model="promotion.newprice">
                         </label>
 
                     <ion-list>
 
-                        <ion-checkbox ng-model="promotion.weekly">Weekly</ion-checkbox>
+                        <ion-checkbox ng-model="promotion.weekly" style="color:white"> Weekly</ion-checkbox>
 
                     </ion-list>
 
 
                 </div>
 
-                <button class="button button-calm button-full" ng-click="addpromotion()">
+                <button class="button button-balanced button-full" ng-click="addpromotion()">
                             Save
                         </button>
 

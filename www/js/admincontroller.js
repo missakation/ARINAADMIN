@@ -282,13 +282,15 @@ angular.module('football.controllers')
         var indexedTeams = [];
         $scope.playersToFilter = function () {
             indexedTeams = [];
+            console.log("HERE");
+            console.log($scope.scheduleswithday);
             return $scope.scheduleswithday;
         };
 
         $scope.filterTeams = function (player) {
-            var teamIsNew = indexedTeams.indexOf(player.mininame) == -1;
+            var teamIsNew = indexedTeams.indexOf(player.minikey) == -1;
             if (teamIsNew) {
-                indexedTeams.push(player.mininame);
+                indexedTeams.push(player.minikey);
             }
             return teamIsNew;
         };
@@ -299,10 +301,11 @@ angular.module('football.controllers')
         $scope.GoEditMode = function () {
             $scope.editmode = !$scope.editmode;
         }
-		
-		$scope.setToday = function(){
-			$scope.search.date = new Date();
-		}
+
+        $scope.setToday = function () {
+            $scope.search.date = new Date();
+            $scope.ReloadPage();
+        }
 
         $scope.DeleteBooking = function (type) {
 
@@ -325,58 +328,115 @@ angular.module('football.controllers')
             });
             confirmPopup.then(function (res) {
 
-
                 if (res) {
                     if (type != 3) {
-                        AdminStore.DeleteBooking($scope.SelectedBooking, type)
-                            .then(function (value) {
-                                AdminStore.GetCustomerByCode($scope.SelectedBooking.user, function (result) {
-                                    if (result == "") {
-                                        alert("Could Not Update User Infos");
-                                    }
-                                    else {
 
-                                        if (type == 0) {
+                        if ($scope.SelectedBooking.iscombined) {
+                            $scope.scheduleswithday.forEach(function (element) {
+                                if (element.relatedto == $scope.SelectedBooking.relatedto) {
 
-                                            result.cancelled = result.cancelled * 1 + 1;
-                                        }
-                                        else
-                                            if (type == 1) {
+                                    AdminStore.DeleteBooking(element, type)
+                                        .then(function (value) {
+                                            AdminStore.GetCustomerByCode($scope.SelectedBooking.user, function (result) {
+                                                if (result == "") {
+                                                    alert("Could Not Update User Infos");
+                                                }
+                                                else {
 
-                                                result.cancelledweather = result.cancelledweather * 1 + 1;
-                                            }
-                                            else {
-                                                result.didnotshowup = result.didnotshowup * 1 + 1;
-                                            }
+                                                    if (type == 0) {
+
+                                                        result.cancelled = result.cancelled * 1 + 1;
+                                                    }
+                                                    else
+                                                        if (type == 1) {
+
+                                                            result.cancelledweather = result.cancelledweather * 1 + 1;
+                                                        }
+                                                        else {
+                                                            result.didnotshowup = result.didnotshowup * 1 + 1;
+                                                        }
 
 
-                                        AdminStore.UpdateScores(result)
-                                        {
-                                            var alertPopup = $ionicPopup.alert({
-                                                title: 'Cancelled',
-                                                template: 'Successfully Cancelled'
+                                                    AdminStore.UpdateScores(result)
+                                                    {
+                                                        var alertPopup = $ionicPopup.alert({
+                                                            title: 'Cancelled',
+                                                            template: 'Successfully Cancelled'
+                                                        });
+                                                        $scope.popover1.hide();
+                                                    }
+                                                }
+
+
                                             });
-                                            $scope.popover1.hide();
+
+
+                                        }, function (error) {
+                                            var alertPopup = $ionicPopup.alert({
+                                                title: 'Error',
+                                                template: error.message
+                                            });
+
+                                            alertPopup.then(function (res) {
+                                            });
+
+                                        })
+                                }
+                            }, this);
+                        }
+                        else {
+                            AdminStore.DeleteBooking($scope.SelectedBooking, type)
+                                .then(function (value) {
+                                    AdminStore.GetCustomerByCode($scope.SelectedBooking.user, function (result) {
+                                        if (result == "") {
+                                            alert("Could Not Update User Infos");
                                         }
-                                    }
+                                        else {
+
+                                            if (type == 0) {
+
+                                                result.cancelled = result.cancelled * 1 + 1;
+                                            }
+                                            else
+                                                if (type == 1) {
+
+                                                    result.cancelledweather = result.cancelledweather * 1 + 1;
+                                                }
+                                                else {
+                                                    result.didnotshowup = result.didnotshowup * 1 + 1;
+                                                }
 
 
-                                });
+                                            AdminStore.UpdateScores(result)
+                                            {
+                                                var alertPopup = $ionicPopup.alert({
+                                                    title: 'Cancelled',
+                                                    template: 'Successfully Cancelled'
+                                                });
+                                                $scope.popover1.hide();
+                                            }
+                                        }
 
 
-                            }, function (error) {
-                                var alertPopup = $ionicPopup.alert({
-                                    title: 'Error',
-                                    template: error.message
-                                });
+                                    });
 
-                                alertPopup.then(function (res) {
-                                });
 
-                            })
+                                }, function (error) {
+                                    var alertPopup = $ionicPopup.alert({
+                                        title: 'Error',
+                                        template: error.message
+                                    });
+
+                                    alertPopup.then(function (res) {
+                                    });
+
+                                })
+                        }
+
                     }
                     else {
                         AdminStore.GetBookingsByRecurringId($scope.SelectedBooking, function (result) {
+                            
                             AdminStore.DeleteRecurringBooking(result).then(function (results) {
                             });
                         }, function (error) {
@@ -593,10 +653,9 @@ angular.module('football.controllers')
                 selectedDate.setDate(selectedDate.getDate());
                 return weekday[selectedDate.getDay()] + monthChar[selectedDate.getMonth()] + " " + selectedDate.getDate();
             }
-			selectedDate.setDate(selectedDate.getDate() + 2);
-            for (var i = 0; i < 7; i++) 
-			{
-				console.log("i is:" + i);
+            selectedDate.setDate(selectedDate.getDate() + 2);
+            for (var i = 0; i < 7; i++) {
+                console.log("i is:" + i);
                 if (weekdayFull[selectedDate.getDay()] == selectedDay)
                     return weekday[selectedDate.getDay()] + monthChar[selectedDate.getMonth()] + " " + selectedDate.getDate();
                 selectedDate.setDate(selectedDate.getDate() + 1);
@@ -653,14 +712,13 @@ angular.module('football.controllers')
                         var correctDate;
                         var selectedDate = output[0];
                         var selectedTime = output[1];
-                        if (!Date.parse(selectedDate) || Date.parse(selectedDate) === undefined || Date.parse(selectedDate) === null) 
-						{
+                        if (!Date.parse(selectedDate) || Date.parse(selectedDate) === undefined || Date.parse(selectedDate) === null) {
                             selectedDate = getDateFromDayName(selectedDate);
-							console.log("Output is: " + output[0]);
+                            console.log("Output is: " + output[0]);
                             console.log(selectedDate);
                         }
-						else
-							console.log("why?");
+                        else
+                            console.log("why?");
                         $scope.search.date = new Date(selectedDate + " " + selectedTime + ", " + (new Date()).getFullYear());
                         //$scope.search.players = (output[2].split(" "))[1];
                         console.log($scope.search.date);
@@ -1456,8 +1514,6 @@ angular.module('football.controllers')
 
     .controller('AdminPromotions', function ($scope, $ionicPopover, AdminStore, $ionicPopup, $ionicLoading) {
 
-
-
         $scope.promotion =
             {
                 stadium: "",
@@ -1900,9 +1956,10 @@ angular.module('football.controllers')
                 date: "Monday",
                 starttime: $scope.starttime,
                 startminute: "",
+                price: "",
                 endtime: $scope.endtime,
                 endminute: "",
-                discount: "15",
+                discount: 0,
                 newprice: "50000",
                 weekly: false
             }
@@ -1939,6 +1996,21 @@ angular.module('football.controllers')
         }
         catch (error) {
             alert(error.message);
+        }
+
+        $scope.changeprice = function () {
+            for (i = 0; i < $scope.myministadiums.length; i++) {
+                if ($scope.myministadiums[i].name == $scope.promotion.ministadium.trim()) {
+                    $scope.promotion.price = $scope.promotion.newprice = $scope.myministadiums[i].price;
+                    break;
+
+                }
+            }
+        }
+
+        $scope.RefreshDiscount = function () {
+            var disc = ((1 - ($scope.promotion.newprice / $scope.promotion.price)) * 100);
+            $scope.promotion.discount = disc;
         }
 
 
