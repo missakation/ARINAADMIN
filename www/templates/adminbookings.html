@@ -30,22 +30,23 @@
 
 
         <ion-nav-title side="primary">
-            <label class="item item-input" align-title="center" style="height:40px;border:none;background-color:rgb(45,62,75)">
-            <input type="date" ng-model="search.date " ng-change="ReloadPage()" style="text-align:center;border:none;background-color:rgb(45,62,75);color:white">
-        </label>
         </ion-nav-title>
-		<ion-nav-buttons side="right">
-        <button class="button button-icon button-light" style="color:white" ng-click="setToday()">
-			Today
-		</button>
-    </ion-nav-buttons>
+        <ion-nav-buttons side="right">
+            <button class="button button-icon button-light" style="color:white" ng-click="setToday()">
+                Today
+            </button>
+        </ion-nav-buttons>
     </ion-nav-bar>
     <div class="bar bar-subheader" style="border:none;background-color:rgb(45,62,75)">
 
         <button style="width:12%;background-color:#21ab41" class="button ion-arrow-left-a" ng-click="goback()"></button>
 
 
-        <h5 class="title" style="border:none;color:white;font-size:small">{{search.date |date:"EEEE, MMMM d, y"}} </h5>
+        <h5 class="title" style="border:none;color:white;font-size:small">
+            <label class="item item-input" align-title="center" style="height:40px;border:none;background-color:rgb(45,62,75)">
+                <input type="date" ng-model="search.date" ng-change="ReloadPage()" style="text-align:center;border:none;background-color:rgb(45,62,75);color:white">
+            </label>
+        </h5>
 
 
         <button style="width:12%;background-color:#21ab41" class="button ion-arrow-right-a" ng-click="gofront()"></button>
@@ -121,7 +122,8 @@
                         {{items.name}}
 
                     </div>
-                    <div style="width:35%;padding:0px;background-color:rgb(62, 83, 100);color:white;font-family:'roboto';height:20px" ng-show="items.type == 'T'" ng-click="gogamedetails(items)">
+                    <div style="width:35%;padding:0px;background-color:rgb(62, 83, 100);color:white;font-family:'roboto';height:20px" ng-show="items.type == 'T'"
+                        ng-click="gogamedetails(items)">
                         TEAM MATCH
 
                     </div>

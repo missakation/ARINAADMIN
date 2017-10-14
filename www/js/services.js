@@ -214,7 +214,7 @@ angular.module('football.services', [])
 
             GetBookingsByRecurringId: function (Booking, callback) {
 
-
+                console.log(Booking);
                 SchedulesByDay = [];
                 var user = firebase.auth().currentUser;
 
@@ -247,50 +247,52 @@ angular.module('football.services', [])
                                                 startdate.setHours(schedules.child('hour').val());
                                                 startdate.setDate(schedules.child('day').val());
 
-                                                var enddate = new Date();
+                                                if (startdate > new Date()) {
+                                                    var enddate = new Date();
 
-                                                enddate.setMinutes(schedules.child('minute').val());
-                                                enddate.setFullYear(schedules.child('year').val());
-                                                enddate.setMonth(schedules.child('month').val());
-                                                enddate.setHours(schedules.child('hour').val());
-                                                enddate.setDate(schedules.child('day').val());
+                                                    enddate.setMinutes(schedules.child('minute').val());
+                                                    enddate.setFullYear(schedules.child('year').val());
+                                                    enddate.setMonth(schedules.child('month').val());
+                                                    enddate.setHours(schedules.child('hour').val());
+                                                    enddate.setDate(schedules.child('day').val());
 
-                                                enddate.setMinutes(enddate.getMinutes() + schedules.child('duration').val() * 1);
-
-
-                                                var Data =
-                                                    {
-
-                                                        "daykey": schedules.key,
-                                                        "key": Booking.key,
-                                                        "name": schedules.child("name").val(),
-
-                                                        "minikey": ministadiums.key,
-                                                        "mininame": schedules.child("description").val(),
-                                                        "day": schedules.child("day").val(),
-                                                        "month": schedules.child("month").val(),
-                                                        "year": schedules.child("year").val(),
-                                                        "minute": schedules.child("minute").val(),
-                                                        "hour": schedules.child("hour").val(),
-                                                        "fullenddate": enddate,
-                                                        "fullstartdate": startdate,
-
-                                                        "starthour": schedules.child('hour').val(),
-                                                        "startminute": schedules.child('minute').val() == 0 ? "00" : schedules.child('minute').val(),
-
-                                                        "firstname": schedules.child("firstname").val(),
-                                                        "references": schedules.child("references").val(),
-
-                                                        "isrecurring": schedules.child("isrecurring").val(),
-                                                        "recurringkey": schedules.child("recurringkey").val(),
-                                                        "onlyrecurring": schedules.child("onlyrecurring").val(),
-
-                                                        "references": schedules.child("references").val()
+                                                    enddate.setMinutes(enddate.getMinutes() + schedules.child('duration').val() * 1);
 
 
-                                                    };
+                                                    var Data =
+                                                        {
 
-                                                SchedulesByDay.push(Data);
+                                                            "daykey": schedules.key,
+                                                            "key": Booking.key,
+                                                            "name": schedules.child("name").val(),
+
+                                                            "minikey": ministadiums.key,
+                                                            "mininame": schedules.child("description").val(),
+                                                            "day": schedules.child("day").val(),
+                                                            "month": schedules.child("month").val(),
+                                                            "year": schedules.child("year").val(),
+                                                            "minute": schedules.child("minute").val(),
+                                                            "hour": schedules.child("hour").val(),
+                                                            "fullenddate": enddate,
+                                                            "fullstartdate": startdate,
+
+                                                            "starthour": schedules.child('hour').val(),
+                                                            "startminute": schedules.child('minute').val() == 0 ? "00" : schedules.child('minute').val(),
+
+                                                            "firstname": schedules.child("firstname").val(),
+                                                            "references": schedules.child("references").val(),
+
+                                                            "isrecurring": schedules.child("isrecurring").val(),
+                                                            "recurringkey": schedules.child("recurringkey").val(),
+                                                            "onlyrecurring": schedules.child("onlyrecurring").val(),
+
+                                                            "references": schedules.child("references").val()
+
+
+                                                        };
+
+                                                    SchedulesByDay.push(Data);
+                                                }
                                             }
 
                                         }

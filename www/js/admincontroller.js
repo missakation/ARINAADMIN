@@ -266,14 +266,37 @@ angular.module('football.controllers')
         $scope.goback = function () {
 
             //  alert($scope.search.date)
-            $scope.search.date.setDate($scope.search.date.getDate() - 1);
+
+            var date = new Date();
+
+            date.setFullYear($scope.search.date.getFullYear());
+            date.setMonth($scope.search.date.getMonth());
+            date.setDate($scope.search.date.getDate());
+            date.setHours($scope.search.date.getHours());
+            date.setMinutes($scope.search.date.getMinutes());
+
+            date.setDate($scope.search.date.getDate() - 1);
+
+            $scope.search.date = date;
+
+            $scope.$apply();
             $scope.ReloadPage();
         }
 
         $scope.gofront = function () {
-            // alert($scope.search.date)
-            $scope.search.date.setDate($scope.search.date.getDate() + 1);
-            // alert($scope.search.date)
+            var date = new Date();
+
+            date.setFullYear($scope.search.date.getFullYear());
+            date.setMonth($scope.search.date.getMonth());
+            date.setDate($scope.search.date.getDate());
+            date.setHours($scope.search.date.getHours());
+            date.setMinutes($scope.search.date.getMinutes());
+
+            date.setDate($scope.search.date.getDate() + 1);
+
+            $scope.search.date = date;
+
+            $scope.$apply();
             $scope.ReloadPage();
         }
 
@@ -282,8 +305,6 @@ angular.module('football.controllers')
         var indexedTeams = [];
         $scope.playersToFilter = function () {
             indexedTeams = [];
-            console.log("HERE");
-            console.log($scope.scheduleswithday);
             return $scope.scheduleswithday;
         };
 
@@ -436,8 +457,14 @@ angular.module('football.controllers')
                     }
                     else {
                         AdminStore.GetBookingsByRecurringId($scope.SelectedBooking, function (result) {
-                            
+
                             AdminStore.DeleteRecurringBooking(result).then(function (results) {
+
+                                var alertPopup = $ionicPopup.alert({
+                                    title: 'Cancelled',
+                                    template: 'Successfully Cancelled'
+                                });
+
                             });
                         }, function (error) {
 
@@ -567,7 +594,7 @@ angular.module('football.controllers')
                     maxWidth: 200,
                     showDelay: 0
                 });
-                AdminStore.GetMyBalances($scope.search.date.getMonth() + 1, function (leagues) {
+                AdminStore.GetMyBalances($scope.search.date.getMonth(), function (leagues) {
                     $ionicLoading.hide();
                     $scope.mybalances = leagues;
 
@@ -597,9 +624,6 @@ angular.module('football.controllers')
         }
 
         $scope.ReloadPage();
-
-
-
 
 
         $scope.goback = function () {
@@ -1643,6 +1667,24 @@ angular.module('football.controllers')
 
 
 
+
+    })
+
+    .controller('MenuController', function ($scope, $state, $stateParams, $ionicPopup, $ionicLoading) {
+        $scope.logout = function () {
+
+            try {
+                firebase.auth().signOut().then(function () {
+                    $state.go('signin');
+                }, function (error) {
+                    alert(error.message);
+                });
+
+            }
+            catch (error) {
+                alert(error.message);
+            }
+        }
 
     })
 

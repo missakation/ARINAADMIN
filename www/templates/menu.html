@@ -83,7 +83,7 @@
     </ion-side-menu-content>
     <ion-side-menu side="left">
 
-        <ion-content class="my-container">
+        <ion-content class="my-container" ng-controller="MenuController">
 
             <ion-list>
                 <ion-item class="headerr menuit item-icon-left" menu-toggle="left" style="padding-top:5px;height:44px;background-color: rgba(62, 75, 100, 1)"
@@ -118,7 +118,7 @@
 
                 <ion-item menu-toggle="left" class="transp menuit item-icon-left" style="background-color: rgba(62, 75, 100, 0.90);border:transparent;padding:2.5px"
                     href="#/app/history">
-                    <i class="icon ion-ios-contact-outline" style="font-size:35px"></i> Customers
+                    <i class="icon ion-ios-contact-outline" style="font-size:35px"></i> History
                 </ion-item>
 
                 <ion-item menu-toggle="left" class="transp menuit item-icon-left" style="background-color: rgba(62, 75, 100, 0.90);border:transparent;padding:2.5px"
@@ -131,10 +131,10 @@
                     <i class="icon ion-android-call" style="font-size:35px"></i> Contact Us
                 </ion-item>
 
-                <ion-item menu-toggle="left" class="transp menuit item-icon-left" style="background-color: rgba(62, 75, 100, 0.90);border:transparent;padding:2.5px"
-                    href="#/app/logout">
-                    <i class="icon ion-power" style="font-size:35px"></i> Log Out
-                </ion-item>
+                <ion-item class="transp menuit item-icon-left" menu-close style="background-color: rgba(42, 62, 82, 1);color:white"
+                ng-click="logout()">
+                <i class="icon ion-power"></i> Log Out
+            </ion-item>
 
             </ion-list>
         </ion-content>

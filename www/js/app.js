@@ -28,11 +28,19 @@ angular.module('football', ['ionic', 'football.controllers', 'ion-datetime-picke
 
     })
 
-    .config(function ($stateProvider, $urlRouterProvider,$ionicConfigProvider, authProvider, jwtInterceptorProvider,$ionicFilterBarConfigProvider) {
-		$ionicConfigProvider.views.maxCache(0);
-		$ionicFilterBarConfigProvider.theme('royal');
-		
+    .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider, authProvider, jwtInterceptorProvider, $ionicFilterBarConfigProvider) {
+        $ionicConfigProvider.views.maxCache(0);
+        $ionicFilterBarConfigProvider.theme('royal');
+
         $stateProvider
+
+
+            .state('firstpage', {
+                url: '/firstpage',
+                templateUrl: 'templates/firstpage.html',
+                controller: 'FirstPageController'
+            })
+
             .state('app',
             {
                 url: '/app',
@@ -195,7 +203,7 @@ angular.module('football', ['ionic', 'football.controllers', 'ion-datetime-picke
                 url: '/history',
                 views: {
                     'menuContent': {
-                        templateUrl: 'templates/adminhisory.html',
+                        templateUrl: 'templates/adminhistory.html',
                         controller: "AdminHistory"
                     }
                 }
@@ -216,7 +224,7 @@ angular.module('football', ['ionic', 'football.controllers', 'ion-datetime-picke
         //$urlRouterProvider.otherwise('/app/addministadium');
         //  $urlRouterProvider.otherwise('/app/adminbalances');
 
-        $urlRouterProvider.otherwise('/loginpage');
+        $urlRouterProvider.otherwise('/firstpage');
         // $urlRouterProvider.otherwise('/app/adminaddbookings');
 
         // $urlRouterProvider.otherwise('/app/adminpromotions');
