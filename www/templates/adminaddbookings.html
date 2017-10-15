@@ -43,7 +43,7 @@
     </ion-nav-bar>
 
 
-    <ion-content style="background-color:rgb(46, 62, 75);padding:0 10px">
+    <ion-content style="background-color:rgb(46, 62, 75)">
 
         <script id="templates/my-popover-addcustomer.html" type="text/ng-template">
             <ion-popover-view style="height:300px;width:300px;">
@@ -102,7 +102,7 @@
 
 
         <div>
-            <div class="col" align="center">
+            <div class="col" align="center" style="padding:0px">
                 <input class="button open-button" ng-readonly="true" on-tap="openPickerView()" style="border-radius:0px;color:white;width:100%;line-height:40px;padding-bottom:0px;margin-bottom:0px;background-color:#2ab041"
                     ng-model="search.text">
 
@@ -152,13 +152,13 @@
 
         </h5>
 
-        <label class="item item-input" style="color:white;border:none;border-radius:10px">
+        <label class="item item-input" style="margin:0 10px;color:white;border:none;border-radius:10px">
                 <i style="padding-left:10px;font-size:30px" class="icon ion-pricetag"></i>
                 <span class="input-label" style="padding-left:10px;width:30%;color:white">Price L.L. </span>
                 <input type="number" ng-model="extrainfo.bookingprice" style="text-align:right;color:white">
             </label>
         </br>
-        <label class="item item-input item-select" style="color:white;border:none;border-radius:10px">
+        <label class="item item-input item-select" style="margin:0 10px;color:white;border:none;border-radius:10px">
              <i style="padding-left:10px;font-size:30px" class="ion-android-time"></i>   
             <div class="input-label" style="padding-left:10px;color:white;border:none;border-radius:10px">
                     Duration(mins)
@@ -173,7 +173,7 @@
                 </select>
             </label>
         </br>
-        <label class="item item-input item-select" style="color:white;border:none;border-radius:10px">
+        <label class="item item-input item-select" style="margin:0 10px;color:white;border:none;border-radius:10px">
             <i style="padding-left:10px;font-size:30px" class="ion-ios-location-outline"></i>       
             <div class="input-label"  style="padding-left:10px;width:50%;color:white;border:none;">
                     Select Stadium
@@ -187,7 +187,7 @@
                 </select>
             </label>
         </br>
-        <label class="item item-input item-select" style="color:white;border:none;border-radius:10px">
+        <label class="item item-input item-select" style="margin:0 10px;color:white;border:none;border-radius:10px">
             <i style="padding-left:10px;font-size:30px" class="ion-android-refresh"></i>        
             <div class="input-label" style="padding-left:10px;color:white;border:none">
                     Recurring
