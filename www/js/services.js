@@ -1134,7 +1134,8 @@ angular.module('football.services', [])
                                     endtime: promotions.child("endtime").val(),
                                     discount: promotions.child("discount").val(),
                                     weekly: promotions.child("weekly").val(),
-                                    newprice: promotions.child("newprice").val()
+                                    newprice: promotions.child("newprice").val(),
+                                    newprice: promotions.child("name").val()
 
 
                                 };

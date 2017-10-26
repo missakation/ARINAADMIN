@@ -550,7 +550,7 @@ angular.module('football.controllers')
                     }
                     else {
                         AdminStore.GetBookingsByRecurringId($scope.SelectedBooking, function (recurringresult) {
-                            
+
                             var counter = 0;
 
                             if ($scope.SelectedBooking.iscombined) {
@@ -1666,6 +1666,7 @@ angular.module('football.controllers')
 
         $scope.promotion =
             {
+                name: "",
                 stadium: "",
                 ministadium: "",
                 date: "Monday",
