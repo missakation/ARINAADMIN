@@ -5,6 +5,31 @@
         background-color: #2ab041;
         border-color: #2ab041
     }
+
+
+    .checkbox input:checked:before,
+    .checkbox input:checked+.checkbox-icon:before {
+
+        background-color: #2ab041;
+        border-color: #2ab041
+    }
+
+
+    .checkbox input:checked:before,
+    .checkbox input:checked+.checkbox-icon:before {
+
+        background-color: #2ab041;
+        border-color: #2ab041
+    }
+
+    .item-input {
+        padding: 5px;
+        background-color: rgb(62, 83, 100) !important
+    }
+
+    .item-select select {
+        background-color: rgb(62, 83, 100) !important
+    }
 </style>
 
 
@@ -21,25 +46,31 @@
 
         <div class="list">
 
-
-            <label class="item item-input item-select">
+            <br>
+            <label class="item item-input item-select" style="margin:0 10px;color:white;border:none;border-radius:10px">
                 <i style="padding-left:10px;font-size:30px;color:white" class="icon ion-location"></i>
                 <div class="input-label" style="padding-left:10px;width:30%;color:white">
-                    Stadium:
+                    Stadium
                 </div>
                 <select ng-model="promotion.ministadium" ng-change="changeprice()">
                     <option ng-repeat="item in myministadiums">{{item.name}}</option>
                 </select>
             </label>
-            <label class="item item-input" style="color:white;border:none;border-radius:10px">
+            <br>
+            <label class="item item-input" style="margin:0 10px;color:white;border:none;border-radius:10px">
                 <i style="padding-left:10px;font-size:30px" class="icon ion-pricetag"></i>
                 <span class="input-label" style="padding-left:10px;width:30%;color:white">Price L.L. </span>
-                <input type="number" ng-model="promotion.price" style="text-align:right;color:white">
+                <h6 style="text-align:right;color:#2ab041"> {{promotion.price}} </h6>
             </label>
-            <label class="item item-input item-select">
-                <div class="input-label" style="color:white">
-                    Date:
-                </div>
+
+           
+            
+
+            <br>
+
+            <label class="item item-input item-select " style="margin:0 10px;color:white;border:none;border-radius:10px">
+                <i style="padding-left:10px;font-size:30px" class="icon ion-calendar"></i>
+                <span class="input-label" style="padding-left:10px;width:30%;color:white"> Day of Week </span>
                 <select ng-model="promotion.date">
                     <option selected>All</option>
                     <option>Monday</option>
@@ -52,35 +83,44 @@
                 </select>
             </label>
 
-            <label class="item item-input">
-                <span class="input-label" style="color:white">Start Time</span>
-                <input type="time" style="text-align:right;color:#2ab041" ng-model="promotion.starttime">        
+            <br>
+            <label class="item item-input " style="margin:0 10px;color:white;border:none;border-radius:10px">
+                <i style="padding-left:10px;font-size:30px" class="icon ion-play"></i>
+                <span class="input-label" style="padding-left:10px;width:30%;color:white"> Start Time</span>
+                <input type="time" style="text-align:right;color:#2ab041" ng-model="promotion.starttime">
+            </label>
+            <br>
+            <label class="item item-input " style="margin:0 10px;color:white;border:none;border-radius:10px">
+                <i style="padding-left:10px;font-size:30px" class="icon ion-stop"></i>
+                <span class="input-label" style="padding-left:10px;width:30%;color:white"> End Time</span>
+                <input type="time" style="text-align:right;color:#2ab041" ng-model="promotion.endtime">
             </label>
 
-            <label class="item item-input">
-                <span class="input-label" style="color:white">End Time</span>
-                <input type="time" style="text-align:right;color:#2ab041"  ng-model="promotion.endtime">
+            <br>
+            <label class="item item-input " style="margin:0 10px;color:white;border:none;border-radius:10px">
+                <i style="padding-left:10px;font-size:30px" class="icon ion-pricetags"></i>
+                <span class="input-label" style="padding-left:10px;width:30%;color:white"> Discount Price</span>
+                <input type="number" style="text-align:right;color:#2ab041" ng-change="RefreshDiscount()" ng-model="promotion.newprice">
             </label>
-            <label class="item item-input">
-                <span class="input-label"  style="color:white"> New Price</span>
-                <input type="number" style="text-align:right;color:#2ab041"  ng-change="RefreshDiscount()" ng-model="promotion.newprice">
-            </label>
+            <br>
+            <ion-list>
+                <label class="item item-input " style="margin:0 10px;color:white;border:none;border-radius:10px">
+                    <i style="padding-left:10px;font-size:30px" class="icon ion-calculator"></i>
+                    <span class="input-label" style="padding-left:10px;width:30%;color:white"> Discount %</span>
+                    <input type="number" align="right" style="text-align:right;color:#2ab041" ng-model="promotion.discount">
+                </label>
+                <br>
+            </ion-list>
 
-            <ion-list>                
-            <label class="item item-input">
-                <span class="input-label" style="color:white"> Discount %</span>
-                <input type="number" align="right" style="text-align:right;color:white"  ng-model="promotion.discount">
-            </label>
-        </ion-list>
-        
-            
+
         </div>
+        <div style="padding:0 30px">
+            <button style="min-height:35px;line-height:35px;width:100%;border-radius: 20px" class="button button-balanced small_button"
+                ng-click="addpromotion()">
+                Save
+            </button>
 
-        <button class="button button-balanced button-full" ng-click="addpromotion()">
-            Save
-        </button>
-
-
+        </div>
 
     </ion-content>
 </ion-view>

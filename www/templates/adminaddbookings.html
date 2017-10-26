@@ -9,11 +9,6 @@
     }
 
 
-  
-
-    body {
-        background-color: lightgrey;
-    }
 
 
     .popover {
@@ -37,8 +32,8 @@
         </ion-nav-back-button>
         <ion-nav-buttons side="right">
             <button class="button button-small" style="border: 1px solid #21ab41;color:white;background:transparent" side="right" ng-click="popover1.show($event)">
-          New Customer
-        </button>
+                New Customer
+            </button>
         </ion-nav-buttons>
     </ion-nav-bar>
 
@@ -50,7 +45,7 @@
                 <div class="bar bar-header" style="border:0px;background-color:rgb(62, 83, 100)">
                     <h1 class="title" style="color:white">Add New Customer</h1>
                 </div>
-                <ion-content>
+                <ion-content style=" background-color: rgb(62, 83, 100)">
                     <hr style="padding-top:5px;background-color:rgb(62, 83, 100)" />
                     <hr style="background-color:rgb(62, 83, 100)" />
                     <hr style="background-color:rgb(62, 83, 100)" />
@@ -75,7 +70,7 @@
 
         <script id="templates/my-popover-search.html" type="text/ng-template">
             <ion-popover-view style="height:400px;width:300px">
-                <ion-content>
+                <ion-content style="background-color:rgb(62, 83, 100)">
 
                     <div class="list list-inset" style="margin:5px 10px;background-color:transparent">
                         <label class="item item-input" style="margin-top:-5px">
@@ -119,8 +114,8 @@
                 </div>
                 <div class="col col-25" style="padding:0px">
                     <button class="button button-full" style="border-radius:5px;font-size:12px;background-color:#21ab41;color:white" ng-click="popover.show($event)">
-                <i class="icon ion-search placeholder-icon"  style="color:#fff"></i>
-            </button>
+                        <i class="icon ion-search placeholder-icon" style="color:#fff"></i>
+                    </button>
                 </div>
             </div>
 
@@ -132,19 +127,19 @@
 
 
         <h4 align="center" style="color:white">
-            {{selectedcustomer.firstname}} {{ selectedcustomer.lastname}} STATS
+            {{selectedcustomer.firstname}} {{ selectedcustomer.lastname}} Stats
         </h4>
-        </div>
+
         <div align="center" class="row">
             <div class="col">Bookings</div>
-            <div class="col ">Cancelled</div>
+            <!-- <div class="col ">Cancelled</div> -->
             <div class="col">X Show Up</div>
         </div>
 
         <div align="center" class="row">
             <!--ng-repeat="data in ctrl.data"-->
             <div class="col">{{selectedcustomer.bookings}}</div>
-            <div class="col">{{selectedcustomer.cancelled}}</div>
+            <!--<div class="col">{{selectedcustomer.cancelled}}</div>-->
             <div class="col">{{selectedcustomer.didnotshowup}}</div>
         </div>
 
@@ -153,55 +148,56 @@
         </h5>
 
         <label class="item item-input" style="margin:0 10px;color:white;border:none;border-radius:10px">
-                <i style="padding-left:10px;font-size:30px" class="icon ion-pricetag"></i>
-                <span class="input-label" style="padding-left:10px;width:30%;color:white">Price L.L. </span>
-                <input type="number" ng-model="extrainfo.bookingprice" style="text-align:right;color:white">
-            </label>
+            <i style="padding-left:10px;font-size:30px" class="icon ion-pricetag"></i>
+            <span class="input-label" style="padding-left:10px;width:30%;color:white">Price L.L. </span>
+            <input type="number" ng-model="extrainfo.bookingprice" style="text-align:right;color:white">
+        </label>
         </br>
         <label class="item item-input item-select" style="margin:0 10px;color:white;border:none;border-radius:10px">
-             <i style="padding-left:10px;font-size:30px" class="ion-android-time"></i>   
+            <i style="padding-left:10px;font-size:30px" class="ion-android-time"></i>
             <div class="input-label" style="padding-left:10px;color:white;border:none;border-radius:10px">
-                    Duration(mins)
-                </div>
-                <select style="color:white;border:none; " ng-model="extrainfo.duration">
-                    <option>30</option>
-                    <option>60</option>
-                    <option selected>90</option>
-                    <option>120</option>
-                    <option>150</option>
-                    <option>180</option>
-                </select>
-            </label>
+                Duration(mins)
+            </div>
+            <select style="color:white;border:none; " ng-model="extrainfo.duration">
+                <option>30</option>
+                <option>60</option>
+                <option selected>90</option>
+                <option>120</option>
+                <option>150</option>
+                <option>180</option>
+            </select>
+        </label>
         </br>
         <label class="item item-input item-select" style="margin:0 10px;color:white;border:none;border-radius:10px">
-            <i style="padding-left:10px;font-size:30px" class="ion-ios-location-outline"></i>       
-            <div class="input-label"  style="padding-left:10px;width:50%;color:white;border:none;">
-                    Select Stadium
-                </div>
-                <select ng-selected="stadiumdata.subkey" ng-init="stadiumdata.subkey=myministadiums[0].name" ng-trim="true" ng-model="stadiumdata.subkey" style="color:white;border:none"  ng-change="changeprice()">
+            <i style="padding-left:10px;font-size:30px" class="ion-ios-location-outline"></i>
+            <div class="input-label" style="padding-left:10px;width:50%;color:white;border:none;">
+                Select Stadium
+            </div>
+            <select ng-selected="stadiumdata.subkey" ng-init="stadiumdata.subkey=myministadiums[0].name" ng-trim="true" ng-model="stadiumdata.subkey"
+                style="color:white;border:none" ng-change="changeprice()">
 
-                    <option ng-repeat="item in myministadiums">
-                        {{item.name}}
-                    </option>
+                <option ng-repeat="item in myministadiums">
+                    {{item.name}}
+                </option>
 
-                </select>
-            </label>
+            </select>
+        </label>
         </br>
         <label class="item item-input item-select" style="margin:0 10px;color:white;border:none;border-radius:10px">
-            <i style="padding-left:10px;font-size:30px" class="ion-android-refresh"></i>        
+            <i style="padding-left:10px;font-size:30px" class="ion-android-refresh"></i>
             <div class="input-label" style="padding-left:10px;color:white;border:none">
-                    Recurring
-                </div>
-                <select style="color:white;border:none" ng-model="extrainfo.recurring">
-                    <option>Once</option>
-                    <option>4 weeks</option>
-                    <option>6 weeks</option>  
-                    <option>8 weeks</option>  
-                    <option>10 weeks</option>  
-                    <option>16 weeks</option>  
-                    <option>24 weeks</option>   
-                </select>
-            </label>
+                Recurring
+            </div>
+            <select style="color:white;border:none" ng-model="extrainfo.recurring">
+                <option>Once</option>
+                <option>4 weeks</option>
+                <option>6 weeks</option>
+                <option>8 weeks</option>
+                <option>10 weeks</option>
+                <option>16 weeks</option>
+                <option>24 weeks</option>
+            </select>
+        </label>
 
 
     </ion-content>

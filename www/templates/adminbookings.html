@@ -13,7 +13,7 @@
     }
 
     .item-input input {
-        padding-left: 40px;
+        padding-left: 70px;
     }
 
     .popover .scroll-content {
@@ -21,7 +21,7 @@
     }
 </style>
 
-<ion-view>
+<ion-view view-title="SCHEDULES">
 
     <ion-nav-bar class="headercolor">
         <ion-nav-buttons side="left">
@@ -69,9 +69,9 @@
                         Cancel All
                 </button>
 
-                <button class="button button-assertive button-full" style="border-radius:5px" ng-click="DeleteBooking(1)">
+                <!--<button class="button button-assertive button-full" style="border-radius:5px" ng-click="DeleteBooking(1)">
                         Cancel Due Weather
-                </button>
+                </button>-->
 
                 <button class="button button-assertive button-full" style="border-radius:5px" ng-click="DeleteBooking(2)">
                         Cancel Didn't Show Up
@@ -122,7 +122,8 @@
                         {{items.name}}
 
                     </div>
-                    <div style="width:35%;padding:0px;background-color:rgb(62, 83, 100);color:white;font-family:'roboto';height:20px" ng-show="items.type == 'T'" ng-click="gogamedetails(items)">
+                    <div style="width:35%;padding:0px;background-color:rgb(62, 83, 100);color:white;font-family:'roboto';height:20px" ng-show="items.type == 'T'"
+                        ng-click="gogamedetails(items)">
                         TEAM MATCH
 
                     </div>
@@ -138,7 +139,39 @@
             </div>
 
         </div>
+        <div ng-show="!Loading && scheduleswithday.length!=0">
+            <div style="color:white;text-transform:uppercase; height:20px; background-color:red" align="center">
+                <h4 style="color:white">Summary</h4>
+            </div>
+            <div style="background-color: white">
+                <div class="row">
+                    <div class="col" align="left">
+                        <h6>
+                            Total Bookings :
+                        </h6>
+                    </div>
+                    <div class="col" align="right">
+                        <h6>
+                            {{scheduleswithday.length}}
+                        </h6>
 
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col" align="left">
+                        <h6>
+                            Total Price :
+                        </h6>
+                    </div>
+                    <div class="col" align="right">
+                        <h6>
+                           {{scheduleswithday.total}} L.L.
+                        </h6>
+
+                    </div>
+                </div>
+            </div>
+        </div>
         <br />
         <br />
 

@@ -497,7 +497,7 @@ angular.module('football.services', [])
                                 "lastname": PlayerSnapshot.child("lastname").val(),
                                 "email": PlayerSnapshot.child("email").val(),
                                 "telephone": PlayerSnapshot.child("telephone").val(),
-                                "bookings": numbookings,
+                                "bookings": numbookings - PlayerSnapshot.child("cancelled").val(),
                                 "cancelled": PlayerSnapshot.child("cancelled").val(),
                                 "didnotshowup": PlayerSnapshot.child("didnotshowup").val(),
                                 "cancelledweather": PlayerSnapshot.child("cancelledweather").val(),
@@ -709,7 +709,9 @@ angular.module('football.services', [])
                             isrecurring: counter != 1,
                             recurringkey: recurringkey,
                             onlyrecurring: recurringkey,
-                            iscombined: details.iscombined
+                            iscombined: details.iscombined,
+                            cancelled: false,
+                            didnotshowup: false
                         };
 
                         var extraslots = {
@@ -717,6 +719,9 @@ angular.module('football.services', [])
                             type: "B",
                             maindata: false
                         };
+
+                        updates['/players/' + id + '/upcomingmatches/' + newkey] = postData;
+
 
                         var numslots = details.duration / 30;
                         var references = [];
@@ -894,6 +899,8 @@ angular.module('football.services', [])
                         + '/schedules/' + booking.year + '/' + booking.month + '/' + booking.day + '/' + element.key] = null;
 
                 }, this);
+
+
 
                 /*var BookDate = new Date();
                 BookDate.setFullYear(booking.year);
