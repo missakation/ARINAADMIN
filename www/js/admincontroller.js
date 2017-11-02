@@ -2183,9 +2183,48 @@ angular.module('football.controllers')
 
         $scope.addpromotion = function () {
             try {
+                var daynumber = 0;
+                switch ($scope.promotion.date) {
 
+                    case "Monday":
+                        daynumber = 1;
+                        break;
 
+                    case "Tuesday":
+                        daynumber = 2;
+                        break;
 
+                    case "Wednesday":
+                        daynumber = 3;
+                        break;
+
+                    case "Thursday":
+                        daynumber = 4;
+                        break;
+
+                    case "Friday":
+                        daynumber = 5;
+                        break;
+
+                    case "Saturday":
+                        daynumber = 6;
+                        break;
+                    case "Saturday":
+                        daynumber = 7;
+                        break;
+
+                    case "Sunday":
+                        daynumber = 0;
+                        break;
+                }
+
+                var d = new Date();
+                if ($scope.promotion.weekly) {
+
+                    d.setDate(d.getDate() + (daynumber + 7 - d.getDay()) % 7);
+                }
+
+            
                 AdminStore.AddPromotion($scope.promotion)
                     .then(function (value) {
                         var alertPopup = $ionicPopup.alert({

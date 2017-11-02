@@ -37,7 +37,7 @@ angular.module('football.services', [])
 
                     callback(MyStadiums);
                 }, function (error) {
-                    alert(error.message);
+                    
                 });
 
                 //alert(Availables.length());
@@ -85,7 +85,7 @@ angular.module('football.services', [])
 
                     callback(MyMiniStadiums);
                 }, function (error) {
-                    alert(error.message);
+                    
                 });
 
                 //alert(Availables.length());
@@ -207,7 +207,7 @@ angular.module('football.services', [])
                     });
                     callback(SchedulesByDay);
                 }, function (error) {
-                    alert(error.message);
+                    
                 });
 
             },
@@ -403,11 +403,11 @@ angular.module('football.services', [])
                         });
                         callback(MyBalances);
                     }, function (error) {
-                        alert(error.message);
+                        
                     });
                 }
                 catch (error) {
-                    alert(error.message);
+                    
                 }
 
             },
@@ -477,7 +477,7 @@ angular.module('football.services', [])
                 }
 
                 catch (error) {
-                    alert(error.message);
+                    
                 }
             },
             GetCustomers: function (callback) {
@@ -497,7 +497,7 @@ angular.module('football.services', [])
                                 "lastname": PlayerSnapshot.child("lastname").val(),
                                 "email": PlayerSnapshot.child("email").val(),
                                 "telephone": PlayerSnapshot.child("telephone").val(),
-                                "bookings": numbookings - PlayerSnapshot.child("cancelled").val(),
+                                "bookings": numbookings - PlayerSnapshot.child("cancelled").val() - PlayerSnapshot.child("didnotshowup").val(),
                                 "cancelled": PlayerSnapshot.child("cancelled").val(),
                                 "didnotshowup": PlayerSnapshot.child("didnotshowup").val(),
                                 "cancelledweather": PlayerSnapshot.child("cancelledweather").val(),
@@ -509,11 +509,11 @@ angular.module('football.services', [])
 
                         callback(Customers);
                     }, function (error) {
-                        alert(error.message);
+                        
                     });
                 }
                 catch (error) {
-                    alert(error.message);
+                    
                 }
 
                 return Customers;
@@ -544,11 +544,11 @@ angular.module('football.services', [])
 
                         callback(customerinfo);
                     }, function (error) {
-                        alert(error.message);
+                        
                     });
                 }
                 catch (error) {
-                    alert(error.message);
+                    
                 }
 
                 return Customers;
@@ -588,11 +588,11 @@ angular.module('football.services', [])
 
                         callback(MyCustomers);
                     }, function (error) {
-                        alert(error.message);
+                        
                     });
                 }
                 catch (error) {
-                    alert(error.message);
+                    
                 }
                 //alert(Availables.length());
                 return Customers;
@@ -852,7 +852,7 @@ angular.module('football.services', [])
                     return firebase.database().ref().update(updates);
                 }
                 catch (error) {
-                    alert(error.message);
+                    
                 }
 
             },
@@ -1027,7 +1027,7 @@ angular.module('football.services', [])
 
                     }
                     catch (error) {
-                        alert(error.message);
+                        
                     }
 
 
@@ -1135,8 +1135,6 @@ angular.module('football.services', [])
                                     discount: promotions.child("discount").val(),
                                     weekly: promotions.child("weekly").val(),
                                     newprice: promotions.child("newprice").val(),
-                                    newprice: promotions.child("name").val()
-
 
                                 };
                                 MyPromotions.push(Data);
@@ -1148,7 +1146,6 @@ angular.module('football.services', [])
 
                     callback(MyPromotions);
                 }, function (error) {
-                    alert(error.message);
                 });
 
                 return Availables;
@@ -1275,11 +1272,11 @@ angular.module('football.services', [])
                         callback(ChallengeDetails);
 
                     }, function (error) {
-                        alert(error.message);
+                        
                     });
 
                 } catch (error) {
-                    alert(error.message);
+                    
                 }
 
             },
