@@ -11,7 +11,7 @@
                 <img class="full-image" src="http://www.hasilakhir.com/wp-content/uploads/2014/11/Old-Trafford-Stadium-Hasilakhircom-860x280.jpg">
 
                 <div class="row ">
-                    <div class="col col-66" style="padding-top:0px;color:white; font-weight:bold;font-size:12px"> {{items.stadiumname}} / {{items.description}}
+                    <div class="col col-66" style="padding-top:0px;color:white; font-weight:bold;font-size:12px"> {{items.stadiumname}}  {{items.description}}
                     </div>
 
                     <div class="col" align="right" style="padding-top:0px;font-size:11px;color:#5f7485"> PRICE
@@ -50,18 +50,11 @@
 
 
                 <div class="row" style="margin-top:5px;font-size:12px;padding-left:0px;padding-bottom:12px">
-                    <div align="right" style="font-weight:bold;color:#5f7485;width:18%">
-                        <i class="ion-location" style="margin-right:10px;font-size:22px;color:#5f7485"></i>
-                    </div>
-                    <div align="left" style="font-weight:bold;color:#5f7485;width:18%">
-                        {{items.distance | number:2}}KM
-                    </div>
-
-                    <div align="center" style="color:#5f7485;text-transform:capitalize;width:38%;padding:0px;border-right:1px #5f7485 solid;border-left:1px #5f7485 solid">
+                    <div align="center" style="color:#5f7485;text-transform:capitalize;width:50%;padding:0px;border-right:1px #5f7485 solid">
                         TYPE
                     </div>
 
-                    <div align="center" style="color:#5f7485;width:27%;padding:0px">
+                    <div align="center" style="color:#5f7485;width:50%;padding:0px">
                         STADIUM SIZE
                     </div>
 
@@ -71,17 +64,13 @@
 
                 <div class="row" style="margin-top:-12px;padding-left:0px;padding-bottom:12px">
 
-                    <div align="center" style="width:36%;font-weight:bold;color:white">
-                        {{items.city}}
-                    </div>
-
-                    <div align="center" style="text-transform:capitalize;width:38%;color:white;padding:0px;border-right:1px #5f7485 solid;border-left:1px #5f7485 solid">
+                    <div align="center" style="text-transform:capitalize;width:50%;color:white;padding:0px;border-right:1px #5f7485 solid">
                         <b>
                             {{items.type}} &#8226 {{items.typefloor}}
                         </b>
                     </div>
 
-                    <div align="center" style="width:27%;color:white;padding:0px">
+                    <div align="center" style="width:50%;color:white;padding:0px">
                         <b>
                             Max {{items.players}} v {{items.players}}
                         </b>

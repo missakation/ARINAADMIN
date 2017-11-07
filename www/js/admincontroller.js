@@ -425,6 +425,15 @@ angular.module('football.controllers')
 
                         if ($scope.SelectedBooking.iscombined) {
 
+                            var RelatedTo = $scope.SelectedBooking.relatedto;
+                            var MainBooking = {};
+
+                            $scope.scheduleswithday.forEach(function (element) {
+                                if (element.minikey == RelatedTo) {
+                                    MainBooking = element;
+                                }
+                            }, this);
+
                             $scope.scheduleswithday.forEach(function (element) {
                                 if (element.relatedto == $scope.SelectedBooking.relatedto) {
 
@@ -444,15 +453,7 @@ angular.module('football.controllers')
                                 }
                             }, this);
 
-                            var RelatedTo = $scope.SelectedBooking.relatedto;
-                            var MainBooking = {};
-
-                            $scope.scheduleswithday.forEach(function (element) {
-                                if (element.minikey == RelatedTo) {
-                                    MainBooking = element;
-                                }
-                            }, this);
-
+                            
                             AdminStore.GetCustomerByCode($scope.SelectedBooking.user, function (result) {
                                 if (result == "") {
                                     alert("Could Not Update User Infos");
@@ -494,6 +495,9 @@ angular.module('football.controllers')
                             });
                         }
                         else {
+                            var CustomerKey = $scope.SelectedBooking.user;
+                            var DayKey = $scope.SelectedBooking.daykey;
+
                             AdminStore.DeleteBooking($scope.SelectedBooking, type)
                                 .then(function (value) {
                                     AdminStore.GetCustomerByCode($scope.SelectedBooking.user, function (result) {
@@ -507,7 +511,7 @@ angular.module('football.controllers')
                                             if (type == 0) {
 
                                                 result.cancelled = result.cancelled * 1 + 1;
-                                                updates['/players/' + $scope.SelectedBooking.user + '/upcomingmatches/' + $scope.SelectedBooking.daykey + '/cancelled'] = true;
+                                                updates['/players/' + CustomerKey + '/upcomingmatches/' + DayKey + '/cancelled'] = true;
 
                                             }
                                             else
@@ -517,7 +521,7 @@ angular.module('football.controllers')
                                                 }
                                                 else {
                                                     result.didnotshowup = result.didnotshowup * 1 + 1;
-                                                    updates['/players/' + $scope.SelectedBooking.user + '/upcomingmatches/' + $scope.SelectedBooking.daykey + '/didnotshowup'] = true;
+                                                    updates['/players/' + CustomerKey + '/upcomingmatches/' + DayKey + '/didnotshowup'] = true;
 
                                                 }
                                             firebase.database().ref().update(updates);
@@ -570,9 +574,6 @@ angular.module('football.controllers')
                                 });
 
                                 AdminStore.GetCustomerByCode($scope.SelectedBooking.user, function (result) {
-
-
-
 
                                     if (result == "") {
                                         alert("Could Not Update User Infos");

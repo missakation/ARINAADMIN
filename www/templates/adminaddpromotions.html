@@ -6,6 +6,29 @@
         border-color: #2ab041
     }
 
+.item-checkbox {
+  position: relative; }
+  .item-checkbox {
+    -webkit-appearance: none;
+    -moz-appearance: none;   
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    padding: 0 48px 0 16px;
+    max-width: 65%;
+    border: none;
+    background: #fff;
+    color: #333;
+    text-indent: .01px;
+    text-overflow: '';
+    white-space: nowrap;
+    font-size: 14px;
+    cursor: pointer;
+    direction: rtl; }
+
+    
+
 
     .checkbox input:checked:before,
     .checkbox input:checked+.checkbox-icon:before {
@@ -47,7 +70,7 @@
         <div class="list">
             <br>
             <label class="item item-input " style="margin:0 10px;color:white;border:none;border-radius:10px">
-                <i style="padding-left:10px;font-size:30px" class="icon ion-play"></i>
+                <i style="padding-left:10px;font-size:30px" class="icon ion-ios-compose-outline"></i>
                 <span class="input-label" style="padding-left:10px;width:30%;color:white"> Title</span>
                 <input type="text" style="text-align:right;color:#2ab041" ng-model="promotion.name">
             </label>
@@ -65,12 +88,24 @@
             <label class="item item-input" style="margin:0 10px;color:white;border:none;border-radius:10px">
                 <i style="padding-left:10px;font-size:30px" class="icon ion-pricetag"></i>
                 <span class="input-label" style="padding-left:10px;width:30%;color:white">Price L.L. </span>
-                <h6 style="text-align:right;color:#2ab041"> {{promotion.price}} </h6>
+                <h4 style="font-size:14px;margin-left:45%;text-align:right;color:#2ab041"> {{promotion.price}} </h4>
             </label>
 
 
             <br>
-
+   <label class="item item-input " style="margin:0 10px;color:white;border:none;border-radius:10px">
+                <i style="padding-left:10px;font-size:30px" class="icon ion-pricetags"></i>
+                <span class="input-label" style="padding-left:10px;width:30%;color:white"> Discount Price</span>
+                <input type="number" style="text-align:right;color:#2ab041" ng-change="RefreshDiscount()" ng-model="promotion.newprice">
+            </label>
+            <br>
+            <ion-list>
+                <label class="item item-input " style="margin:0 10px;color:white;border:none;border-radius:10px">
+                    <i style="padding-left:10px;font-size:30px" class="icon ion-calculator"></i>
+                    <span class="input-label" style="padding-left:10px;width:30%;color:white"> Discount %</span>
+                    <input type="number" align="right" style="text-align:right;color:#2ab041" ng-model="promotion.discount">
+                </label>
+                <br>
 
             <label class="item item-input item-select " style="margin:0 10px;color:white;border:none;border-radius:10px">
                 <i style="padding-left:10px;font-size:30px" class="icon ion-calendar"></i>
@@ -87,37 +122,33 @@
                 </select>
             </label>
 
-            <ion-list>
-                <ion-checkbox ng-model="promotion.weekly" style="color: white">Once</ion-checkbox>
-            </ion-list>
 
             <br>
             <label class="item item-input " style="margin:0 10px;color:white;border:none;border-radius:10px">
-                <i style="padding-left:10px;font-size:30px" class="icon ion-play"></i>
+                <i style="padding-left:10px;font-size:30px" class="icon ion-refresh"></i>
+                <span class="input-label" style="padding-left:10px;padding-right:150px;color:white"> Recurring</span>
+                
+                <ion-checkbox ng-model="promotion.weekly" style="background-color:rgb(62, 83, 100);color: white"></ion-checkbox>
+ 
+            </label>
+
+
+
+            <br>
+            <label class="item item-input " style="margin:0 10px;color:white;border:none;border-radius:10px">
+                <i style="padding-left:10px;font-size:30px" class="icon ion-android-stopwatch"></i>
                 <span class="input-label" style="padding-left:10px;width:30%;color:white"> Start Time</span>
                 <input type="time" style="text-align:right;color:#2ab041" ng-model="promotion.starttime">
             </label>
             <br>
             <label class="item item-input " style="margin:0 10px;color:white;border:none;border-radius:10px">
-                <i style="padding-left:10px;font-size:30px" class="icon ion-stop"></i>
+                <i style="padding-left:10px;font-size:30px" class="icon ion-ios-timer-outline"></i>
                 <span class="input-label" style="padding-left:10px;width:30%;color:white"> End Time</span>
                 <input type="time" style="text-align:right;color:#2ab041" ng-model="promotion.endtime">
             </label>
 
-            <br>
-            <label class="item item-input " style="margin:0 10px;color:white;border:none;border-radius:10px">
-                <i style="padding-left:10px;font-size:30px" class="icon ion-pricetags"></i>
-                <span class="input-label" style="padding-left:10px;width:30%;color:white"> Discount Price</span>
-                <input type="number" style="text-align:right;color:#2ab041" ng-change="RefreshDiscount()" ng-model="promotion.newprice">
-            </label>
-            <br>
-            <ion-list>
-                <label class="item item-input " style="margin:0 10px;color:white;border:none;border-radius:10px">
-                    <i style="padding-left:10px;font-size:30px" class="icon ion-calculator"></i>
-                    <span class="input-label" style="padding-left:10px;width:30%;color:white"> Discount %</span>
-                    <input type="number" align="right" style="text-align:right;color:#2ab041" ng-model="promotion.discount">
-                </label>
-                <br>
+           
+         
             </ion-list>
 
 
