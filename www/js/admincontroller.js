@@ -16,6 +16,7 @@ angular.module('football.controllers')
             AdminStore.GetMyStadiums(function (leagues) {
                 $ionicLoading.hide();
                 $scope.mystadiums = leagues;
+                console.log(leagues);
                 //}
 
             }, function (error) {
@@ -64,11 +65,14 @@ angular.module('football.controllers')
 
     .controller('AdminMiniController', function ($scope, $stateParams, $ionicLoading, AdminStore, $ionicPopup) {
 
-
         $scope.key = $stateParams.stadiumid;
+        $scope.stadiumname = "";
+
+        $scope.rating = {};
+        $scope.rating.rate = 3;
+        $scope.rating.max = 5;
 
         try {
-
 
             $ionicLoading.show({
                 content: 'Loading',
@@ -80,7 +84,7 @@ angular.module('football.controllers')
             AdminStore.GetMyMiniStadiums($stateParams.stadiumid, function (leagues) {
                 $ionicLoading.hide();
                 $scope.myministadiums = leagues;
-
+                console.log(leagues);
                 if (leagues.length == 0) {
 
                     var alertPopup = $ionicPopup.alert({
@@ -93,6 +97,11 @@ angular.module('football.controllers')
 
             }, function (error) {
                 alert(error.message);
+            })
+
+            AdminStore.GetMyStadiumById($stateParams.stadiumid, function (leagues) {
+                console.log(leagues);
+                $scope.stadiumname = leagues.name;
             })
         }
         catch (error) {
@@ -453,7 +462,7 @@ angular.module('football.controllers')
                                 }
                             }, this);
 
-                            
+
                             AdminStore.GetCustomerByCode($scope.SelectedBooking.user, function (result) {
                                 if (result == "") {
                                     alert("Could Not Update User Infos");
@@ -2220,12 +2229,17 @@ angular.module('football.controllers')
                 }
 
                 var d = new Date();
-                if ($scope.promotion.weekly) {
+                if (!$scope.promotion.weekly) {
 
-                    d.setDate(d.getDate() + (daynumber + 7 - d.getDay()) % 7);
+                    $scope.promotion.starttime = d;
+                    $scope.promotion.endtime = d;
+
+                    $scope.promotion.starttime.setDate(d.getDate() + (daynumber + 7 - d.getDay()) % 7);
+                    $scope.promotion.endtime.setDate(d.getDate() + (daynumber + 7 - d.getDay()) % 7);
+
                 }
 
-            
+
                 AdminStore.AddPromotion($scope.promotion)
                     .then(function (value) {
                         var alertPopup = $ionicPopup.alert({

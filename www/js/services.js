@@ -28,7 +28,7 @@ angular.module('football.services', [])
                         var Data = {
                             "key": mainstadiumSnapshot.key,
                             "name": mainstadiumSnapshot.key,
-                            "photo": mainstadiumSnapshot.child("photo").val()
+                            "photo": mainstadiumSnapshot.child("Photo").val()
 
                         };
                         MyStadiums.push(Data);
@@ -37,13 +37,33 @@ angular.module('football.services', [])
 
                     callback(MyStadiums);
                 }, function (error) {
-                    
+
                 });
 
                 //alert(Availables.length());
                 return Availables;
             },
+            GetMyStadiumById: function (stadiumid, callback) {
 
+
+                var user = firebase.auth().currentUser;
+
+                var id = user.uid;
+                //alert(id);
+                firebase.database().ref('/stadiumsinfo/' + stadiumid).once('value', function (snapshot) {
+
+                    var Data = {
+                        "key": snapshot.key,
+                        "name": snapshot.child("name").val(),
+                    };
+                    callback(Data);
+                }, function (error) {
+
+                });
+
+                //alert(Availables.length());
+                return Availables;
+            },
             GetMyMiniStadiums: function (stadiumid, callback) {
 
 
@@ -51,7 +71,7 @@ angular.module('football.services', [])
 
                 var id = user.uid;
                 //alert(id);
-                firebase.database().ref('/stadiums/' + stadiumid + '/ministadiums').once('value', function (snapshot) {
+                firebase.database().ref('/stadiumsinfo/' + stadiumid + '/ministadiums').once('value', function (snapshot) {
                     MyMiniStadiums = [];
                     // alert("test");
                     snapshot.forEach(function (mainstadiumSnapshot) {
@@ -76,8 +96,9 @@ angular.module('football.services', [])
                             "iscombined": mainstadiumSnapshot.child("iscombined").val(),
                             "combined": mainstadiumSnapshot.child("combined").val(),
                             "city": snapshot.child("city").val(),
-                            "telephone": snapshot.child("telephone").val()
-
+                            "telephone": snapshot.child("telephone").val(),
+                            "typefloor": mainstadiumSnapshot.child("typefloor").val(),
+                            "numofplayers": mainstadiumSnapshot.child("numofplayers").val()
                         };
                         MyMiniStadiums.push(Data);
 
@@ -85,7 +106,7 @@ angular.module('football.services', [])
 
                     callback(MyMiniStadiums);
                 }, function (error) {
-                    
+
                 });
 
                 //alert(Availables.length());
@@ -207,7 +228,7 @@ angular.module('football.services', [])
                     });
                     callback(SchedulesByDay);
                 }, function (error) {
-                    
+
                 });
 
             },
@@ -403,11 +424,11 @@ angular.module('football.services', [])
                         });
                         callback(MyBalances);
                     }, function (error) {
-                        
+
                     });
                 }
                 catch (error) {
-                    
+
                 }
 
             },
@@ -477,7 +498,7 @@ angular.module('football.services', [])
                 }
 
                 catch (error) {
-                    
+
                 }
             },
             GetCustomers: function (callback) {
@@ -509,11 +530,11 @@ angular.module('football.services', [])
 
                         callback(Customers);
                     }, function (error) {
-                        
+
                     });
                 }
                 catch (error) {
-                    
+
                 }
 
                 return Customers;
@@ -544,11 +565,11 @@ angular.module('football.services', [])
 
                         callback(customerinfo);
                     }, function (error) {
-                        
+
                     });
                 }
                 catch (error) {
-                    
+
                 }
 
                 return Customers;
@@ -588,11 +609,11 @@ angular.module('football.services', [])
 
                         callback(MyCustomers);
                     }, function (error) {
-                        
+
                     });
                 }
                 catch (error) {
-                    
+
                 }
                 //alert(Availables.length());
                 return Customers;
@@ -852,7 +873,7 @@ angular.module('football.services', [])
                     return firebase.database().ref().update(updates);
                 }
                 catch (error) {
-                    
+
                 }
 
             },
@@ -1027,7 +1048,7 @@ angular.module('football.services', [])
 
                     }
                     catch (error) {
-                        
+
                     }
 
 
@@ -1272,11 +1293,11 @@ angular.module('football.services', [])
                         callback(ChallengeDetails);
 
                     }, function (error) {
-                        
+
                     });
 
                 } catch (error) {
-                    
+
                 }
 
             },

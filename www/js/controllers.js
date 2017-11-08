@@ -226,7 +226,7 @@ angular.module('football.controllers', [])
         };
     })
 
-    .controller('LoginController', function ($scope, $ionicModal,$ionicHistory, $ionicPopup, $timeout, $state, LoginStore) {
+    .controller('LoginController', function ($scope, $ionicModal, $ionicHistory, $ionicPopup, $timeout, $state, LoginStore) {
         var user = firebase.auth().currentUser;
 
         if (user) {
