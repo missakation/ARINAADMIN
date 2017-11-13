@@ -72,10 +72,10 @@
             <ion-popover-view style="height:400px;width:300px">
                 <ion-content style="background-color:rgb(62, 83, 100)">
 
-                    <div class="list list-inset" style="margin:5px 10px;background-color:transparent">
-                        <label class="item item-input" style="margin-top:-5px">
+                    <div class="list list-inset" style="margin:5px 10px;background-color:transparent;border-bottom:1px solid #2ab041">
+                        <label class="item item-input" style="margin-top:-5px;border-bottom:1px solid #2ab041">
                             <i class="icon ion-search placeholder-icon"  style="color:#2ab041"></i>
-                            <input type="tel" placeholder="Search" ng-model="searchText"  style="color:white">
+                            <input type="tel" placeholder="Search Customers" ng-model="searchText"  style="color:white">
                         </label>
                     </div>
 
@@ -113,7 +113,7 @@
 
                 </div>
                 <div class="col col-25" style="padding:0px">
-                    <button class="button button-full" style="border-radius:5px;font-size:12px;background-color:#21ab41;color:white" ng-click="popover.show($event)">
+                    <button class="button button-full" style="border-radius:5px;font-size:12px;background-color:#21ab41;color:white;padding-top:5px" ng-click="popover.show($event)">
                         <i class="icon ion-search placeholder-icon" style="color:#fff"></i>
                     </button>
                 </div>
@@ -205,7 +205,7 @@
 
     </ion-content>
     <br />
-    <div class="bar bar-footer " style="background-color:transparent">
+    <div class="bar bar-footer" style="background-color:#2ab041;background-position:bottom">
         <button class="button button-small button-balanced" style="border-radius:5px;font-size:15px;width:100%" ng-click="addbooking()">
             SAVE
         </button>
