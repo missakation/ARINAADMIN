@@ -166,13 +166,7 @@ angular.module('football.services', [])
                                         enddate.setHours(minischedule.child('hour').val());
                                         enddate.setDate(minischedule.child('day').val());
 
-                                        enddate.setMinutes(enddate.getMinutes() + minischedule.child('duration').val() * 1)
-
-                                        //  alert(startdate);
-                                        //  var enddate = new Date(minischedule.child("fullstartdate").val());
-                                        //  alert(enddate);
-
-                                        //  enddate.setMinutes(enddate.getMinutes()*1 + minischedule.child("duration").val());
+                                        enddate.setMinutes(enddate.getMinutes() + minischedule.child('duration').val() * 1);
 
                                         var Data =
                                             {
@@ -228,7 +222,8 @@ angular.module('football.services', [])
                     });
                     callback(SchedulesByDay);
                 }, function (error) {
-
+                    alert("Errir");
+                    callback(SchedulesByDay);
                 });
 
             },

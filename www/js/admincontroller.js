@@ -20,6 +20,7 @@ angular.module('football.controllers')
                 //}
 
             }, function (error) {
+                $ionicLoading.hide();
                 alert(error.message);
             })
         }
@@ -96,6 +97,7 @@ angular.module('football.controllers')
                 }
 
             }, function (error) {
+                $ionicLoading.hide();
                 alert(error.message);
             })
 
@@ -113,9 +115,6 @@ angular.module('football.controllers')
 
     .controller('AdminAddMiniController', function ($scope, $stateParams, $ionicLoading, AdminStore, $ionicPopup) {
 
-        //  alert("test");
-        //alert($stateParams.stadiumid);
-
         $scope.ministadium =
             {
                 name: "",
@@ -130,11 +129,6 @@ angular.module('football.controllers')
 
         $scope.addministadium = function () {
             try {
-
-                //  alert(ministadium.typefloor);
-                // alert($scope.ministadium.name);
-
-
 
                 AdminStore.AddMiniStadium($stateParams.stadiumid, $scope.ministadium)
                     .then(function (value) {
@@ -163,10 +157,14 @@ angular.module('football.controllers')
 
 
         var today = new Date();
+        $scope.nointernet = false;
 
         $scope.search = {
             date: today
         }
+
+        var connectedRef = firebase.database().ref(".info/connected");
+
 
         $scope.SelectedBooking = {};
 
@@ -204,46 +202,48 @@ angular.module('football.controllers')
                 date: today
             };
 
-            $ionicLoading.show({
-                content: 'Loading',
-                animation: 'fade-in',
-                showBackdrop: true,
-                maxWidth: 200,
-                showDelay: 0
-            });
-            AdminStore.GetMyStadiumsByDay(onsearch, function (leagues) {
+            if (!$scope.nointernet) {
+                $ionicLoading.show({
+                    content: 'Loading',
+                    animation: 'fade-in',
+                    showBackdrop: true,
+                    maxWidth: 200,
+                    showDelay: 0
+                });
+                AdminStore.GetMyStadiumsByDay(onsearch, function (leagues) {
 
-                $scope.Loading = false;
-                $ionicLoading.hide();
-                $scope.scheduleswithday = leagues;
+                    $scope.Loading = false;
+                    $ionicLoading.hide();
+                    $scope.scheduleswithday = leagues;
 
-                $scope.scheduleswithday.total = 0;
-                $scope.scheduleswithday.forEach(function (element) {
-                    $scope.scheduleswithday.total += element.price;
-                }, this);
+                    $scope.scheduleswithday.total = 0;
+                    $scope.scheduleswithday.forEach(function (element) {
+                        $scope.scheduleswithday.total += element.price;
+                    }, this);
 
-                $scope.scheduleswithday.total = $scope.number_format($scope.scheduleswithday.total);
+                    $scope.scheduleswithday.total = $scope.number_format($scope.scheduleswithday.total);
 
-                console.log(leagues);
+                    console.log(leagues);
 
-                if (leagues.length == 0) {
+                    if (leagues.length == 0) {
+                        $scope.nostadium = true;
+                    }
+                    else {
+                        $scope.nostadium = false;
+                    }
+                    $scope.$apply();
+                    $scope.scheduleswithdayArray = $scope.scheduleswithday;
 
-                    $scope.nostadium = true;
-
-                }
-                else {
-                    $scope.nostadium = false;
-                }
-
-                $scope.scheduleswithdayArray = $scope.scheduleswithday;
-
-            }, function (error) {
-                alert(error.message);
-            })
+                }, function (error) {
+                    $ionicLoading.hide();
+                    alert(error.message);
+                })
+            }
         }
         catch (error) {
             alert(error.message);
         }
+
 
         $scope.gogamedetails = function (gameid) {
 
@@ -257,71 +257,49 @@ angular.module('football.controllers')
         }
 
         $scope.ReloadPage = function () {
+            if (!$scope.nointernet) {
+                $ionicLoading.show({
+                    content: 'Loading',
+                    animation: 'fade-in',
+                    showBackdrop: true,
+                    maxWidth: 200,
+                    showDelay: 0
+                });
+                $scope.Loading = true;
+                AdminStore.GetMyStadiumsByDay($scope.search, function (leagues) {
+                    console.log(leagues);
+                    $scope.Loading = false;
+                    $ionicLoading.hide();
+                    $scope.scheduleswithday = leagues;
 
-            $ionicLoading.show({
-                content: 'Loading',
-                animation: 'fade-in',
-                showBackdrop: true,
-                maxWidth: 200,
-                showDelay: 0
-            });
-            $scope.Loading = true;
-            AdminStore.GetMyStadiumsByDay($scope.search, function (leagues) {
-                console.log(leagues);
-                $scope.Loading = false;
-                $ionicLoading.hide();
-                $scope.scheduleswithday = leagues;
+                    $scope.scheduleswithday.total = 0;
+                    $scope.scheduleswithday.forEach(function (element) {
+                        if (!(element.iscombined && element.minikey != element.relatedto))
+                            $scope.scheduleswithday.total += element.price;
+                    }, this);
 
-                $scope.scheduleswithday.total = 0;
-                $scope.scheduleswithday.forEach(function (element) {
-                    if (!(element.iscombined && element.minikey != element.relatedto))
-                        $scope.scheduleswithday.total += element.price;
-                }, this);
+                    $scope.scheduleswithday.total = $scope.number_format($scope.scheduleswithday.total);
 
-                $scope.scheduleswithday.total = $scope.number_format($scope.scheduleswithday.total);
+                    if (leagues.length == 0) {
+                        $scope.nostadium = true;
+                    }
+                    else {
+                        $scope.nostadium = false;
+                    }
+                    $scope.$apply();
+                    $scope.scheduleswithdayArray = $scope.scheduleswithday;
 
-                if (leagues.length == 0) {
-                    $scope.nostadium = true;
-                }
-                else {
-                    $scope.nostadium = false;
-                }
-
-                $scope.scheduleswithdayArray = $scope.scheduleswithday;
-
-            }, function (error) {
-                alert(error.message);
-            })
-
+                }, function (error) {
+                    $ionicLoading.hide();
+                    alert(error.message);
+                })
+            }
 
         };
 
 
         $scope.number_format = function (number, decimals, dec_point, thousands_sep) {
-            // *     example 1: number_format(1234.56);
-            // *     returns 1: '1,235'
-            // *     example 2: number_format(1234.56, 2, ',', ' ');
-            // *     returns 2: '1 234,56'
-            // *     example 3: number_format(1234.5678, 2, '.', '');
-            // *     returns 3: '1234.57'
-            // *     example 4: number_format(67, 2, ',', '.');
-            // *     returns 4: '67,00'
-            // *     example 5: number_format(1000);
-            // *     returns 5: '1,000'
-            // *     example 6: number_format(67.311, 2);
-            // *     returns 6: '67.31'
-            // *     example 7: number_format(1000.55, 1);
-            // *     returns 7: '1,000.6'
-            // *     example 8: number_format(67000, 5, ',', '.');
-            // *     returns 8: '67.000,00000'
-            // *     example 9: number_format(0.9, 0);
-            // *     returns 9: '1'
-            // *    example 10: number_format('1.20', 2);
-            // *    returns 10: '1.20'
-            // *    example 11: number_format('1.20', 4);
-            // *    returns 11: '1.2000'
-            // *    example 12: number_format('1.2000', 3);
-            // *    returns 12: '1.200'
+
             var n = !isFinite(+number) ? 0 : +number,
                 prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
                 sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
@@ -622,6 +600,18 @@ angular.module('football.controllers')
             });
 
         }
+        $timeout(function () {
+            connectedRef.on("value", function (snap) {
+                if (snap.val() === true) {
+                    $scope.nointernet = false;
+                }
+                else {
+                    $ionicLoading.hide();
+                    $scope.nointernet = true;
+                }
+                $scope.$apply();
+            });
+        }, 3000);
 
     })
 
@@ -680,6 +670,7 @@ angular.module('football.controllers')
 
                     }
                 }, function (error) {
+                    $ionicLoading.hide();
                     alert(error.message);
                 })
             }
@@ -760,6 +751,7 @@ angular.module('football.controllers')
 
                     }
                 }, function (error) {
+                    $ionicLoading.hide();
                     alert(error.message);
                 })
             }
@@ -798,6 +790,20 @@ angular.module('football.controllers')
 
 
     .controller('AdminAddBooking', function ($scope, $ionicPopover, $ionicHistory, AdminStore, $ionicPopup, $ionicLoading, $timeout, $state, pickerView) {
+
+        var connectedRef = firebase.database().ref(".info/connected");
+        connectedRef.on("value", function (snap) {
+            if (snap.val() === true) {
+                $scope.nointernet = false;
+            }
+            else {
+                $ionicLoading.hide();
+                $scope.nointernet = true;
+            }
+            $scope.$apply();
+
+        });
+
         /** picker view stuff **/
         var tomorrow = new Date();
         tomorrow.setDate(tomorrow.getDate() + 1);
@@ -936,52 +942,54 @@ angular.module('football.controllers')
         $scope.notselected = false;
 
         $scope.addcustomer = function () {
-            if ($scope.newcustomer.name === "" || $scope.newcustomer.telephone === "") {
+            if (!$scope.nointernet) {
+                if ($scope.newcustomer.name === "" || $scope.newcustomer.telephone === "") {
 
-                alert("please fill some info");
-                $scope.notselected = true;
-            }
-            else {
+                    alert("please fill some info");
+                    $scope.notselected = true;
+                }
+                else {
 
-                var user = firebase.auth().currentUser;
-                var id = user.uid;
+                    var user = firebase.auth().currentUser;
+                    var id = user.uid;
 
-                var query = firebase.database().ref('/admins/' + id + '/mycustomers').orderByChild("telephone").equalTo($scope.newcustomer.telephone.trim());
+                    var query = firebase.database().ref('/admins/' + id + '/mycustomers').orderByChild("telephone").equalTo($scope.newcustomer.telephone.trim());
 
-                query.once('value', function (snapshot) {
+                    query.once('value', function (snapshot) {
 
-                    if (snapshot.exists()) {
-                        var alertPopup = $ionicPopup.alert({
-                            title: 'Error',
-                            template: 'This Number Already Exists'
-                        });
-                    }
-                    else {
-                        var newPostKey = firebase.database().ref().child('players').push().key;
-                        AdminStore.AddUser($scope.newcustomer, newPostKey).then(function (value) {
-
-                            var alertPopup = $ionicPopup.alert({
-                                title: 'Success',
-                                template: 'Customer Saved'
-                            });
-
-                            alertPopup.then(function (res) {
-                                $scope.newcustomer.key = newPostKey;
-                                $scope.closePopover1($scope.newcustomer);
-                            })
-
-                        }, function (error) {
+                        if (snapshot.exists()) {
                             var alertPopup = $ionicPopup.alert({
                                 title: 'Error',
-                                template: error.message
+                                template: 'This Number Already Exists'
                             });
+                        }
+                        else {
+                            var newPostKey = firebase.database().ref().child('players').push().key;
+                            AdminStore.AddUser($scope.newcustomer, newPostKey).then(function (value) {
 
-                        })
-                    }
+                                var alertPopup = $ionicPopup.alert({
+                                    title: 'Success',
+                                    template: 'Customer Saved'
+                                });
+
+                                alertPopup.then(function (res) {
+                                    $scope.newcustomer.key = newPostKey;
+                                    $scope.closePopover1($scope.newcustomer);
+                                })
+
+                            }, function (error) {
+                                var alertPopup = $ionicPopup.alert({
+                                    title: 'Error',
+                                    template: error.message
+                                });
+
+                            })
+                        }
 
 
-                })
+                    })
 
+                }
             }
         }
 
@@ -1674,6 +1682,18 @@ angular.module('football.controllers')
 
     .controller('AdminPromotions', function ($scope, $ionicPopover, AdminStore, $ionicPopup, $ionicLoading) {
 
+        var connectedRef = firebase.database().ref(".info/connected");
+        connectedRef.on("value", function (snap) {
+            if (snap.val() === true) {
+                $scope.nointernet = false;
+            }
+            else {
+                $ionicLoading.hide();
+                $scope.nointernet = true;
+            }
+            $scope.$apply();
+        });
+
         $scope.promotion =
             {
                 name: "",
@@ -2116,6 +2136,18 @@ angular.module('football.controllers')
 
     .controller('AdminAddPromotions', function ($scope, $ionicPopover, AdminStore, $ionicPopup, $ionicLoading) {
 
+        var connectedRef = firebase.database().ref(".info/connected");
+        connectedRef.on("value", function (snap) {
+            if (snap.val() === true) {
+                $scope.nointernet = false;
+            }
+            else {
+                $ionicLoading.hide();
+                $scope.nointernet = true;
+            }
+            $scope.$apply();
+        });
+
         $scope.year = '2016';
         $scope.month = '2016';
         $scope.day = '2016';
@@ -2272,12 +2304,6 @@ angular.module('football.controllers')
             });
 
             try {
-
-                //  alert(ministadium.typefloor);
-                // alert($scope.ministadium.name);
-
-
-
                 AdminStore.DeletePromotion(item)
                     .then(function (value) {
                         $ionicLoading.hide();
@@ -2286,12 +2312,8 @@ angular.module('football.controllers')
                             template: 'Promotion Successfully Deleted'
                         });
                     }, function (error) {
+                        $ionicLoading.hide();
                         alert(error.message);
-
-                        alertPopup.then(function (res) {
-                            // Custom functionality....
-                        });
-                        //$scope.allfreestadiums.
 
                     })
             }
@@ -2305,7 +2327,17 @@ angular.module('football.controllers')
 
 
     .controller('CustomerController', function ($scope, $state, $ionicPopover, AdminStore, $ionicPopup, $ionicLoading, $ionicFilterBar) {
-
+        var connectedRef = firebase.database().ref(".info/connected");
+        connectedRef.on("value", function (snap) {
+            if (snap.val() === true) {
+                $scope.nointernet = false;
+            }
+            else {
+                $ionicLoading.hide();
+                $scope.nointernet = true;
+            }
+            $scope.$apply();
+        });
         $ionicLoading.show({
             content: 'Loading',
             animation: 'fade-in',
@@ -2320,6 +2352,8 @@ angular.module('football.controllers')
             $scope.filteredCustomers = $scope.mycustomers;
             //console.log($scope.mycustomers);
             console.log($scope.filteredCustomers);
+        }, function (error) {
+            $ionicLoading.hide();
         });
 
         $scope.OpenCustomerDetails = function (item) {
@@ -2330,16 +2364,6 @@ angular.module('football.controllers')
 
         //Filter bar stuff
         var filterBarInstance;
-
-        //function getItems () {
-        //    var items = [];
-        //    for (var x = 1; x < 2000; x++) {
-        //        items.push({text: 'This is item number ' + x + ' which is an ' + (x % 2 === 0 ? 'EVEN' : 'ODD') + ' number.'});
-        //    }
-        //    $scope.items = items;
-        //}
-
-        //getItems();
 
         //$scope.$digest();
         $scope.showFilterBar = function () {
@@ -2376,7 +2400,17 @@ angular.module('football.controllers')
     })
 
     .controller('CustomerDetailsController', function ($scope, $ionicHistory, $state, $ionicPopover, AdminStore, $ionicPopup, $ionicLoading, $stateParams) {
-
+        var connectedRef = firebase.database().ref(".info/connected");
+        connectedRef.on("value", function (snap) {
+            if (snap.val() === true) {
+                $scope.nointernet = false;
+            }
+            else {
+                $ionicLoading.hide();
+                $scope.nointernet = true;
+            }
+            $scope.$apply();
+        });
         $scope.Customer = $state.params.Customer;
         console.log($scope.Customer);
         $scope.SaveCustomer = function () {
@@ -2407,7 +2441,82 @@ angular.module('football.controllers')
         }
     })
 
+    .controller('FeedBackController', function ($scope, $ionicHistory, $state, $ionicPopup, $ionicLoading, $stateParams) {
+
+        var connectedRef = firebase.database().ref(".info/connected");
+        connectedRef.on("value", function (snap) {
+            if (snap.val() === true) {
+                $scope.nointernet = false;
+            }
+            else {
+                $ionicLoading.hide();
+                $scope.nointernet = true;
+            }
+            $scope.$apply();
+        });
+
+        $scope.error = false;
+        $scope.loading = false;
+        $scope.feedbacktext =
+            {
+                text: ""
+            };
+
+        $scope.savefeedback = function () {
+            $scope.loading = true;
+
+            if ($scope.feedbacktext.text.length > 10) {
+                var user = firebase.auth().currentUser;
+                var id = user.uid;
+
+                if (id !== null && id != '' && id !== undefined) {
+
+                    var updates = {};
+
+                    var newPostKey = firebase.database().ref().child('/feedback/' + id).push().key;
+
+                    updates['/feedback/' + id + '/' + newPostKey] =
+                        {
+                            text: $scope.feedbacktext.text
+                        }
+                    firebase.database().ref().update(updates).then(function (res) {
+                        $ionicHistory.nextViewOptions({
+                            disableBack: true
+                        });
+                        var alertPopup = $ionicPopup.alert({
+                            title: 'Success',
+                            template: "Thank you for your feedback <3"
+                        }).then(function () {
+                            $scope.loading = false;
+                            $state.go("app.adminbookings");
+                        });
+
+
+                    }, function (error) {
+                        $scope.loading = false;
+                    });
+
+                }
+            }
+            else {
+                $scope.error = true;
+            }
+
+        }
+    })
+
     .controller('CustomerCreateController', function ($scope, $ionicHistory, $ionicPopover, AdminStore, $ionicPopup, $ionicLoading) {
+        var connectedRef = firebase.database().ref(".info/connected");
+        connectedRef.on("value", function (snap) {
+            if (snap.val() === true) {
+                $scope.nointernet = false;
+            }
+            else {
+                $ionicLoading.hide();
+                $scope.nointernet = true;
+            }
+            $scope.$apply();
+        });
         $scope.newcustomer = {
             name: "",
             lastname: "",

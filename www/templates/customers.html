@@ -35,4 +35,11 @@
     <div class="bar bar-footer" style="background-color:#2ab041">
         <a ng-href="#/app/createcustomer" class="button button-balanced button-large" style="width:100%"> Add New Customer    <i class="icon ion-ios-personadd-outline" style="padding-left:5px;font-size:35px"></i></a>
     </div>
+    <ion-footer-bar align-title="left" class="bar-assertive" style="background-color: rgb(30,30,30);border: none" ng-show="nointernet">
+        <div align="left" style="padding-left: 5px">
+            <h6 class="whitetext">
+                Oops. You have no internet connection
+            </h6>
+        </div>
+    </ion-footer-bar>
 </ion-view>

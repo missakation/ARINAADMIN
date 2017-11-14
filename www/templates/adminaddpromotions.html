@@ -6,28 +6,29 @@
         border-color: #2ab041
     }
 
-.item-checkbox {
-  position: relative; }
-  .item-checkbox {
-    -webkit-appearance: none;
-    -moz-appearance: none;   
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    padding: 0 48px 0 16px;
-    max-width: 65%;
-    border: none;
-    background: #fff;
-    color: #333;
-    text-indent: .01px;
-    text-overflow: '';
-    white-space: nowrap;
-    font-size: 14px;
-    cursor: pointer;
-    direction: rtl; }
+    .item-checkbox {
+        position: relative;
+    }
 
-    
+    .item-checkbox {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        padding: 0 48px 0 16px;
+        max-width: 65%;
+        border: none;
+        background: #fff;
+        color: #333;
+        text-indent: .01px;
+        text-overflow: '';
+        white-space: nowrap;
+        font-size: 14px;
+        cursor: pointer;
+        direction: rtl;
+    }
 
 
     .checkbox input:checked:before,
@@ -93,7 +94,7 @@
 
 
             <br>
-   <label class="item item-input " style="margin:0 10px;color:white;border:none;border-radius:10px">
+            <label class="item item-input " style="margin:0 10px;color:white;border:none;border-radius:10px">
                 <i style="padding-left:10px;font-size:30px" class="icon ion-pricetags"></i>
                 <span class="input-label" style="padding-left:10px;width:30%;color:white"> Discount Price</span>
                 <input type="number" style="text-align:right;color:#2ab041" ng-change="RefreshDiscount()" ng-model="promotion.newprice">
@@ -107,48 +108,48 @@
                 </label>
                 <br>
 
-            <label class="item item-input item-select " style="margin:0 10px;color:white;border:none;border-radius:10px">
-                <i style="padding-left:10px;font-size:30px" class="icon ion-calendar"></i>
-                <span class="input-label" style="padding-left:10px;width:30%;color:white"> Day of Week </span>
-                <select ng-model="promotion.date">
-                    <option selected>All</option>
-                    <option>Monday</option>
-                    <option>Tuesday</option>
-                    <option>Wednesday</option>
-                    <option>Thursday</option>
-                    <option>Friday</option>
-                    <option>Saturday</option>
-                    <option>Sunday</option>
-                </select>
-            </label>
+                <label class="item item-input item-select " style="margin:0 10px;color:white;border:none;border-radius:10px">
+                    <i style="padding-left:10px;font-size:30px" class="icon ion-calendar"></i>
+                    <span class="input-label" style="padding-left:10px;width:30%;color:white"> Day of Week </span>
+                    <select ng-model="promotion.date">
+                        <option selected>All</option>
+                        <option>Monday</option>
+                        <option>Tuesday</option>
+                        <option>Wednesday</option>
+                        <option>Thursday</option>
+                        <option>Friday</option>
+                        <option>Saturday</option>
+                        <option>Sunday</option>
+                    </select>
+                </label>
 
 
-            <br>
-            <label class="item item-input " style="margin:0 10px;color:white;border:none;border-radius:10px">
-                <i style="padding-left:10px;font-size:30px" class="icon ion-refresh"></i>
-                <span class="input-label" style="padding-left:10px;padding-right:150px;color:white"> Recurring</span>
-                
-                <ion-checkbox ng-model="promotion.weekly" style="background-color:rgb(62, 83, 100);color: white"></ion-checkbox>
- 
-            </label>
+                <br>
+                <label class="item item-input " style="margin:0 10px;color:white;border:none;border-radius:10px">
+                    <i style="padding-left:10px;font-size:30px" class="icon ion-refresh"></i>
+                    <span class="input-label" style="padding-left:10px;padding-right:150px;color:white"> Recurring</span>
+
+                    <ion-checkbox ng-model="promotion.weekly" style="background-color:rgb(62, 83, 100);color: white"></ion-checkbox>
+
+                </label>
 
 
 
-            <br>
-            <label class="item item-input " style="margin:0 10px;color:white;border:none;border-radius:10px">
-                <i style="padding-left:10px;font-size:30px" class="icon ion-android-stopwatch"></i>
-                <span class="input-label" style="padding-left:10px;width:30%;color:white"> Start Time</span>
-                <input type="time" style="text-align:right;color:#2ab041" ng-model="promotion.starttime">
-            </label>
-            <br>
-            <label class="item item-input " style="margin:0 10px;color:white;border:none;border-radius:10px">
-                <i style="padding-left:10px;font-size:30px" class="icon ion-ios-timer-outline"></i>
-                <span class="input-label" style="padding-left:10px;width:30%;color:white"> End Time</span>
-                <input type="time" style="text-align:right;color:#2ab041" ng-model="promotion.endtime">
-            </label>
+                <br>
+                <label class="item item-input " style="margin:0 10px;color:white;border:none;border-radius:10px">
+                    <i style="padding-left:10px;font-size:30px" class="icon ion-android-stopwatch"></i>
+                    <span class="input-label" style="padding-left:10px;width:30%;color:white"> Start Time</span>
+                    <input type="time" style="text-align:right;color:#2ab041" ng-model="promotion.starttime">
+                </label>
+                <br>
+                <label class="item item-input " style="margin:0 10px;color:white;border:none;border-radius:10px">
+                    <i style="padding-left:10px;font-size:30px" class="icon ion-ios-timer-outline"></i>
+                    <span class="input-label" style="padding-left:10px;width:30%;color:white"> End Time</span>
+                    <input type="time" style="text-align:right;color:#2ab041" ng-model="promotion.endtime">
+                </label>
 
-           
-         
+
+
             </ion-list>
 
 
@@ -162,4 +163,11 @@
         </div>
 
     </ion-content>
+    <ion-footer-bar align-title="left" class="bar-assertive" style="background-color: rgb(30,30,30);border: none" ng-show="nointernet">
+        <div align="left" style="padding-left: 5px">
+            <h6 class="whitetext">
+                Oops. You have no internet connection
+            </h6>
+        </div>
+    </ion-footer-bar>
 </ion-view>
