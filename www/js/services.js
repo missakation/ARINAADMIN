@@ -1124,40 +1124,30 @@ angular.module('football.services', [])
 
                 var id = user.uid;
                 //alert(id);
-                firebase.database().ref('/promotions').on('value', function (snapshot) {
-
-
+                firebase.database().ref('/promotions/' + key).on('value', function (snapshot) {
 
                     MyPromotions = [];
                     // alert("test");
 
-                    if (snapshot.child(key).exists()) {
-                        snapshot.child(key).forEach(function (mainstadiumSnapshot) {
+                    if (snapshot.exists()) {
+                        snapshot.forEach(function (promotions) {
 
-                            //  alert(mainstadiumSnapshot.key);
+                            var Data = {
+                                key: promotions.key,
+                                name: promotions.child("name").val(),
+                                stadium: key,
+                                ministadium: snapshot.key,
+                                date: promotions.child("date").val(),
+                                starttime: promotions.child("starttime").val(),
+                                endtime: promotions.child("endtime").val(),
+                                discount: promotions.child("discount").val(),
+                                weekly: promotions.child("weekly").val(),
+                                newprice: promotions.child("newprice").val(),
 
-                            mainstadiumSnapshot.forEach(function (promotions) {
+                            };
+                            MyPromotions.push(Data);
 
-                                //     alert(promotions.key);
-                                var Data = {
-                                    key: promotions.key,
-                                    name: promotions.child("name").val(),
-                                    //  photo: promotions.child("photo").val(),
-                                    stadium: key,
-                                    ministadium: mainstadiumSnapshot.key,
-                                    date: promotions.child("date").val(),
-                                    starttime: promotions.child("starttime").val(),
-                                    endtime: promotions.child("endtime").val(),
-                                    discount: promotions.child("discount").val(),
-                                    weekly: promotions.child("weekly").val(),
-                                    newprice: promotions.child("newprice").val(),
-
-                                };
-                                MyPromotions.push(Data);
-
-                            })
-
-                        });
+                        })
                     }
 
                     callback(MyPromotions);

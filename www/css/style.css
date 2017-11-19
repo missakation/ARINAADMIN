@@ -183,6 +183,7 @@
 		border-right-width: 0vmin;
 		border-top-left-radius: 0vmin;
 		border-bottom-left-radius: 0vmin;
+		width:110%;
 	}
 	
 	.picker-view .picker-content .picker-scroll:first-of-type:after {
@@ -296,14 +297,14 @@
 		z-index: 9999;
 		position: fixed;
 		left: 0;
-		top: 5%;
+		top: 6%;
 		text-align: center;
 		width: 100%;
 		width: 100vw;
 		height: 29.75%;
 		
 		background-color: transparent;
-		margin-top: -6px;
+		margin-top: -2px;
 	}
 	.bar .title.title-left {
 	    text-align: center;
@@ -392,3 +393,21 @@
 		margin-top: 0px;
 		color: #2ab041;
 	}
+	.popover .scroll-content { 
+		margin:0px;
+	}
+	.platform-android .popover {
+		background-color:transparent;
+	}	
+
+	.platform-android .popover .item {
+		border-color:transparent;
+	}
+
+    
+	 .ion-plus-round:before {
+		 margin-right: 10px;
+	 }
+		 .button.button-balanced {
+			 background-color:#2ab041;
+		 }
