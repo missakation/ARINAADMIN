@@ -31,8 +31,7 @@
    
 
     .my-container {
-        background-image: url('img/111.png');
-        background-color:rgba(62, 75, 100, 0.650);
+        background: linear-gradient(to bottom, #243B55, #141E30);
         background-repeat: repeat;
         -webkit-background-size: cover;
         -moz-background-size: cover;
@@ -43,10 +42,10 @@
         position: absolute;
     }
 
-    .headerr .item-content {
+    .headerr {
         background-color: transparent !important;
         background-image: url('img/loggo.png');
-        background-size: 66px 30px;
+        background-size: 110px 55px;
         background-position: center;
         background-repeat: no-repeat;
         border-color: transparent !important;
@@ -57,17 +56,6 @@
         color: #2ab041;
         border-color: transparent !important;
     }
-
-    .headerr .item-content {
-        background-color: transparent !important;
-        background-image: url('img/loggo.png');
-        background-size: 66px 30px;
-        background-position: center;
-        background-repeat: no-repeat;
-        border-color: transparent !important;
-    }
-
-   
 
 </style>
 <ion-side-menus enable-menu-with-back-views="false">
@@ -87,14 +75,13 @@
         <ion-content class="my-container" ng-controller="MenuController">
 
             <ion-list>
-                <ion-item class="headerr menuit item-icon-left" menu-toggle="left" style="padding-top:5px;height:44px;background-color: rgba(62, 75, 100, 1)"
-                    href="#/app/adminbookings">
+                <ion-item class="headerr menuit item-icon-left" menu-toggle="left" style="padding-top:5px;height:78px;background-color: transparent">
 
                 </ion-item>
 
 
-                <a href="#/app/adminbookings" style="text-decoration:none">
-                    <div class="row" menu-toggle="left" style="padding:0 7px;background-color: rgba(62, 75, 100, 0.65);border:transparent">
+                <a href="#/app/adminbookings" style="text-decoration:none;background-color: transparent">
+                    <div class="row" menu-toggle="left" style="padding:0 7px;border:transparent">
                         <div>
                             <img src="img/Reserveicon.png" align="center" style="margin-left:8px;margin-top:10px;margin-right:7px;color:white;width:32px;height:32px">
                         </div>
@@ -104,38 +91,38 @@
                 </a>
 
 
-                <ion-item class="transp menuit item-icon-left" menu-toggle="left" style="color:white;background-color: rgba(62, 75, 100, 0.65);border:transparent;padding:2.5px"
+                <ion-item class="transp menuit item-icon-left" menu-toggle="left" style="color:white;border:transparent;padding:2.5px;background-color: transparent"
                     href="#/app/adminpage">
                     <i class="icon ion-ios-home"></i> My Stadiums
                 </ion-item>
 
 
-                <ion-item menu-toggle="left" class="transp menuit item-icon-left" style="background-color: rgba(62, 75, 100, 0.65);border:transparent;padding:2.5px"
+                <ion-item menu-toggle="left" class="transp menuit item-icon-left" style="border:transparent;padding:2.5px;background-color: transparent"
                     href="#/app/customers">
                     <i class="icon ion-android-contact" style="font-size:35px"></i> Customers
                 </ion-item>
 
-                <!--<ion-item menu-toggle="left" class="transp menuit item-icon-left" style="background-color: rgba(62, 75, 100, 0.65);border:transparent;padding:2.5px"
+                <!--<ion-item menu-toggle="left" class="transp menuit item-icon-left" style="border:transparent;padding:2.5px"
                     href="#/app/adminbalances">
                     <i class="icon ion-ios-calculator" style="font-size:35px"></i> Balances
                 </ion-item>
 
-                <ion-item menu-toggle="left" class="transp menuit item-icon-left" style="background-color: rgba(62, 75, 100, 0.65);border:transparent;padding:2.5px"
+                <ion-item menu-toggle="left" class="transp menuit item-icon-left" style="border:transparent;padding:2.5px"
                     href="#/app/history">
                     <i class="icon ion-ios-contact-outline" style="font-size:35px"></i> History
                 </ion-item>-->
 
-                <ion-item menu-toggle="left" class="transp menuit item-icon-left" style="background-color: rgba(62, 75, 100, 0.65);border:transparent;padding:2.5px"
+                <ion-item menu-toggle="left" class="transp menuit item-icon-left" style="border:transparent;padding:2.5px;background-color: transparent"
                     href="#/app/adminpromotions">
                     <i class="icon ion-ios-pricetag" style="font-size:35px"></i> Promotion
                 </ion-item>
 
-                <ion-item menu-toggle="left" class="transp menuit item-icon-left" style="background-color: rgba(62, 75, 100, 0.65);border:transparent;padding:2.5px"
+                <ion-item menu-toggle="left" class="transp menuit item-icon-left" style="border:transparent;padding:2.5px;background-color: transparent"
                     href="#/app/feedbacks">
                     <i class="icon ion-android-call" style="font-size:35px"></i> Contact Us
                 </ion-item>
 
-                <ion-item class="transp menuit item-icon-left" menu-close style="background-color: rgba(42, 62, 82, 1);color:white" ng-click="logout()">
+                <ion-item class="transp menuit item-icon-left" menu-close style="color:white;background-color: transparent" ng-click="logout()">
                     <i class="icon ion-power"></i> Log Out
                 </ion-item>
 
