@@ -248,8 +248,8 @@ angular.module('football.controllers', [])
         $scope.password = '';
 
 
-        $scope.registerusername = 'missakboya1@live.com';
-        $scope.registerpassword = 'supermanbaba';
+        $scope.registerusername = '';
+        $scope.registerpassword = '';
 
         //$scope.registerusername = '';
         //$scope.registerpassword = '';

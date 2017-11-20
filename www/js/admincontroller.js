@@ -30,18 +30,16 @@ angular.module('football.controllers')
 
                 }, function (error) {
                     $ionicLoading.hide();
-                    alert(error.message);
+                    console.log(error.message);
                 })
             }
         }
         catch (error) {
-            alert(error.message);
+            console.log(error.message);
         }
     })
 
     .controller('AdminAddController', function ($scope, $ionicLoading, AdminStore, $ionicPopup) {
-
-
 
         $scope.addstadium = function (stadium) {
 
@@ -55,7 +53,7 @@ angular.module('football.controllers')
                         });
                         $state.go("app.adminpage");
                     }, function (error) {
-                        alert(error.message);
+                        console.log(error.message);
 
                         alertPopup.then(function (res) {
                             // Custom functionality....
@@ -64,7 +62,7 @@ angular.module('football.controllers')
                     })
             }
             catch (error) {
-                alert(error.message);
+                console.log(error.message);
             }
         };
     })
@@ -114,7 +112,7 @@ angular.module('football.controllers')
 
                 }, function (error) {
                     $ionicLoading.hide();
-                    alert(error.message);
+                    console.log(error.message);
                 })
 
                 AdminStore.GetMyStadiumById($stateParams.stadiumid, function (leagues) {
@@ -124,7 +122,7 @@ angular.module('football.controllers')
             }
         }
         catch (error) {
-            alert(error.message);
+            console.log(error.message);
         }
 
 
@@ -155,7 +153,7 @@ angular.module('football.controllers')
                         });
                         $state.go("app.adminpagedetails");
                     }, function (error) {
-                        alert(error.message);
+                        console.log(error.message);
 
                         alertPopup.then(function (res) {
                             // Custom functionality....
@@ -165,12 +163,75 @@ angular.module('football.controllers')
                     })
             }
             catch (error) {
-                alert(error.message);
+                console.log(error.message);
             }
         };
     })
 
     .controller('AdminScheduleController', function ($scope, $ionicPopover, AdminStore, $ionicPopup, $ionicLoading, $timeout, $state) {
+
+        /*var updates = {};
+        
+
+        var stadium =  {
+            "ClosingTime" : "23:59",
+            "OpeningTime" : "17:00",
+            "RestrictedTime1" : "20:00",
+            "RestrictedTime2" : "21:30",
+            "admin" : "",
+            "cancelationpolicy" : "sometext",
+            "city" : "Jal el Dib",
+            "cordovaaccuracy" : 0,
+            "cordovaaltitude" : 0,
+            "cordovaaltitudeAccuracy" : 0,
+            "cordovalatitude" : 33.910675,
+            "cordovalongitude" : 35.584254,
+            "description" : "long description",
+            "email" : "someemail",
+            "indoor" : 1,
+            "locationarea" : "beirut",
+            "locationcity" : "beirut",
+            "locationtelephone" : "01555666",
+            "ministadiums" : {
+              "Small" : {
+                "cancellation" : 24,
+                "description" : "Dofa",
+                "length" : "",
+                "numplayers" : 5,
+                "numplayers1" : 5,
+                "photo" : "http://www.sundul.com/wp-content/uploads/2013/02/Bikin-Stadion-Baru-Inter-Milan-Siap-Hengkang-Dari-San-Siro.jpg",
+                "price" : 90000,
+                "rating" : "0",
+                "type" : "Indoor",
+                "typefloor" : "Grass",
+                "width" : 80
+              },  
+              "Big" : {
+                "cancellation" : 24,
+                "description" : "aaa",
+                "length" : "",
+                "numplayers" : 5,
+                "numplayers1" : 6,
+                "photo" : "https://sportsimagepro.files.wordpress.com/2011/02/hull-fc-v-hull-kingston-rovers-29942.jpg",
+                "price" : 100000,
+                "rating" : "0",
+                "type" : "Indoor",
+                "typefloor" : "Clay",
+                "width" : 54
+              }
+            },
+            "name" : "Vclub2",
+            "numberofstadium" : 10,
+            "outdoor" : 1,
+            "photo" : "http://www.sundul.com/wp-content/uploads/2013/02/Bikin-Stadion-Baru-Inter-Milan-Siap-Hengkang-Dari-San-Siro.jpg",
+            "rating" : 8,
+            "telephone" : "03333333",
+            "water" : 1
+          }
+          updates['/stadiums/Footers'] = stadium;
+          updates['/stadiumsinfo/Footers'] = stadium;
+  
+          return firebase.database().ref().update(updates);*/
 
         var connectedRef = firebase.database().ref(".info/connected");
         connectedRef.on("value", function (snap) {
@@ -195,7 +256,6 @@ angular.module('football.controllers')
 
         $scope.scheduleswithday = [];
         $scope.scheduleswithdayArray = [];
-        $scope.nostadium = false;
 
         // .fromTemplate() method
         var template1 = '<ion-popover-view><ion-header-bar> <h1 class="title">My Popover Title</h1> </ion-header-bar> <ion-content> Hello! </ion-content></ion-popover-view>';
@@ -250,23 +310,17 @@ angular.module('football.controllers')
 
                     console.log(leagues);
 
-                    if (leagues.length == 0) {
-                        $scope.nostadium = true;
-                    }
-                    else {
-                        $scope.nostadium = false;
-                    }
                     $scope.$apply();
                     $scope.scheduleswithdayArray = $scope.scheduleswithday;
 
                 }, function (error) {
                     $ionicLoading.hide();
-                    alert(error.message);
+                    console.log(error.message);
                 })
             }
         }
         catch (error) {
-            alert(error.message);
+            console.log(error.message);
         }
 
 
@@ -316,7 +370,7 @@ angular.module('football.controllers')
 
                 }, function (error) {
                     $ionicLoading.hide();
-                    alert(error.message);
+                    console.log(error.message);
                 })
             }
 
@@ -685,11 +739,11 @@ angular.module('football.controllers')
                     }
                 }, function (error) {
                     $ionicLoading.hide();
-                    alert(error.message);
+                    console.log(error.message);
                 })
             }
             catch (error) {
-                alert(error.message);
+                console.log(error.message);
             }
 
         }
@@ -766,11 +820,11 @@ angular.module('football.controllers')
                     }
                 }, function (error) {
                     $ionicLoading.hide();
-                    alert(error.message);
+                    console.log(error.message);
                 })
             }
             catch (error) {
-                alert(error.message);
+                console.log(error.message);
             }
         }
 
@@ -1069,7 +1123,7 @@ angular.module('football.controllers')
 
             }
             catch (error) {
-                alert(error.message);
+                console.log(error.message);
             }
 
         };
@@ -1097,7 +1151,7 @@ angular.module('football.controllers')
                 AdminStore.GetMyStadiums(function (stadiums) {
 
                     $scope.mystadiums = stadiums;
-
+                    console.log(stadiums);
                     if (stadiums.length == 0) {
 
                         var alertPopup = $ionicPopup.alert({
@@ -1130,7 +1184,7 @@ angular.module('football.controllers')
                                     $scope.$digest();
                                 }
                                 catch (error) {
-                                    alert(error.message)
+                                    console.log(error.message)
                                 }
 
                             }
@@ -1144,18 +1198,18 @@ angular.module('football.controllers')
                             });
 
                         }, function (error) {
-                            alert(error.message);
+                            console.log(error.message);
                         })
                     }
                     $scope.$digest();
 
                 })
             }, function (error) {
-                alert(error.message);
+                console.log(error.message);
             })
         }
         catch (error) {
-            alert(error.message);
+            console.log(error.message);
         }
 
 
@@ -1185,7 +1239,7 @@ angular.module('football.controllers')
 
             }
             catch (error) {
-                alert(error.message);
+                console.log(error.message);
             }
 
         };
@@ -1268,7 +1322,6 @@ angular.module('football.controllers')
                     $scope.stadiumdata.customer = $scope.stadiumdata.customer.trim();
                     // $scope.stadiumdata.firstname = $scope.stadiumdata.firstname.trim();
 
-                    alert($scope.stadiumdata.subkey);
                     if ($scope.stadiumdata.key === "" || $scope.stadiumdata.subkey.trim() == "" || $scope.stadiumdata.customer === "") {
 
                         alert("please fill some info");
@@ -1353,7 +1406,7 @@ angular.module('football.controllers')
 
                 }
                 catch (error) {
-                    alert(error.message);
+                    console.log(error.message);
                 }
             }
 
@@ -1721,17 +1774,17 @@ angular.module('football.controllers')
                         console.log(leagues);
 
                     }, function (error) {
-                        alert(error.message);
+                        console.log(error.message);
                     })
 
-                    alert(error.message);
+                    console.log(error.message);
 
 
                 })
             }
         }
         catch (error) {
-            alert(error.message);
+            console.log(error.message);
         }
 
         $scope.deletepromotion = function (item) {
@@ -1753,7 +1806,7 @@ angular.module('football.controllers')
                                 template: 'Promotion Successfully Deleted'
                             });
                         }, function (error) {
-                            alert(error.message);
+                            console.log(error.message);
 
                             alertPopup.then(function (res) {
                                 // Custom functionality....
@@ -1763,7 +1816,7 @@ angular.module('football.controllers')
                         })
                 }
                 catch (error) {
-                    alert(error.message);
+                    console.log(error.message);
                 }
 
             }
@@ -1782,12 +1835,12 @@ angular.module('football.controllers')
                 firebase.auth().signOut().then(function () {
                     $state.go('signin');
                 }, function (error) {
-                    alert(error.message);
+                    console.log(error.message);
                 });
 
             }
             catch (error) {
-                alert(error.message);
+                console.log(error.message);
             }
         }
 
@@ -2005,7 +2058,7 @@ angular.module('football.controllers')
             })
 
         } catch (error) {
-            alert(error.message);
+            console.log(error.message);
         }
 
         $scope.CancelChallenge = function (challenge) {
@@ -2027,14 +2080,14 @@ angular.module('football.controllers')
                             })
 
                         }, function (error) {
-                            alert(error.message);
+                            console.log(error.message);
                         })*/
                     }
 
                 })
 
             } catch (error) {
-                alert(error.message);
+                console.log(error.message);
             }
         }
 
@@ -2143,16 +2196,16 @@ angular.module('football.controllers')
                         $scope.myministadiums = leagues;
 
                     }, function (error) {
-                        alert(error.message);
+                        console.log(error.message);
                     })
 
-                    alert(error.message);
+                    console.log(error.message);
 
 
                 })
             }
             catch (error) {
-                alert(error.message);
+                console.log(error.message);
             }
         }
         $scope.changeprice = function () {
@@ -2235,13 +2288,13 @@ angular.module('football.controllers')
                                     template: 'Promotion Added'
                                 });
                             }, function (error) {
-                                alert(error.message);
+                                console.log(error.message);
 
                             })
                     }
                 }
                 catch (error) {
-                    alert(error.message);
+                    console.log(error.message);
                 }
             }
         }
@@ -2365,7 +2418,7 @@ angular.module('football.controllers')
                 }
             }
             catch (error) {
-                alert(error.message)
+                console.log(error.message)
             }
         }
     })
@@ -2507,7 +2560,7 @@ angular.module('football.controllers')
 
                     }
                     catch (error) {
-                        alert(error.message)
+                        console.log(error.message)
                     }
                 }
             }

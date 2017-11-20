@@ -19,7 +19,6 @@ angular.module('football.services', [])
                 var user = firebase.auth().currentUser;
 
                 var id = user.uid;
-                //alert(id);
                 firebase.database().ref('/admins/' + id + '/stadiums').once('value', function (snapshot) {
 
                     // alert("test");
@@ -222,7 +221,7 @@ angular.module('football.services', [])
                     });
                     callback(SchedulesByDay);
                 }, function (error) {
-                    alert("Errir");
+                    console.log(error);
                     callback(SchedulesByDay);
                 });
 
