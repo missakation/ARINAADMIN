@@ -31,7 +31,8 @@
         <ion-nav-back-button>
         </ion-nav-back-button>
         <ion-nav-buttons side="right">
-            <button class="button button-small" style="border: 1px solid #21ab41;color:white;background:transparent" side="right" ng-click="popover1.show($event)">
+            <button class="button button-small" style="border-radius:0px;border-bottom: 1px solid #21ab41;color:white;background:transparent"
+                side="right" ng-click="popover1.show($event)">
                 New Customer
             </button>
         </ion-nav-buttons>
@@ -72,9 +73,9 @@
             <ion-popover-view style="height:400px;width:300px">
                 <ion-content style="background-color:rgb(62, 83, 100)">
 
-                    <div class="list list-inset" style="margin:5px 10px;background-color:transparent;border-bottom:1px solid #2ab041">
-                        <label class="item item-input" style="margin-top:-5px;border-bottom:1px solid #2ab041">
-                            <i class="icon ion-search placeholder-icon"  style="color:#2ab041"></i>
+                    <div class="list list-inset" style="margin:5px 10px;background-color:transparent;border-bottom:1px solid #21ab41">
+                        <label class="item item-input" style="margin-top:-5px;border-bottom:1px solid #21ab41">
+                            <i class="icon ion-search placeholder-icon"  style="color:#21ab41"></i>
                             <input type="text" placeholder="Search Customers" ng-model="searchText"  style="color:white">
                         </label>
                     </div>
@@ -98,7 +99,7 @@
 
         <div>
             <div class="col" align="center" style="padding:0px">
-                <input class="button open-button" ng-readonly="true" on-tap="openPickerView()" style="border-radius:0px;color:white;width:100%;line-height:40px;padding-bottom:0px;margin-bottom:0px;background-color:#2ab041"
+                <input class="button open-button" ng-readonly="true" on-tap="openPickerView()" style="border-radius:0px;color:white;width:100%;line-height:40px;padding-bottom:0px;margin-bottom:0px;background-color:#21ab41"
                     ng-model="search.text">
 
             </div>
@@ -108,12 +109,13 @@
 
                 <div class="col col-75" style="padding:0px">
 
-                    <input ng-change="LoadCustomer1()" maxlength="8" ng-model="searchtel.currenttelephone" style="margin-top:10px;text-align:center;padding:25px;background-color:rgba(0, 0, 0, 0.2);padding-left:20px;color:#2ab041;border-radius:5px"
+                    <input ng-change="LoadCustomer1()" maxlength="8" ng-model="searchtel.currenttelephone" style="margin-top:10px;text-align:center;padding:25px;background-color:rgba(0, 0, 0, 0.2);padding-left:20px;color:#21ab41;border-radius:5px"
                         placeholder="Phone number +(961)" type="tel" required>
 
                 </div>
                 <div class="col col-25" style="padding:0px">
-                    <button class="button button-full" style="border-radius:5px;font-size:10px;background-color:#21ab41;color:white;padding-top:5px;padding-bottom:4px" ng-click="popover.show($event)">
+                    <button class="button button-full" style="border-radius:5px;font-size:10px;background-color:#21ab41;color:white;padding-top:5px;padding-bottom:4px"
+                        ng-click="popover.show($event)">
                         <i class="icon ion-search placeholder-icon" style="color:#fff"></i>
                     </button>
                 </div>
@@ -146,28 +148,6 @@
         <h5 style="color:white;margin-top:0px;border-top:1px solid #5f7485">
 
         </h5>
-
-        <label class="item item-input" style="margin:0 10px;color:white;border:none">
-            <i style="padding-left:10px;font-size:30px" class="icon ion-pricetag"></i>
-            <span class="input-label" style="padding-left:10px;width:30%;color:white">Price L.L. </span>
-            <input type="number" ng-model="extrainfo.bookingprice" style="text-align:right;color:white">
-        </label>
-        </br>
-        <label class="item item-input item-select" style="margin:0 10px;color:white;border:none">
-            <i style="padding-left:10px;font-size:30px" class="ion-android-time"></i>
-            <div class="input-label" style="padding-left:10px;color:white;border:none">
-                Duration(mins)
-            </div>
-            <select style="color:white;border:none; " ng-model="extrainfo.duration">
-                <option>30</option>
-                <option>60</option>
-                <option selected>90</option>
-                <option>120</option>
-                <option>150</option>
-                <option>180</option>
-            </select>
-        </label>
-        </br>
         <label class="item item-input item-select" style="margin:0 10px;color:white;border:none">
             <i style="padding-left:10px;font-size:30px" class="ion-ios-location-outline"></i>
             <div class="input-label" style="padding-left:10px;width:50%;color:white;border:none;">
@@ -183,7 +163,13 @@
             </select>
         </label>
         </br>
-        <label class="item item-input item-select" style="margin:0 10px;color:white;border:none">
+        <label class="item item-input" style="margin:0 10px;color:white;border:none">
+            <i style="padding-left:10px;font-size:30px" class="icon ion-pricetag"></i>
+            <span class="input-label" style="padding-left:10px;width:30%;color:white">Price L.L. </span>
+            <input type="number" ng-model="extrainfo.bookingprice" style="text-align:right;color:white">
+        </label>
+        </br>
+       <label class="item item-input item-select" style="margin:0 10px;color:white;border:none">
             <i style="padding-left:10px;font-size:30px" class="ion-android-refresh"></i>
             <div class="input-label" style="padding-left:10px;color:white;border:none">
                 Recurring
@@ -199,13 +185,28 @@
             </select>
         </label>
         <br>
+        <label class="item item-input item-select" style="margin:0 10px;color:white;border:none">
+            <i style="padding-left:10px;font-size:30px" class="ion-android-time"></i>
+            <div class="input-label" style="padding-left:10px;color:white;border:none">
+                Duration(mins)
+            </div>
+            <select style="color:white;border:none; " ng-model="extrainfo.duration">
+                <option>30</option>
+                <option>60</option>
+                <option selected>90</option>
+                <option>120</option>
+                <option>150</option>
+                <option>180</option>
+            </select>
+        </label>
+        </br>
         <br>
         <br>
 
 
     </ion-content>
     <br />
-    <div class="bar bar-footer" style="background-color:#2ab041;background-position:bottom">
+    <div class="bar bar-footer" style="background-color:#21ab41;background-position:bottom">
         <button class="button button-small button-balanced" style="border-radius:5px;font-size:15px;width:100%" ng-click="addbooking()">
             SAVE
         </button>

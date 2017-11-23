@@ -40,8 +40,8 @@
 		</ion-nav-back-button>
 	</ion-nav-bar>
 
-	<div class="bar bar-subheader" align="left" style="border:transparent;height:45px;margin-bottom:5px;background-color:#2ab041"
-	 ng-show="!notloaded">
+	<div class="bar bar-subheader" align="left" style="border:transparent;height:45px;margin-bottom:5px;background-color:#21ab41"
+	ng-show="!notloaded">
 		<h3 class="title" align="left" style="color:white;font-size:15px">{{challenge.date |date:'EEEE - MMM d @ HH:mm a'}} - {{challenge.numplayers}} Vs {{challenge.numplayers}}</h3>
 	</div>
 
@@ -157,7 +157,7 @@
 		<div class="card" align="center" style="font-weight:bold;font-size:15px;color:white;padding:0px;margin:5px;background-color:rgb(62, 83, 100)"> Choose The Winner
 			<div class="row" style="background-color:rgb(62, 83, 100);margin-top:5px;padding:0px">
 
-				<div class="col button button-full" ng-click="SelectWinner(1)" style="font-weight:400;font-size:14px;margin:5px; border-radius:5px;background-color:#2ab041">
+				<div class="col button button-full" ng-click="SelectWinner(1)" style="font-weight:400;font-size:14px;margin:5px; border-radius:5px;background-color:#21ab41">
 					{{challenge.team1name}} WIN
 				</div>
 
@@ -165,7 +165,7 @@
 					DRAW
 				</div>
 
-				<div class="col button button-full" ng-click="SelectWinner(2)" style="font-weight:400;font-size:14px;margin:5px; border-radius:5px;background-color:#2ab041">
+				<div class="col button button-full" ng-click="SelectWinner(2)" style="font-weight:400;font-size:14px;margin:5px; border-radius:5px;background-color:#21ab41">
 					{{challenge.team2name}} WIN
 				</div>
 

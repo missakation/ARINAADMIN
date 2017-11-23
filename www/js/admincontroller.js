@@ -1774,17 +1774,16 @@ angular.module('football.controllers')
                         console.log(leagues);
 
                     }, function (error) {
-                        console.log(error.message);
+                        console.log(error);
                     })
 
-                    console.log(error.message);
 
 
                 })
             }
         }
         catch (error) {
-            console.log(error.message);
+            console.log(error);
         }
 
         $scope.deletepromotion = function (item) {
@@ -2227,71 +2226,94 @@ angular.module('football.controllers')
         $scope.addpromotion = function () {
             if (!$scope.nointernet) {
                 try {
-                    if ($scope.promotion.name.trim() == "" || $scope.promotion.stadium.trim() == "" || $scope.promotion.ministadium.trim() == "") {
+                    if ($scope.promotion.name.trim() == ""
+                        || $scope.promotion.stadium.trim() == ""
+                        || $scope.promotion.ministadium.trim() == ""
+                    ) {
                         var alertPopup = $ionicPopup.alert({
                             title: 'Error',
                             template: 'Please fill all the information'
                         });
                     }
-                    else {
-                        var daynumber = 0;
-                        switch ($scope.promotion.date) {
-
-                            case "Monday":
-                                daynumber = 1;
-                                break;
-
-                            case "Tuesday":
-                                daynumber = 2;
-                                break;
-
-                            case "Wednesday":
-                                daynumber = 3;
-                                break;
-
-                            case "Thursday":
-                                daynumber = 4;
-                                break;
-
-                            case "Friday":
-                                daynumber = 5;
-                                break;
-
-                            case "Saturday":
-                                daynumber = 6;
-                                break;
-                            case "Saturday":
-                                daynumber = 7;
-                                break;
-
-                            case "Sunday":
-                                daynumber = 0;
-                                break;
+                    else
+                        if ($scope.promotion.starttime >= $scope.promotion.endtime) {
+                            var alertPopup = $ionicPopup.alert({
+                                title: 'Error',
+                                template: 'Start Time Cannot Be Greater Than End Time'
+                            });
                         }
+                        else {
+                            var daynumber = 0;
+                            switch ($scope.promotion.date) {
 
-                        var d = new Date();
-                        if (!$scope.promotion.weekly) {
+                                case "Monday":
+                                    daynumber = 1;
+                                    break;
 
-                            $scope.promotion.starttime = d;
-                            $scope.promotion.endtime = d;
+                                case "Tuesday":
+                                    daynumber = 2;
+                                    break;
 
-                            $scope.promotion.starttime.setDate(d.getDate() + (daynumber + 7 - d.getDay()) % 7);
-                            $scope.promotion.endtime.setDate(d.getDate() + (daynumber + 7 - d.getDay()) % 7);
+                                case "Wednesday":
+                                    daynumber = 3;
+                                    break;
 
+                                case "Thursday":
+                                    daynumber = 4;
+                                    break;
+
+                                case "Friday":
+                                    daynumber = 5;
+                                    break;
+
+                                case "Saturday":
+                                    daynumber = 6;
+                                    break;
+
+                                case "Sunday":
+                                    daynumber = 0;
+                                    break;
+                                case "All":
+                                    daynumber = 7;
+                                    break;
+                            }
+
+                            var d = new Date();
+                            if (!$scope.promotion.weekly) {
+
+                                $scope.promotion.starttime.setDate(d.getDate());
+                                $scope.promotion.starttime.setFullYear(d.getFullYear());
+                                $scope.promotion.starttime.setMonth(d.getMonth());
+
+                                $scope.promotion.endtime.setDate(d.getDate());
+                                $scope.promotion.endtime.setFullYear(d.getFullYear());
+                                $scope.promotion.endtime.setMonth(d.getMonth());
+
+                                if (daynumber == 7) {
+
+                                    $scope.promotion.starttime.setDate(d.getDate() + (daynumber + 7 - d.getDay()) % 7);
+                                    $scope.promotion.endtime.setDate(d.getDate() + (daynumber + 7 - d.getDay()) % 7);
+                                }
+                                else {
+
+                                    $scope.promotion.starttime.setDate(d.getDate() + (daynumber + 7 - d.getDay()) % 7);
+                                    $scope.promotion.endtime.setDate(d.getDate() + (daynumber + 7 - d.getDay()) % 7);
+
+                                }
+                            }
+
+
+                            AdminStore.AddPromotion($scope.promotion)
+                                .then(function (value) {
+                                    var alertPopup = $ionicPopup.alert({
+                                        title: 'Success',
+                                        template: 'Promotion Added'
+                                    });
+                                }, function (error) {
+                                    console.log(error.message);
+
+                                })
                         }
-
-
-                        AdminStore.AddPromotion($scope.promotion)
-                            .then(function (value) {
-                                var alertPopup = $ionicPopup.alert({
-                                    title: 'Success',
-                                    template: 'Promotion Added'
-                                });
-                            }, function (error) {
-                                console.log(error.message);
-
-                            })
-                    }
                 }
                 catch (error) {
                     console.log(error.message);

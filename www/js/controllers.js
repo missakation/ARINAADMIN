@@ -67,7 +67,7 @@ angular.module('football.controllers', [])
                     $state.go('signin');
                 }
 
-            }, 2000);
+            }, 1000);
 
         }
         catch (error) {

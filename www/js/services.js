@@ -1080,12 +1080,12 @@ angular.module('football.services', [])
                         case "Saturday":
                             daynumber = 6;
                             break;
-                        case "Saturday":
-                            daynumber = 7;
-                            break;
 
                         case "Sunday":
                             daynumber = 0;
+                            break;
+                        case "All":
+                            daynumber = 7;
                             break;
                     }
 
@@ -1123,34 +1123,41 @@ angular.module('football.services', [])
 
                 var id = user.uid;
                 //alert(id);
-                firebase.database().ref('/promotions/' + key).on('value', function (snapshot) {
+                firebase.database().ref('/promotions/' + key).on('value', function (snapshot1) {
 
                     MyPromotions = [];
                     // alert("test");
 
-                    if (snapshot.exists()) {
-                        snapshot.forEach(function (promotions) {
+                    if (snapshot1.exists()) {
 
-                            var Data = {
-                                key: promotions.key,
-                                name: promotions.child("name").val(),
-                                stadium: key,
-                                ministadium: snapshot.key,
-                                date: promotions.child("date").val(),
-                                starttime: promotions.child("starttime").val(),
-                                endtime: promotions.child("endtime").val(),
-                                discount: promotions.child("discount").val(),
-                                weekly: promotions.child("weekly").val(),
-                                newprice: promotions.child("newprice").val(),
+                        snapshot1.forEach(function (snapshot) {
 
-                            };
-                            MyPromotions.push(Data);
+                            snapshot.forEach(function (promotions) {
+
+
+                                var Data = {
+                                    key: promotions.key,
+                                    name: promotions.child("name").val(),
+                                    stadium: key,
+                                    ministadium: snapshot.key,
+                                    date: promotions.child("date").val(),
+                                    starttime: promotions.child("starttime").val(),
+                                    endtime: promotions.child("endtime").val(),
+                                    discount: promotions.child("discount").val(),
+                                    weekly: promotions.child("weekly").val(),
+                                    newprice: promotions.child("newprice").val(),
+
+                                };
+                                MyPromotions.push(Data);
+
+                            })
 
                         })
                     }
 
                     callback(MyPromotions);
                 }, function (error) {
+                    console.log(error);
                 });
 
                 return Availables;

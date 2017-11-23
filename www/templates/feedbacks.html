@@ -42,22 +42,22 @@
 				<div class="list" style="width:100%; padding-left:10px;padding-right:10px;padding-bottom:15px">
 					<label class="item item-input" style="padding:2px 20px 20px 10px;background-color:transparent; color:#ffffff; border-radius:5px; border-color:#97a7b4">
 						<textarea rows="8" cols="100" maxlength="220" type="text" placeholder="Found A Bug ? You Have A Suggestion ? Please Let Us Know <3 "
-						 style="font-style:italic;color:#2ab041;background-color:transparent;padding-left:2px" ng-model="feedbacktext.text">
-                	 </textarea>
+						style="font-style:italic;color:#21ab41;background-color:transparent;padding-left:2px" ng-model="feedbacktext.text">
+					</textarea>
 					</label>
 				</div>
 			</div>
 		</div>
 
 	</ion-content>
-	<div class="bar bar-footer" style="background-color:#2ab041">
+	<div class="bar bar-footer" style="background-color:#21ab41">
 		<a ng-disabled="$scope.loading" ng-click="savefeedback()" class="button button-balanced button-large" style="width:100%">
 			<h5 class="whitetext">
 				Submit
 			</h5>
 		</a>
 	</div>
-	<ion-footer-bar align-title="left" class="bar-assertive" style="background-color: rgb(30,30,30);border: none" ng-show="nointernet">
+	<ion-footer-bar align-title="left" class="bar-dark" style="background-color: rgb(30,30,30);border: none" ng-show="nointernet">
 		<div align="left" style="padding-left: 5px">
 			<h6 class="whitetext">
 				Oops. You have no internet connection
