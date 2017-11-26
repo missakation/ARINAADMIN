@@ -2134,7 +2134,7 @@ angular.module('football.controllers')
     })
 
 
-    .controller('AdminAddPromotions', function ($scope, $ionicPopover, AdminStore, $ionicPopup, $ionicLoading) {
+    .controller('AdminAddPromotions', function ($scope, $ionicPopover,$ionicHistory, AdminStore, $ionicPopup, $ionicLoading) {
 
         var connectedRef = firebase.database().ref(".info/connected");
         connectedRef.on("value", function (snap) {
@@ -2309,6 +2309,9 @@ angular.module('football.controllers')
                                         title: 'Success',
                                         template: 'Promotion Added'
                                     });
+                                    alertPopup.then(function (res) {
+                                        $ionicHistory.goBack();
+                                    })
                                 }, function (error) {
                                     console.log(error.message);
 

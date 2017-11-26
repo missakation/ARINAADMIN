@@ -97,7 +97,7 @@ angular.module('football.services', [])
                             "city": snapshot.child("city").val(),
                             "telephone": snapshot.child("telephone").val(),
                             "typefloor": mainstadiumSnapshot.child("typefloor").val(),
-                            "numofplayers": mainstadiumSnapshot.child("numofplayers").val()
+                            "numofplayers": mainstadiumSnapshot.child("numplayers").val()
                         };
                         MyMiniStadiums.push(Data);
 
