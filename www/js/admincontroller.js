@@ -1093,13 +1093,24 @@ angular.module('football.controllers')
 
         };
         $scope.closePopover = function (item) {
+            console.log(item);
             try {
                 $scope.searchtel.currenttelephone = item.telephone;
                 $scope.popover.hide();
 
 
+                var cancelled = 0;
+                var cancelledweather = 0;
+                var didnotshowup = 0;
+
                 for (i = 0; i < $scope.customers.length; i++) {
+                    console.log($scope.customers[i]);
                     if (item.telephone == $scope.customers[i].telephone) {
+
+                        cancelled += $scope.customers[i].cancelled;
+                        cancelledweather += $scope.customers[i].cancelledweather;
+                        didnotshowup += $scope.customers[i].didnotshowup;
+
                         $scope.currentUser = $scope.customers[i];
                         $scope.selectedcustomer = $scope.customers[i];
 
@@ -1112,6 +1123,11 @@ angular.module('football.controllers')
 
                     }
                 }
+                
+                $scope.selectedcustomer.cancelled = cancelled;
+                $scope.selectedcustomer.cancelledweather = cancelledweather;
+                $scope.selectedcustomer.didnotshowup = didnotshowup;
+
                 $scope.newcustomer = {
                     name: "",
                     lastname: "",
@@ -2134,7 +2150,7 @@ angular.module('football.controllers')
     })
 
 
-    .controller('AdminAddPromotions', function ($scope, $ionicPopover,$ionicHistory, AdminStore, $ionicPopup, $ionicLoading) {
+    .controller('AdminAddPromotions', function ($scope, $ionicPopover, $ionicHistory, AdminStore, $ionicPopup, $ionicLoading) {
 
         var connectedRef = firebase.database().ref(".info/connected");
         connectedRef.on("value", function (snap) {
