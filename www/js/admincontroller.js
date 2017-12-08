@@ -1104,7 +1104,7 @@ angular.module('football.controllers')
                 var didnotshowup = 0;
 
                 for (i = 0; i < $scope.customers.length; i++) {
-                    console.log($scope.customers[i]);
+
                     if (item.telephone == $scope.customers[i].telephone) {
 
                         cancelled += $scope.customers[i].cancelled;
@@ -1114,16 +1114,15 @@ angular.module('football.controllers')
                         $scope.currentUser = $scope.customers[i];
                         $scope.selectedcustomer = $scope.customers[i];
 
-                        $scope.stadiumdata.customer = $scope.customers[i].key;
+                        $scope.stadiumdata.customer = item.key;
 
-                        $scope.stadiumdata.telephone = $scope.customers[i].telephone;
-                        $scope.stadiumdata.firstname = $scope.customers[i].firstname;
+                        $scope.stadiumdata.telephone = item.telephone;
+                        $scope.stadiumdata.firstname = item.firstname;
                         $scope.notselected = false;
-                        break;
 
                     }
                 }
-                
+
                 $scope.selectedcustomer.cancelled = cancelled;
                 $scope.selectedcustomer.cancelledweather = cancelledweather;
                 $scope.selectedcustomer.didnotshowup = didnotshowup;
@@ -1236,6 +1235,7 @@ angular.module('football.controllers')
 
 
         $scope.closePopover1 = function (item) {
+            alert("test");
             $scope.searchtel.currenttelephone = item.telephone;
             $ionicLoading.show({
                 content: 'Loading',
@@ -1288,8 +1288,20 @@ angular.module('football.controllers')
 
         $scope.LoadCustomer1 = function () {
             if ($scope.searchtel.currenttelephone.length == 8) {
+
+                console.log($scope.customers);
+
+                var cancelled = 0;
+                var cancelledweather = 0;
+                var didnotshowup = 0;
+                var found = 0;
+
                 for (i = 0; i < $scope.customers.length; i++) {
                     if ($scope.searchtel.currenttelephone == $scope.customers[i].telephone) {
+
+                        cancelled += $scope.customers[i].cancelled;
+                        cancelledweather += $scope.customers[i].cancelledweather;
+                        didnotshowup += $scope.customers[i].didnotshowup;
 
                         $scope.selectedcustomer = $scope.customers[i];
 
@@ -1298,17 +1310,28 @@ angular.module('football.controllers')
                         $scope.stadiumdata.firstname = $scope.customers[i].firstname;
 
                         $scope.notselected = false;
-                        break;
+                        found = true;
                     }
-                    else {
-                        if (i == $scope.customers.length - 1) {
-                            $scope.notselected = true;
-                        }
-                    }
-
-
-
                 }
+
+                if (!found) {
+                    $scope.notselected = true;
+                }
+                else {
+
+                    $scope.mycustomers.forEach(element => {
+                        if ($scope.selectedcustomer.telephone == element.telephone) {
+                            $scope.stadiumdata.customer = element.key;
+                            $scope.stadiumdata.telephone = element.telephone;
+                            $scope.stadiumdata.firstname = element.firstname;
+                        }
+                    });
+
+                    $scope.selectedcustomer.cancelled = cancelled;
+                    $scope.selectedcustomer.cancelledweather = cancelledweather;
+                    $scope.selectedcustomer.didnotshowup = didnotshowup;
+                }
+
                 $scope.newcustomer = {
                     name: "",
                     lastname: "",
