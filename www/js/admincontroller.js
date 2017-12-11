@@ -169,6 +169,23 @@ angular.module('football.controllers')
     })
 
     .controller('AdminScheduleController', function ($scope, $ionicPopover, AdminStore, $ionicPopup, $ionicLoading, $timeout, $state) {
+
+        $scope.$on('$ionicView.enter', function () {
+            // Code you want executed every time view is opened
+            if (cordova.platformId === 'ios' && window.cordova && window.cordova.plugins.Keyboard) {
+                cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+                cordova.plugins.Keyboard.disableScroll(true);
+
+            }
+        });
+        $scope.$on('$ionicView.leave', function () {
+            // Code you want executed every time view is opened
+            if (cordova.platformId === 'ios' && window.cordova && window.cordova.plugins.Keyboard) {
+                cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);
+                cordova.plugins.Keyboard.disableScroll(true);
+
+            }
+        });
         /*var updates = {};
    
 
@@ -2181,7 +2198,17 @@ angular.module('football.controllers')
 
     .controller('AdminAddPromotions', function ($scope, $ionicPopover, $ionicHistory, AdminStore, $ionicPopup, $ionicLoading) {
 
-
+        var connectedRef = firebase.database().ref(".info/connected");
+        connectedRef.on("value", function (snap) {
+            if (snap.val() === true) {
+                $scope.nointernet = false;
+            }
+            else {
+                $ionicLoading.hide();
+                $scope.nointernet = true;
+            }
+            $scope.$apply();
+        });
 
         $scope.year = '2016';
         $scope.month = '2016';
