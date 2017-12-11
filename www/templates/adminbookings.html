@@ -27,7 +27,7 @@
 
 <ion-view>
 
-    <ion-nav-title side="center" style="margin-right:-31px">
+    <ion-nav-title side="center">
         SCHEDULES
     </ion-nav-title>
 
@@ -69,11 +69,11 @@
 
             <ion-content>
 
-                <button class="button button-energized button-full" style="border-radius:5px" ng-click="DeleteBooking(0)">
+                <button class="button button-assertive button-full" style="border-radius:5px" ng-click="DeleteBooking(0)">
                         Cancel
                 </button>
 
-                <button class="button button-energized button-full" style="border-radius:5px" ng-show="SelectedBooking.isrecurring" ng-click="DeleteBooking(3)">
+                <button class="button button-assertive button-full" style="border-radius:5px" ng-show="SelectedBooking.isrecurring" ng-click="DeleteBooking(3)">
                         Cancel All
                 </button>
 
@@ -190,7 +190,7 @@
             </div>
 
         </div>
-        <div ng-show="!Loading && scheduleswithday.length!=0"  style="background-color: rgb(45,62,75)">
+        <div ng-show="!Loading && scheduleswithday.length!=0"  style="margin:0 10px;background-color: rgb(45,62,75)">
             <div style="color:white;text-transform:uppercase; height:20px;" align="center">
                 <h4 style="color:white;padding:8px">SUMMARY</h4>
             </div>

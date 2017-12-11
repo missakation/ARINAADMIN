@@ -169,8 +169,22 @@ angular.module('football.controllers')
     })
 
     .controller('AdminScheduleController', function ($scope, $ionicPopover, AdminStore, $ionicPopup, $ionicLoading, $timeout, $state) {
+        $scope.$on('$ionicView.enter', function () {
+            // Code you want executed every time view is opened
+            if (cordova.platformId === 'ios' && window.cordova && window.cordova.plugins.Keyboard) {
+                cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+                cordova.plugins.Keyboard.disableScroll(true);
 
-        /*var updates = {};
+            }
+        });
+        $scope.$on('$ionicView.leave', function () {
+            // Code you want executed every time view is opened
+            if (cordova.platformId === 'ios' && window.cordova && window.cordova.plugins.Keyboard) {
+                cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);
+                cordova.plugins.Keyboard.disableScroll(true);
+
+            }
+        });        /*var updates = {};
         
 
         var stadium =  {
@@ -946,13 +960,16 @@ angular.module('football.controllers')
                         var selectedDate = output[0];
                         var selectedTime = output[1];
                         if (!Date.parse(selectedDate) || Date.parse(selectedDate) === undefined || Date.parse(selectedDate) === null) {
-                            selectedDate = getDateFromDayName(selectedDate);
-                            console.log("Output is: " + output[0]);
-                            console.log(selectedDate);
-                        }
-                        else
-                            console.log("why?");
-                        $scope.search.date = new Date(selectedDate + " " + selectedTime + ", " + (new Date()).getFullYear());
+                            if (!Date.parse(selectedDate) || Date.parse(selectedDate) === undefined || Date.parse(selectedDate) === null) {
+                                
+                                selectedDate = getDateFromDayName(selectedDate);
+                                console.log("inif: " +selectedDate);
+                            }
+                            else
+                                console.log("why?");
+                            var constructedDate =   selectedDate +", "+(new Date()).getFullYear() + selectedTime ;
+                            console.log(constructedDate);
+                            $scope.search.date = new Date(constructedDate);
                         //$scope.search.players = (output[2].split(" "))[1];
                         console.log($scope.search.date);
                         $scope.search.text = output.join(" - ");
@@ -1115,9 +1132,10 @@ angular.module('football.controllers')
                         $scope.selectedcustomer = $scope.customers[i];
 
                         $scope.stadiumdata.customer = item.key;
-
                         $scope.stadiumdata.telephone = item.telephone;
                         $scope.stadiumdata.firstname = item.firstname;
+                        $scope.selectedcustomer.firstname = item.firstname;
+
                         $scope.notselected = false;
 
                     }
@@ -1321,11 +1339,14 @@ angular.module('football.controllers')
 
                     $scope.mycustomers.forEach(element => {
                         if ($scope.selectedcustomer.telephone == element.telephone) {
+
+                            $scope.selectedcustomer.firstname = element.firstname;
                             $scope.stadiumdata.customer = element.key;
                             $scope.stadiumdata.telephone = element.telephone;
                             $scope.stadiumdata.firstname = element.firstname;
                         }
                     });
+
 
                     $scope.selectedcustomer.cancelled = cancelled;
                     $scope.selectedcustomer.cancelledweather = cancelledweather;
@@ -1376,7 +1397,7 @@ angular.module('football.controllers')
 
                         var confirmPopup = $ionicPopup.confirm({
                             title: 'Reserve Stadium',
-                            template: 'Are you sure you want to book the stadium at ' + '<br>' + $scope.search.date.toLocaleString() + '</br>'
+                            template: 'Are you sure you want to book '+$scope.stadiumdata.subkey + ' at ' + '<br>' + $scope.search.date.toDateString() + '?</br>'
                         });
 
                         confirmPopup.then(function (res) {
@@ -2632,13 +2653,13 @@ angular.module('football.controllers')
         }
     })
 var weekday = new Array(7);
-weekday[0] = "Su,";
-weekday[1] = "Mo,";
-weekday[2] = "Tu,";
-weekday[3] = "We,";
-weekday[4] = "Th,";
-weekday[5] = "Fr,";
-weekday[6] = "Sa,";
+weekday[0] = "Su, ";
+weekday[1] = "Mo, ";
+weekday[2] = "Tu, ";
+weekday[3] = "We, ";
+weekday[4] = "Th, ";
+weekday[5] = "Fr, ";
+weekday[6] = "Sa, ";
 
 var weekdayFull = new Array(7);
 weekdayFull[0] = "Sunday";
