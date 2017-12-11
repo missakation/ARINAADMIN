@@ -67,7 +67,7 @@ angular.module('football.controllers', [])
                     $state.go('signin');
                 }
 
-            }, 1000);
+            }, 3000);
 
         }
         catch (error) {
@@ -81,149 +81,8 @@ angular.module('football.controllers', [])
 
     .controller('AppCtrl', function ($scope, $ionicModal, $timeout) {
 
-        // With the new view caching in Ionic, Controllers are only called
-        // when they are recreated or on app start, instead of every page change.
-        // To listen for when this page is active (for example, to refresh data),
-        // listen for the $ionicView.enter event:
-        //$scope.$on('$ionicView.enter', function(e) {
-        //});
-
-        // Form data for the login modal
-        $scope.loginData = {};
-
-        // Create the login modal that we will use later
-        $ionicModal.fromTemplateUrl('templates/login.html', {
-            scope: $scope
-        }).then(function (modal) {
-            $scope.modal = modal;
-        });
-
-        // Triggered in the login modal to close it
-        $scope.closeLogin = function () {
-            firebase.auth().signOut().then(function () {
-                // Sign-out successful.
-                alert("Logged Out");
-            }, function (error) {
-                // An error happened.
-                alert(error.message);
-            });
-            // $scope.modal.hide();
-        };
-
-        // Open the login modal
-        $scope.login = function () {
-            $scope.modal.show();
-        };
-
-        // Perform the login action when the user submits the login form
-        $scope.doLogin = function () {
 
 
-
-            var provider = new firebase.auth.GoogleAuthProvider();
-            firebase.auth().signInWithPopup(provider).then(function (result) {
-                // This gives you a Google Access Token. You can use it to access the Google API.
-                var token = result.credential.accessToken;
-                // The signed-in user info.
-                var user = result.user;
-
-                alert(user.uid);
-
-                // ...
-            }).catch(function (error) {
-                // Handle Errors here.
-                var errorCode = error.code;
-                alert(errorCode);
-
-                var errorMessage = error.message;
-                // The email of the user's account used.
-                alert(errorMessage);
-
-                var email = error.email;
-                // The firebase.auth.AuthCredential type that was used.
-                alert(email);
-
-
-                var credential = error.credential;
-                // ...
-
-
-                alert(credential);
-            });
-
-            firebase.auth().getRedirectResult().then(function (result) {
-                if (result.credential) {
-                    // This gives you a Google Access Token. You can use it to access the Google API.
-                    var token = result.credential.accessToken;
-                    // ...
-                }
-                // The signed-in user info.
-                var user = result.user;
-            }).catch(function (error) {
-                var errorCode = error.code;
-                alert(errorCode);
-
-                var errorMessage = error.message;
-                // The email of the user's account used.
-                alert(errorMessage);
-
-                var email = error.email;
-                // The firebase.auth.AuthCredential type that was used.
-                alert(email);
-
-
-                var credential = error.credential;
-                // ...
-
-
-                alert(credential);
-            });
-
-
-
-
-
-
-
-            //var provider = new firebase.auth.FacebookAuthProvider();
-
-
-            //firebase.auth().signInWithRedirect(provider).then(function (result) {
-            //    // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-            //    var token = result.credential.accessToken;
-            //    // The signed-in user info.
-            //    var user = result.user;
-            //    // ...
-            //}).catch(function (error) {
-            //    // Handle Errors here.
-            //    var errorCode = error.code;
-            //    alert(errorCode);
-            //    var errorMessage = error.message;
-            //    alert(errorMessage);
-
-            //    // The email of the user's account used.
-            //    var email = error.email;
-            //    alert(email);
-            //    // The firebase.auth.AuthCredential type that was used.
-            //    var credential = error.credential;
-            //    // ...
-            //});
-
-
-            //firebase.initializeApp(config);
-            //firebase.auth().signInAnonymously().catch(function (error) {
-            //    // Handle Errors here.
-            //    var errorCode = error.code;
-            //    var errorMessage = error.message;
-            //    // ...
-            //});
-
-
-            console.log('Doing login', $scope.loginData);
-
-            // Simulate a login delay. Remove this and replace with your login
-            // code if using a login system
-        };
     })
 
     .controller('LoginController', function ($scope, $ionicModal, $ionicHistory, $ionicPopup, $timeout, $state, LoginStore) {
@@ -236,12 +95,7 @@ angular.module('football.controllers', [])
         }
         $scope.loginData = {};
 
-        // Create the login modal that we will use later
-        $ionicModal.fromTemplateUrl('templates/login.html', {
-            scope: $scope
-        }).then(function (modal) {
-            $scope.modal = modal;
-        });
+
 
         $scope.email = '';
         $scope.displayname = '';
@@ -251,14 +105,9 @@ angular.module('football.controllers', [])
         $scope.registerusername = '';
         $scope.registerpassword = '';
 
-        //$scope.registerusername = '';
-        //$scope.registerpassword = '';
 
         $scope.Register = function (username) {
-            //$scope.modal.show();
-            //alert("aa");
-            //alert($scope.username);
-            //alert($scope.password);
+
 
             firebase.auth().createUserWithEmailAndPassword($scope.email, $scope.password).then(function (user) {
                 var newuser = firebase.auth().currentUser;

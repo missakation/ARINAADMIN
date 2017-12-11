@@ -169,83 +169,68 @@ angular.module('football.controllers')
     })
 
     .controller('AdminScheduleController', function ($scope, $ionicPopover, AdminStore, $ionicPopup, $ionicLoading, $timeout, $state) {
-        $scope.$on('$ionicView.enter', function () {
-            // Code you want executed every time view is opened
-            if (cordova.platformId === 'ios' && window.cordova && window.cordova.plugins.Keyboard) {
-                cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-                cordova.plugins.Keyboard.disableScroll(true);
+        /*var updates = {};
+   
 
-            }
-        });
-        $scope.$on('$ionicView.leave', function () {
-            // Code you want executed every time view is opened
-            if (cordova.platformId === 'ios' && window.cordova && window.cordova.plugins.Keyboard) {
-                cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);
-                cordova.plugins.Keyboard.disableScroll(true);
-
-            }
-        });        /*var updates = {};
-        
-
-        var stadium =  {
-            "ClosingTime" : "23:59",
-            "OpeningTime" : "17:00",
-            "RestrictedTime1" : "20:00",
-            "RestrictedTime2" : "21:30",
-            "admin" : "",
-            "cancelationpolicy" : "sometext",
-            "city" : "Jal el Dib",
-            "cordovaaccuracy" : 0,
-            "cordovaaltitude" : 0,
-            "cordovaaltitudeAccuracy" : 0,
-            "cordovalatitude" : 33.910675,
-            "cordovalongitude" : 35.584254,
-            "description" : "long description",
-            "email" : "someemail",
-            "indoor" : 1,
-            "locationarea" : "beirut",
-            "locationcity" : "beirut",
-            "locationtelephone" : "01555666",
-            "ministadiums" : {
-              "Small" : {
-                "cancellation" : 24,
-                "description" : "Dofa",
-                "length" : "",
-                "numplayers" : 5,
-                "numplayers1" : 5,
-                "photo" : "http://www.sundul.com/wp-content/uploads/2013/02/Bikin-Stadion-Baru-Inter-Milan-Siap-Hengkang-Dari-San-Siro.jpg",
-                "price" : 90000,
-                "rating" : "0",
-                "type" : "Indoor",
-                "typefloor" : "Grass",
-                "width" : 80
-              },  
-              "Big" : {
-                "cancellation" : 24,
-                "description" : "aaa",
-                "length" : "",
-                "numplayers" : 5,
-                "numplayers1" : 6,
-                "photo" : "https://sportsimagepro.files.wordpress.com/2011/02/hull-fc-v-hull-kingston-rovers-29942.jpg",
-                "price" : 100000,
-                "rating" : "0",
-                "type" : "Indoor",
-                "typefloor" : "Clay",
-                "width" : 54
-              }
-            },
-            "name" : "Vclub2",
-            "numberofstadium" : 10,
-            "outdoor" : 1,
-            "photo" : "http://www.sundul.com/wp-content/uploads/2013/02/Bikin-Stadion-Baru-Inter-Milan-Siap-Hengkang-Dari-San-Siro.jpg",
-            "rating" : 8,
-            "telephone" : "03333333",
-            "water" : 1
-          }
-          updates['/stadiums/Footers'] = stadium;
-          updates['/stadiumsinfo/Footers'] = stadium;
-  
-          return firebase.database().ref().update(updates);*/
+   var stadium =  {
+       "ClosingTime" : "23:59",
+       "OpeningTime" : "17:00",
+       "RestrictedTime1" : "20:00",
+       "RestrictedTime2" : "21:30",
+       "admin" : "",
+       "cancelationpolicy" : "sometext",
+       "city" : "Jal el Dib",
+       "cordovaaccuracy" : 0,
+       "cordovaaltitude" : 0,
+       "cordovaaltitudeAccuracy" : 0,
+       "cordovalatitude" : 33.910675,
+       "cordovalongitude" : 35.584254,
+       "description" : "long description",
+       "email" : "someemail",
+       "indoor" : 1,
+       "locationarea" : "beirut",
+       "locationcity" : "beirut",
+       "locationtelephone" : "01555666",
+       "ministadiums" : {
+         "Small" : {
+           "cancellation" : 24,
+           "description" : "Dofa",
+           "length" : "",
+           "numplayers" : 5,
+           "numplayers1" : 5,
+           "photo" : "http://www.sundul.com/wp-content/uploads/2013/02/Bikin-Stadion-Baru-Inter-Milan-Siap-Hengkang-Dari-San-Siro.jpg",
+           "price" : 90000,
+           "rating" : "0",
+           "type" : "Indoor",
+           "typefloor" : "Grass",
+           "width" : 80
+         },  
+         "Big" : {
+           "cancellation" : 24,
+           "description" : "aaa",
+           "length" : "",
+           "numplayers" : 5,
+           "numplayers1" : 6,
+           "photo" : "https://sportsimagepro.files.wordpress.com/2011/02/hull-fc-v-hull-kingston-rovers-29942.jpg",
+           "price" : 100000,
+           "rating" : "0",
+           "type" : "Indoor",
+           "typefloor" : "Clay",
+           "width" : 54
+         }
+       },
+       "name" : "Vclub2",
+       "numberofstadium" : 10,
+       "outdoor" : 1,
+       "photo" : "http://www.sundul.com/wp-content/uploads/2013/02/Bikin-Stadion-Baru-Inter-Milan-Siap-Hengkang-Dari-San-Siro.jpg",
+       "rating" : 8,
+       "telephone" : "03333333",
+       "water" : 1
+     }
+     updates['/stadiums/Footers'] = stadium;
+     updates['/stadiumsinfo/Footers'] = stadium;
+ 
+     return firebase.database().ref().update(updates);*/
 
         var connectedRef = firebase.database().ref(".info/connected");
         connectedRef.on("value", function (snap) {
@@ -874,6 +859,7 @@ angular.module('football.controllers')
     .controller('AdminAddBooking', function ($scope, $ionicPopover, $ionicHistory, AdminStore, $ionicPopup, $ionicLoading, $timeout, $state, pickerView) {
 
         var connectedRef = firebase.database().ref(".info/connected");
+        $scope.nointernet = false;
         connectedRef.on("value", function (snap) {
             if (snap.val() === true) {
                 $scope.nointernet = false;
@@ -882,7 +868,6 @@ angular.module('football.controllers')
                 $ionicLoading.hide();
                 $scope.nointernet = true;
             }
-            $scope.$apply();
 
         });
 
@@ -981,319 +966,171 @@ angular.module('football.controllers')
 
 
             };
+        }
 
-            //Cleanup the picker when we're done with it!
-            $scope.$on('$destroy', function () {
-                //$scope.openPickerView.picker.hide();
-                console.log("hello");
-                pickerView.close();
-                $scope.openPickerView = 0;
-            });
-            /** End picker view stufgf**/
-            $scope.extrainfo = {
-                bookingprice: 85000,
-                duration: "90",
-                recurring: "Once"
-            }
+        //Cleanup the picker when we're done with it!
+        $scope.$on('$destroy', function () {
+            //$scope.openPickerView.picker.hide();
+            console.log("hello");
+            pickerView.close();
+            $scope.openPickerView = 0;
+        });
+        /** End picker view stufgf**/
+        $scope.extrainfo = {
+            bookingprice: 85000,
+            duration: "90",
+            recurring: "Once"
+        }
 
-            $scope.stadiumdata =
-                {
-                    customer: "",
-                    name: "",
-                    telephone: "",
-                    key: "",
-                    subkey: ""
-
-                }
-
-            $scope.newcustomer = {
+        $scope.stadiumdata =
+            {
+                customer: "",
                 name: "",
-                lastname: "",
-                email: "",
                 telephone: "",
-                key: ""
+                key: "",
+                subkey: ""
+
             }
 
-            $scope.notselected = false;
+        $scope.newcustomer = {
+            name: "",
+            lastname: "",
+            email: "",
+            telephone: "",
+            key: ""
+        }
 
-            $scope.addcustomer = function () {
-                if (!$scope.nointernet) {
-                    if ($scope.newcustomer.name === "" || $scope.newcustomer.telephone === "") {
+        $scope.notselected = false;
 
-                        alert("please fill some info");
-                        $scope.notselected = true;
-                    }
-                    else {
+        $scope.addcustomer = function () {
+            if (!$scope.nointernet) {
+                if ($scope.newcustomer.name === "" || $scope.newcustomer.telephone === "") {
 
-                        var user = firebase.auth().currentUser;
-                        var id = user.uid;
-
-                        var query = firebase.database().ref('/admins/' + id + '/mycustomers').orderByChild("telephone").equalTo($scope.newcustomer.telephone.trim());
-
-                        query.once('value', function (snapshot) {
-
-                            if (snapshot.exists()) {
-                                var alertPopup = $ionicPopup.alert({
-                                    title: 'Error',
-                                    template: 'This Number Already Exists'
-                                });
-                            }
-                            else {
-                                var newPostKey = firebase.database().ref().child('players').push().key;
-                                AdminStore.AddUser($scope.newcustomer, newPostKey).then(function (value) {
-
-                                    var alertPopup = $ionicPopup.alert({
-                                        title: 'Success',
-                                        template: 'Customer Saved'
-                                    });
-
-                                    alertPopup.then(function (res) {
-                                        $scope.newcustomer.key = newPostKey;
-                                        $scope.closePopover1($scope.newcustomer);
-                                    })
-
-                                }, function (error) {
-                                    var alertPopup = $ionicPopup.alert({
-                                        title: 'Error',
-                                        template: error.message
-                                    });
-
-                                })
-                            }
-
-
-                        })
-
-                    }
+                    alert("please fill some info");
+                    $scope.notselected = true;
                 }
-            }
+                else {
 
-            // .fromTemplate() method
-            var template1 = '<ion-popover-view><ion-header-bar> <h1 class="title">My Popover Title</h1> </ion-header-bar> <ion-content> Hello! </ion-content></ion-popover-view>';
+                    var user = firebase.auth().currentUser;
+                    var id = user.uid;
 
-            $scope.popover1 = $ionicPopover.fromTemplate(template1, {
-                scope: $scope
-            });
+                    var query = firebase.database().ref('/admins/' + id + '/mycustomers').orderByChild("telephone").equalTo($scope.newcustomer.telephone.trim());
 
+                    query.once('value', function (snapshot) {
 
-            $ionicPopover.fromTemplateUrl('templates/my-popover-addcustomer.html', {
-                scope: $scope
-            }).then(function (popover) {
-                $scope.popover1 = popover;
-            });
-
-
-            $scope.openPopover = function ($event) {
-                $scope.popover1.show($event);
-
-            };
-
-            // .fromTemplate() method
-            var template = '<ion-popover-view><ion-header-bar> <h1 class="title">My Popover Title</h1> </ion-header-bar> <ion-content> Hello! </ion-content></ion-popover-view>';
-
-            $scope.popover = $ionicPopover.fromTemplate(template, {
-                scope: $scope
-            });
-
-
-
-            // .fromTemplateUrl() method
-            $ionicPopover.fromTemplateUrl('templates/my-popover-search.html', {
-                scope: $scope
-            }).then(function (popover) {
-                $scope.popover = popover;
-            });
-
-
-            $scope.openPopover = function ($event) {
-                $scope.popover.show($event);
-
-            };
-            $scope.closePopover = function (item) {
-                console.log(item);
-                try {
-                    $scope.searchtel.currenttelephone = item.telephone;
-                    $scope.popover.hide();
-
-
-                    var cancelled = 0;
-                    var cancelledweather = 0;
-                    var didnotshowup = 0;
-
-                    for (i = 0; i < $scope.customers.length; i++) {
-
-                        if (item.telephone == $scope.customers[i].telephone) {
-
-                            cancelled += $scope.customers[i].cancelled;
-                            cancelledweather += $scope.customers[i].cancelledweather;
-                            didnotshowup += $scope.customers[i].didnotshowup;
-
-                            $scope.currentUser = $scope.customers[i];
-                            $scope.selectedcustomer = $scope.customers[i];
-
-                            $scope.stadiumdata.customer = item.key;
-                            $scope.stadiumdata.telephone = item.telephone;
-                            $scope.stadiumdata.firstname = item.firstname;
-                            $scope.selectedcustomer.firstname = item.firstname;
-
-                            $scope.notselected = false;
-
-                        }
-                    }
-
-                    $scope.selectedcustomer.cancelled = cancelled;
-                    $scope.selectedcustomer.cancelledweather = cancelledweather;
-                    $scope.selectedcustomer.didnotshowup = didnotshowup;
-
-                    $scope.newcustomer = {
-                        name: "",
-                        lastname: "",
-                        email: "",
-                        telephone: "",
-                        key: ""
-                    }
-
-
-                }
-                catch (error) {
-                    console.log(error.message);
-                }
-
-            };
-
-
-            //Cleanup the popover when we're done with it!
-            $scope.$on('$destroy', function () {
-                $scope.popover.remove();
-            });
-
-
-            $scope.mybalances = [];
-            //alert($scope.search.date);
-            $scope.customers = [];
-
-            $scope.selectedcustomer = {};
-
-            //comment1
-
-            try {
-
-                AdminStore.GetCustomers(function (leagues) {
-                    $scope.customers = leagues;
-
-                    AdminStore.GetMyStadiums(function (stadiums) {
-
-                        $scope.mystadiums = stadiums;
-                        console.log(stadiums);
-                        if (stadiums.length == 0) {
-
+                        if (snapshot.exists()) {
                             var alertPopup = $ionicPopup.alert({
                                 title: 'Error',
-                                template: 'No Stadiums Found'
+                                template: 'This Number Already Exists'
                             });
-
                         }
-
                         else {
-                            var stadid = stadiums[0].key;
-                            $scope.stadiumdata.key = stadid;
-                            AdminStore.GetMyMiniStadiums(stadid, function (ministadiums) {
+                            var newPostKey = firebase.database().ref().child('players').push().key;
+                            AdminStore.AddUser($scope.newcustomer, newPostKey).then(function (value) {
 
-                                $scope.myministadiums = ministadiums;
-
-
-                                if (ministadiums.length == 0) {
-
-                                    var alertPopup = $ionicPopup.alert({
-                                        title: 'Error',
-                                        template: 'No Mini Stadiums Found'
-                                    });
-
-
-                                }
-                                else {
-                                    try {
-                                        $scope.stadiumdata.subkey = $scope.myministadiums[0].name;
-                                        $scope.$digest();
-                                    }
-                                    catch (error) {
-                                        console.log(error.message)
-                                    }
-
-                                }
-
-
-                                AdminStore.GetMyCustomers(function (mycustomers) {
-                                    console.log(mycustomers);
-                                    $ionicLoading.hide();
-                                    $scope.mycustomers = mycustomers;
-
+                                var alertPopup = $ionicPopup.alert({
+                                    title: 'Success',
+                                    template: 'Customer Saved'
                                 });
 
+                                alertPopup.then(function (res) {
+                                    $scope.newcustomer.key = newPostKey;
+                                    $scope.closePopover1($scope.newcustomer);
+                                })
+
                             }, function (error) {
-                                console.log(error.message);
+                                var alertPopup = $ionicPopup.alert({
+                                    title: 'Error',
+                                    template: error.message
+                                });
+
                             })
                         }
-                        $scope.$digest();
+
 
                     })
-                }, function (error) {
-                    console.log(error.message);
-                })
+
+                }
             }
-            catch (error) {
-                console.log(error.message);
-            }
+        }
+
+        // .fromTemplate() method
+        var template1 = '<ion-popover-view><ion-header-bar> <h1 class="title">My Popover Title</h1> </ion-header-bar> <ion-content> Hello! </ion-content></ion-popover-view>';
+
+        $scope.popover1 = $ionicPopover.fromTemplate(template1, {
+            scope: $scope
+        });
 
 
-            $scope.searchtel = {
-                currenttelephone: ""
-            };
+        $ionicPopover.fromTemplateUrl('templates/my-popover-addcustomer.html', {
+            scope: $scope
+        }).then(function (popover) {
+            $scope.popover1 = popover;
+        });
+
+
+        $scope.openPopover = function ($event) {
+            $scope.popover1.show($event);
+
+        };
+
+        // .fromTemplate() method
+        var template = '<ion-popover-view><ion-header-bar> <h1 class="title">My Popover Title</h1> </ion-header-bar> <ion-content> Hello! </ion-content></ion-popover-view>';
+
+        $scope.popover = $ionicPopover.fromTemplate(template, {
+            scope: $scope
+        });
 
 
 
-            $scope.closePopover1 = function (item) {
-                alert("test");
+        // .fromTemplateUrl() method
+        $ionicPopover.fromTemplateUrl('templates/my-popover-search.html', {
+            scope: $scope
+        }).then(function (popover) {
+            $scope.popover = popover;
+        });
+
+
+        $scope.openPopover = function ($event) {
+            $scope.popover.show($event);
+
+        };
+        $scope.closePopover = function (item) {
+            console.log(item);
+            try {
                 $scope.searchtel.currenttelephone = item.telephone;
-                $ionicLoading.show({
-                    content: 'Loading',
-                    animation: 'fade-in',
-                    showBackdrop: true,
-                    maxWidth: 200,
-                    showDelay: 0
-                });
-                try {
-                    AdminStore.GetCustomers(function (leagues) {
-                        $ionicLoading.hide();
-                        $scope.customers = leagues;
-                        $scope.LoadCustomer();
-                        $scope.popover1.hide();
-                    })
+                $scope.popover.hide();
 
 
-                }
-                catch (error) {
-                    console.log(error.message);
-                }
+                var cancelled = 0;
+                var cancelledweather = 0;
+                var didnotshowup = 0;
 
-            };
-            //Cleanup the popover when we're done with it!
-            $scope.$on('$destroy', function () {
-                $scope.popover1.remove();
-            });
-
-            $scope.LoadCustomer = function () {
                 for (i = 0; i < $scope.customers.length; i++) {
-                    if ($scope.searchtel.currenttelephone == $scope.customers[i].telephone) {
 
+                    if (item.telephone == $scope.customers[i].telephone) {
+
+                        cancelled += $scope.customers[i].cancelled;
+                        cancelledweather += $scope.customers[i].cancelledweather;
+                        didnotshowup += $scope.customers[i].didnotshowup;
+
+                        $scope.currentUser = $scope.customers[i];
                         $scope.selectedcustomer = $scope.customers[i];
-                        $scope.stadiumdata.customer = $scope.customers[i].key;
-                        $scope.stadiumdata.telephone = $scope.customers[i].telephone;
-                        $scope.stadiumdata.firstname = $scope.customers[i].firstname;
+
+                        $scope.stadiumdata.customer = item.key;
+                        $scope.stadiumdata.telephone = item.telephone;
+                        $scope.stadiumdata.firstname = item.firstname;
+                        $scope.selectedcustomer.firstname = item.firstname;
+
                         $scope.notselected = false;
-                        break;
+
                     }
                 }
+
+                $scope.selectedcustomer.cancelled = cancelled;
+                $scope.selectedcustomer.cancelledweather = cancelledweather;
+                $scope.selectedcustomer.didnotshowup = didnotshowup;
+
                 $scope.newcustomer = {
                     name: "",
                     lastname: "",
@@ -1302,189 +1139,337 @@ angular.module('football.controllers')
                     key: ""
                 }
 
+
+            }
+            catch (error) {
+                console.log(error.message);
             }
 
-            $scope.LoadCustomer1 = function () {
-                if ($scope.searchtel.currenttelephone.length == 8) {
+        };
 
-                    console.log($scope.customers);
 
-                    var cancelled = 0;
-                    var cancelledweather = 0;
-                    var didnotshowup = 0;
-                    var found = 0;
+        //Cleanup the popover when we're done with it!
+        $scope.$on('$destroy', function () {
+            $scope.popover.remove();
+        });
 
-                    for (i = 0; i < $scope.customers.length; i++) {
-                        if ($scope.searchtel.currenttelephone == $scope.customers[i].telephone) {
 
-                            cancelled += $scope.customers[i].cancelled;
-                            cancelledweather += $scope.customers[i].cancelledweather;
-                            didnotshowup += $scope.customers[i].didnotshowup;
+        $scope.mybalances = [];
+        //alert($scope.search.date);
+        $scope.customers = [];
 
-                            $scope.selectedcustomer = $scope.customers[i];
+        $scope.selectedcustomer = {};
 
-                            $scope.stadiumdata.customer = $scope.customers[i].key;
-                            $scope.stadiumdata.telephone = $scope.customers[i].telephone;
-                            $scope.stadiumdata.firstname = $scope.customers[i].firstname;
+        //comment1
 
-                            $scope.notselected = false;
-                            found = true;
-                        }
+        try {
+
+            AdminStore.GetCustomers(function (leagues) {
+                $scope.customers = leagues;
+
+                AdminStore.GetMyStadiums(function (stadiums) {
+
+                    $scope.mystadiums = stadiums;
+                    console.log(stadiums);
+                    if (stadiums.length == 0) {
+
+                        var alertPopup = $ionicPopup.alert({
+                            title: 'Error',
+                            template: 'No Stadiums Found'
+                        });
+
                     }
 
-                    if (!found) {
-                        $scope.notselected = true;
+                    else {
+                        var stadid = stadiums[0].key;
+                        $scope.stadiumdata.key = stadid;
+                        AdminStore.GetMyMiniStadiums(stadid, function (ministadiums) {
+
+                            $scope.myministadiums = ministadiums;
+
+
+                            if (ministadiums.length == 0) {
+
+                                var alertPopup = $ionicPopup.alert({
+                                    title: 'Error',
+                                    template: 'No Mini Stadiums Found'
+                                });
+
+
+                            }
+                            else {
+                                try {
+                                    $scope.stadiumdata.subkey = $scope.myministadiums[0].name;
+                                    $scope.$digest();
+                                }
+                                catch (error) {
+                                    alert(error.message)
+                                }
+
+                            }
+
+
+                            AdminStore.GetMyCustomers(function (mycustomers) {
+                                console.log(mycustomers);
+                                $ionicLoading.hide();
+                                $scope.mycustomers = mycustomers;
+
+                            });
+
+                        }, function (error) {
+                            console.log(error.message);
+                        })
+                    }
+                    $scope.$apply();
+
+                })
+            }, function (error) {
+                console.log(error.message);
+            })
+        }
+        catch (error) {
+            console.log(error.message);
+        }
+
+
+        $scope.searchtel = {
+            currenttelephone: ""
+        };
+
+
+        $scope.closePopover1 = function (item) {
+            $scope.searchtel.currenttelephone = item.telephone;
+            $ionicLoading.show({
+                content: 'Loading',
+                animation: 'fade-in',
+                showBackdrop: true,
+                maxWidth: 200,
+                showDelay: 0
+            });
+            try {
+                AdminStore.GetCustomers(function (leagues) {
+                    $ionicLoading.hide();
+                    $scope.customers = leagues;
+                    $scope.LoadCustomer();
+                    $scope.popover1.hide();
+                })
+
+
+            }
+            catch (error) {
+                console.log(error.message);
+            }
+
+        };
+        //Cleanup the popover when we're done with it!
+        $scope.$on('$destroy', function () {
+            $scope.popover1.remove();
+        });
+
+        $scope.LoadCustomer = function () {
+            for (i = 0; i < $scope.customers.length; i++) {
+                if ($scope.searchtel.currenttelephone == $scope.customers[i].telephone) {
+
+                    $scope.selectedcustomer = $scope.customers[i];
+                    $scope.stadiumdata.customer = $scope.customers[i].key;
+                    $scope.stadiumdata.telephone = $scope.customers[i].telephone;
+                    $scope.stadiumdata.firstname = $scope.customers[i].firstname;
+                    $scope.notselected = false;
+                    break;
+                }
+            }
+            $scope.newcustomer = {
+                name: "",
+                lastname: "",
+                email: "",
+                telephone: "",
+                key: ""
+            }
+
+        }
+
+        $scope.LoadCustomer1 = function () {
+            if ($scope.searchtel.currenttelephone.length == 8) {
+
+                console.log($scope.customers);
+
+                var cancelled = 0;
+                var cancelledweather = 0;
+                var didnotshowup = 0;
+                var found = 0;
+
+                for (i = 0; i < $scope.customers.length; i++) {
+                    if ($scope.searchtel.currenttelephone == $scope.customers[i].telephone) {
+
+                        cancelled += $scope.customers[i].cancelled;
+                        cancelledweather += $scope.customers[i].cancelledweather;
+                        didnotshowup += $scope.customers[i].didnotshowup;
+
+                        $scope.selectedcustomer = $scope.customers[i];
+
+                        $scope.stadiumdata.customer = $scope.customers[i].key;
+                        $scope.stadiumdata.telephone = $scope.customers[i].telephone;
+                        $scope.stadiumdata.firstname = $scope.customers[i].firstname;
+
+                        $scope.notselected = false;
+                        found = true;
+                    }
+                }
+
+                if (!found) {
+                    $scope.notselected = true;
+                }
+                else {
+
+                    $scope.mycustomers.forEach(element => {
+                        if ($scope.selectedcustomer.telephone == element.telephone) {
+
+                            $scope.selectedcustomer.firstname = element.firstname;
+                            $scope.stadiumdata.customer = element.key;
+                            $scope.stadiumdata.telephone = element.telephone;
+                            $scope.stadiumdata.firstname = element.firstname;
+                        }
+                    });
+
+
+                    $scope.selectedcustomer.cancelled = cancelled;
+                    $scope.selectedcustomer.cancelledweather = cancelledweather;
+                    $scope.selectedcustomer.didnotshowup = didnotshowup;
+                }
+
+                $scope.newcustomer = {
+                    name: "",
+                    lastname: "",
+                    email: "",
+                    telephone: "",
+                    key: ""
+                }
+            }
+            else {
+                $scope.selectedcustomer = {};
+                $scope.stadiumdata.customer = "";
+                $scope.stadiumdata.telephone = "";
+                $scope.stadiumdata.firstname = "";
+                $scope.notselected = true;
+            }
+
+
+        }
+
+
+        $scope.addbooking = function () {
+            if (!$scope.nointernet) {
+                try {
+
+                    $scope.stadiumdata.key = $scope.stadiumdata.key.trim();
+                    $scope.stadiumdata.subkey = $scope.stadiumdata.subkey.trim();
+                    $scope.stadiumdata.customer = $scope.stadiumdata.customer.trim();
+                    // $scope.stadiumdata.firstname = $scope.stadiumdata.firstname.trim();
+
+                    if ($scope.stadiumdata.key === "" || $scope.stadiumdata.subkey.trim() == "" || $scope.stadiumdata.customer === "") {
+
+                        alert("please fill some info");
+                        if ($scope.stadiumdata.customer === "") {
+                            $scope.notselected = true;
+                        }
+                    }
+                    else if ($scope.notselected == true) {
+                        alert("Please Select a Customer");
                     }
                     else {
 
-                        $scope.mycustomers.forEach(element => {
-                            if ($scope.selectedcustomer.telephone == element.telephone) {
 
-                                $scope.selectedcustomer.firstname = element.firstname;
-                                $scope.stadiumdata.customer = element.key;
-                                $scope.stadiumdata.telephone = element.telephone;
-                                $scope.stadiumdata.firstname = element.firstname;
-                            }
+                        var confirmPopup = $ionicPopup.confirm({
+                            title: 'Reserve Stadium',
+                            template: 'Are you sure you want to book ' + $scope.stadiumdata.subkey + ' at ' + '<br>' + $scope.search.date.toDateString() + '?</br>'
                         });
 
+                        confirmPopup.then(function (res) {
+                            if (res) {
 
-                        $scope.selectedcustomer.cancelled = cancelled;
-                        $scope.selectedcustomer.cancelledweather = cancelledweather;
-                        $scope.selectedcustomer.didnotshowup = didnotshowup;
-                    }
+                                var details = {};
 
-                    $scope.newcustomer = {
-                        name: "",
-                        lastname: "",
-                        email: "",
-                        telephone: "",
-                        key: ""
-                    }
-                }
-                else {
-                    $scope.selectedcustomer = {};
-                    $scope.stadiumdata.customer = "";
-                    $scope.stadiumdata.telephone = "";
-                    $scope.stadiumdata.firstname = "";
-                    $scope.notselected = true;
-                }
+                                for (i = 0; i < $scope.myministadiums.length; i++) {
 
-
-            }
-
-
-            $scope.addbooking = function () {
-                if (!$scope.nointernet) {
-                    try {
-
-                        $scope.stadiumdata.key = $scope.stadiumdata.key.trim();
-                        $scope.stadiumdata.subkey = $scope.stadiumdata.subkey.trim();
-                        $scope.stadiumdata.customer = $scope.stadiumdata.customer.trim();
-                        // $scope.stadiumdata.firstname = $scope.stadiumdata.firstname.trim();
-
-                        if ($scope.stadiumdata.key === "" || $scope.stadiumdata.subkey.trim() == "" || $scope.stadiumdata.customer === "") {
-
-                            alert("please fill some info");
-                            if ($scope.stadiumdata.customer === "") {
-                                $scope.notselected = true;
-                            }
-                        }
-                        else if ($scope.notselected == true) {
-                            alert("Please Select a Customer");
-                        }
-                        else {
-
-
-                            var confirmPopup = $ionicPopup.confirm({
-                                title: 'Reserve Stadium',
-                                template: 'Are you sure you want to book ' + $scope.stadiumdata.subkey + ' at ' + '<br>' + $scope.search.date.toDateString() + '?</br>'
-                            });
-
-                            confirmPopup.then(function (res) {
-                                if (res) {
-
-                                    var details = {};
-
-                                    for (i = 0; i < $scope.myministadiums.length; i++) {
-
-                                        if ($scope.myministadiums[i].key == $scope.stadiumdata.subkey) {
-                                            details = {
-                                                price: $scope.extrainfo.bookingprice,
-                                                duration: $scope.extrainfo.duration,
-                                                recurring: $scope.extrainfo.recurring,
-                                                percentage: "1",
-                                                type: "B",
-                                                nettotal: 0,
-                                                photo: $scope.myministadiums[i].photo,
-                                                stadiumname: $scope.myministadiums[i].name2,
-                                                combined: $scope.myministadiums[i].combined,
-                                                iscombined: $scope.myministadiums[i].iscombined,
-                                                telephone: $scope.stadiumdata.telephone
-                                            };
-                                            break;
-                                        }
+                                    if ($scope.myministadiums[i].key == $scope.stadiumdata.subkey) {
+                                        details = {
+                                            price: $scope.extrainfo.bookingprice,
+                                            duration: $scope.extrainfo.duration,
+                                            recurring: $scope.extrainfo.recurring,
+                                            percentage: "1",
+                                            type: "B",
+                                            nettotal: 0,
+                                            photo: $scope.myministadiums[i].photo,
+                                            stadiumname: $scope.myministadiums[i].name2,
+                                            combined: $scope.myministadiums[i].combined,
+                                            iscombined: $scope.myministadiums[i].iscombined,
+                                            telephone: $scope.stadiumdata.telephone
+                                        };
+                                        break;
                                     }
-                                    AdminStore.AddBooking($scope.stadiumdata, $scope.search, details)
-                                        .then(function (value) {
-
-                                            $scope.stadiumdata =
-                                                {
-                                                    customer: "",
-                                                    name: "",
-                                                    telephone: "",
-                                                    key: "",
-                                                    subkey: ""
-
-                                                }
-                                            $scope.searchtel = {
-                                                currenttelephone: ""
-                                            };
-
-                                            $scope.selectedcustomer = {};
-                                            var alertPopup = $ionicPopup.alert({
-                                                title: 'Success',
-                                                template: 'Successfully Booked'
-                                            }).then(function () {
-                                                $ionicHistory.goBack();
-                                            });
-
-                                        }, function (error) {
-                                            var alertPopup = $ionicPopup.alert({
-                                                title: 'Error',
-                                                template: "Schedule Conflict. Please Choose Another Time"
-                                            });
-
-
-                                        })
-
-                                } else {
-
                                 }
+                                AdminStore.AddBooking($scope.stadiumdata, $scope.search, details)
+                                    .then(function (value) {
 
-                            });
-                        }
+                                        $scope.stadiumdata =
+                                            {
+                                                customer: "",
+                                                name: "",
+                                                telephone: "",
+                                                key: "",
+                                                subkey: ""
 
+                                            }
+                                        $scope.searchtel = {
+                                            currenttelephone: ""
+                                        };
+
+                                        $scope.selectedcustomer = {};
+                                        var alertPopup = $ionicPopup.alert({
+                                            title: 'Success',
+                                            template: 'Successfully Booked'
+                                        }).then(function () {
+                                            $ionicHistory.goBack();
+                                        });
+
+                                    }, function (error) {
+                                        var alertPopup = $ionicPopup.alert({
+                                            title: 'Error',
+                                            template: "Schedule Conflict. Please Choose Another Time"
+                                        });
+
+
+                                    })
+
+                            } else {
+
+                            }
+
+                        });
                     }
-                    catch (error) {
-                        console.log(error.message);
-                    }
+
                 }
+                catch (error) {
+                    console.log(error.message);
+                }
+            }
 
+        }
+
+
+        $scope.changeprice = function () {
+
+            for (i = 0; i < $scope.myministadiums.length; i++) {
+                if ($scope.myministadiums[i].key == $scope.stadiumdata.subkey.trim()) {
+                    $scope.extrainfo.bookingprice = $scope.myministadiums[i].price;
+                    break;
+
+                }
             }
 
 
-            $scope.changeprice = function () {
-
-                for (i = 0; i < $scope.myministadiums.length; i++) {
-                    if ($scope.myministadiums[i].key == $scope.stadiumdata.subkey.trim()) {
-                        $scope.extrainfo.bookingprice = $scope.myministadiums[i].price;
-                        break;
-
-                    }
-                }
 
 
-            }
 
         }
 
@@ -2196,17 +2181,7 @@ angular.module('football.controllers')
 
     .controller('AdminAddPromotions', function ($scope, $ionicPopover, $ionicHistory, AdminStore, $ionicPopup, $ionicLoading) {
 
-        var connectedRef = firebase.database().ref(".info/connected");
-        connectedRef.on("value", function (snap) {
-            if (snap.val() === true) {
-                $scope.nointernet = false;
-            }
-            else {
-                $ionicLoading.hide();
-                $scope.nointernet = true;
-            }
-            $scope.$apply();
-        });
+
 
         $scope.year = '2016';
         $scope.month = '2016';
