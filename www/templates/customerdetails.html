@@ -21,9 +21,12 @@
 
 
     </ion-content>
-    <div class="bar bar-footer" style="background-color:#2ab041">
-        <a class="button button-balanced button-large" style="width:100%" ng-click="SaveCustomer()">Save</a>
-    </div>
+    <ion-footer-bar class="bar bar-dark" style="height:43px;padding:0px;border-radius:0px">
+        <div class="button-bar">
+            <a class="button button-assertive" ng-click="DeleteCustomer()"  style="line-height:43px;border-radius:0px;font-size:16px">Delete</a>
+            <a class="button button-balanced" ng-click="SaveCustomer()"  style="line-height:43px;border-radius:0px;font-size:16px">Save</a>
+        </div>
+    </ion-footer-bar>
     <ion-footer-bar align-title="left" class="bar-assertive" style="background-color: rgb(30,30,30);border: none" ng-show="nointernet">
         <div align="left" style="padding-left: 5px">
             <h6 class="whitetext">

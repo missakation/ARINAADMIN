@@ -1187,6 +1187,17 @@ angular.module('football.services', [])
                 return firebase.database().ref().update(updates);
 
             },
+            DeleteCustomer: function (Customer) {
+
+                var user = firebase.auth().currentUser;
+                var id = user.uid;
+
+                var updates = {};
+                updates['/admins/' + id + '/mycustomers/' + Customer.key] = null;
+
+                return firebase.database().ref().update(updates);
+
+            },
             GetChallengeByKey: function (myid, key, callback) {
 
                 try {

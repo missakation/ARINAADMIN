@@ -58,7 +58,7 @@
                             <input placeholder="NAME" style="color:white" type="text"  ng-model="newcustomer.name">
                         </label>
                         <label class="item item-input" style="margin-top:10px;padding:10px;border:1px solid #21ab41;background-color:rgb(62, 83, 100)">
-                            <input  placeholder="TELPHONE" style="color:white" type="tel"    ng-model="newcustomer.telephone">
+                            <input maxlength="8" placeholder="TELPHONE" style="color:white" type="tel" ng-model="newcustomer.telephone">
                         </label>
 
                         <button class="button button-balanced button-full" style="border-radius:5px" ng-click="addcustomer()">
@@ -150,7 +150,7 @@
         <h5 style="color:white;margin-top:0px;border-top:1px solid #5f7485">
 
         </h5>
-        <label class="item item-input item-select" style="margin:0 10px;color:white;border:none">
+        <label class="item item-input item-select" style="margin:0 10px;color:white;border:none" ng-click="">
             <i style="padding-left:10px;font-size:30px" class="ion-ios-location-outline"></i>
             <div class="input-label" style="padding-left:10px;width:50%;color:white;border:none;">
                 Select Stadium
