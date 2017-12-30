@@ -32,6 +32,8 @@ angular.module('football', ['ionic', 'football.controllers', 'ion-datetime-picke
         $ionicConfigProvider.views.maxCache(0);
         $ionicFilterBarConfigProvider.theme('royal');
 
+        $ionicConfigProvider.views.swipeBackEnabled(false);
+
         $stateProvider
 
 

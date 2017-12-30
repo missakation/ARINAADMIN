@@ -134,28 +134,46 @@ angular.module('football.controllers', [])
                 // Handle Errors here.
                 var errorCode = error.code;
                 var errorMessage = error.message;
-                alert(errorMessage);
+
+                $ionicPopup.alert({
+                    title: 'Warning',
+                    template: errorMessage
+                });
+
+                //alert(errorMessage);
 
 
-                // ...
             });
         };
 
 
         $scope.LogIn = function (username) {
 
-            firebase.auth().signInWithEmailAndPassword($scope.registerusername, $scope.registerpassword).then(function (user) {
+            if(!$scope.registerusername || !$scope.registerpassword){
+                return;
+            }
+
+            firebase.auth()
+            .signInWithEmailAndPassword(
+                $scope.registerusername, 
+                $scope.registerpassword)
+                .then(function (user) {
+                
                 $ionicHistory.nextViewOptions({
                     disableBack: true
                 });
                 $state.go("app.adminbookings");
             })
                 .catch(function (error) {
-                    // Handle Errors here.
                     var errorCode = error.code;
                     var errorMessage = error.message;
-                    alert(errorMessage);
-                    // ...
+
+                    $ionicPopup.alert({
+                        title: 'Warning',
+                        template: 'Oops! You Entered the wrong Email or password'
+                    });
+
+                   // alert(errorMessage);
                 });
         };
 

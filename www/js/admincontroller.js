@@ -170,7 +170,6 @@ angular.module('football.controllers')
 
     .controller('AdminScheduleController', function ($scope, $ionicPopover, AdminStore, $ionicPopup, $ionicLoading, $timeout, $state) {
 
-
         /*var stadium =  {
            "ClosingTime" : "23:59",
            "OpeningTime" : "17:00",
@@ -240,7 +239,10 @@ angular.module('football.controllers')
                 $ionicLoading.hide();
                 $scope.nointernet = true;
             }
-            $scope.$apply();
+
+            if(!$scope.$$phase){
+                $scope.$apply();
+            }
         });
 
         var today = new Date();
@@ -278,6 +280,29 @@ angular.module('football.controllers')
 
         $scope.Loading = true;
 
+        $scope.number_format = function (number, decimals, dec_point, thousands_sep) {
+
+            var n = !isFinite(+number) ? 0 : +number,
+                prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
+                sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
+                dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
+                toFixedFix = function (n, prec) {
+                    // Fix for IE parseFloat(0.55).toFixed(0) = 0;
+                    var k = Math.pow(10, prec);
+                    return Math.round(n * k) / k;
+                },
+                s = (prec ? toFixedFix(n, prec) : Math.round(n)).toString().split('.');
+            if (s[0].length > 3) {
+                s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
+            }
+            if ((s[1] || '').length < prec) {
+                s[1] = s[1] || '';
+                s[1] += new Array(prec - s[1].length + 1).join('0');
+            }
+            return s.join(dec);
+        }
+
+
         try {
             var today = new Date();
 
@@ -308,7 +333,9 @@ angular.module('football.controllers')
 
                     console.log(leagues);
 
-                    $scope.$apply();
+                    if(!$scope.$$phase){
+                        $scope.$apply();
+                    }
                     $scope.scheduleswithdayArray = $scope.scheduleswithday;
 
                 }, function (error) {
@@ -374,30 +401,6 @@ angular.module('football.controllers')
             }
 
         };
-
-
-        $scope.number_format = function (number, decimals, dec_point, thousands_sep) {
-
-            var n = !isFinite(+number) ? 0 : +number,
-                prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
-                sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
-                dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
-                toFixedFix = function (n, prec) {
-                    // Fix for IE parseFloat(0.55).toFixed(0) = 0;
-                    var k = Math.pow(10, prec);
-                    return Math.round(n * k) / k;
-                },
-                s = (prec ? toFixedFix(n, prec) : Math.round(n)).toString().split('.');
-            if (s[0].length > 3) {
-                s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
-            }
-            if ((s[1] || '').length < prec) {
-                s[1] = s[1] || '';
-                s[1] += new Array(prec - s[1].length + 1).join('0');
-            }
-            return s.join(dec);
-        }
-
 
         $scope.goback = function () {
 
@@ -869,7 +872,9 @@ angular.module('football.controllers')
                 $ionicLoading.hide();
                 $scope.nointernet = true;
             }
-            $scope.$apply();
+            if(!$scope.$$phase){
+                $scope.$apply();
+            }
 
         });
 
@@ -928,7 +933,7 @@ angular.module('football.controllers')
                     values: dateArrayThingy,
                     defaultIndex: 1
                 }, {
-                    values: [' 7:00 AM ', ' 7:30 AM ', ' 8:00 AM ', ' 8:30 AM ', ' 9:00 AM ', '9:30 AM ', ' 10:00 AM ', ' 10:30 AM', ' 11:00 AM ', ' 11:30 AM ', ' 12:00 PM ', ' 12:30 PM ', ' 1:00 PM ', ' 1:30 PM ', ' 2:00 PM ', ' 2:30 PM ', ' 3:00 PM ', ' 3:30 PM ', ' 4:00 PM ', ' 4:30 PM ', ' 5:00 PM ', ' 5:30 PM ', ' 6:00 PM ', ' 6:30 PM ', ' 7:00 PM ', ' 7:30 PM ', ' 8:00 PM', ' 8:30 PM ', ' 9:00 PM ', ' 9:30 PM ', ' 10:00 PM ', ' 10:30 PM ', ' 11:00 PM', '11:30 PM '],
+                    values: [' 7:00 AM ', ' 7:30 AM ', ' 8:00 AM ', ' 8:30 AM ', ' 9:00 AM ', '9:30 AM ', ' 10:00 AM ', ' 10:30 AM', ' 11:00 AM ', ' 11:30 AM ', ' 12:00 PM ', ' 12:30 PM ', ' 1:00 PM ', ' 1:30 PM ', ' 2:00 PM ', ' 2:30 PM ', ' 3:00 PM ', ' 3:30 PM ', ' 4:00 PM ', ' 4:30 PM ', ' 5:00 PM ', ' 5:30 PM ', ' 6:00 PM ', ' 6:30 PM ', ' 7:00 PM ', ' 7:30 PM ', ' 8:00 PM', ' 8:30 PM ', ' 9:00 PM ', ' 9:30 PM ', ' 10:00 PM ', ' 10:30 PM ', ' 11:00 PM', ' 11:30 PM '],
                     defaultIndex: 27
                 }/*, {
         values: stadiums,
@@ -1530,7 +1535,6 @@ angular.module('football.controllers')
                     'on-touch="pickerEvent.scrollTouch(idx)" ' +
                     'on-release="pickerEvent.scrollRelease(idx)" ' +
                     'on-scroll="pickerEvent.scrollPicking(event, scrollTop, idx)">' +
-
                     '<div ng-repeat="val in item.values track by $index" ng-bind-html="val"></div>' +
                     '</ion-scroll>' +
                     '</div>' +
