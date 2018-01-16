@@ -240,7 +240,7 @@ angular.module('football.controllers')
                 $scope.nointernet = true;
             }
 
-            if(!$scope.$$phase){
+            if (!$scope.$$phase) {
                 $scope.$apply();
             }
         });
@@ -333,7 +333,7 @@ angular.module('football.controllers')
 
                     console.log(leagues);
 
-                    if(!$scope.$$phase){
+                    if (!$scope.$$phase) {
                         $scope.$apply();
                     }
                     $scope.scheduleswithdayArray = $scope.scheduleswithday;
@@ -474,15 +474,17 @@ angular.module('football.controllers')
             if (type == 0) {
                 message = 'Are You Sure You Want To Cancel?'
             }
-            if (type == 1) {
-                message = 'Are you sure you want to cancel due weather?'
-            }
-            if (type == 2) {
-                message = 'Are You Sure He Did Not Show Up?'
-            }
-            else {
-                message = 'Are You Sure You Want To Cancel All?'
-            }
+            else
+                if (type == 1) {
+                    message = 'Are you sure you want to cancel due weather?'
+                }
+                else
+                    if (type == 2) {
+                        message = 'Are You Sure He Did Not Show Up?'
+                    }
+                    else {
+                        message = 'Are You Sure You Want To Cancel All?'
+                    }
 
             var confirmPopup = $ionicPopup.confirm({
                 title: 'Show Up',
@@ -872,7 +874,7 @@ angular.module('football.controllers')
                 $ionicLoading.hide();
                 $scope.nointernet = true;
             }
-            if(!$scope.$$phase){
+            if (!$scope.$$phase) {
                 $scope.$apply();
             }
 
