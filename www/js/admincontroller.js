@@ -471,7 +471,7 @@ angular.module('football.controllers')
 
             var message = ""
 
-            if (type == 0) {
+            if (type == 0) {   
                 message = 'Are You Sure You Want To Cancel?'
             }
             else
