@@ -11,14 +11,35 @@ angular.module('football', ['ionic', 'football.controllers', 'ion-datetime-picke
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
             if (cordova.platformId === 'ios' && window.cordova && window.cordova.plugins.Keyboard) {
-                cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);                
+                cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);
                 cordova.plugins.Keyboard.disableScroll(true);
 
             }
             if (window.StatusBar) {
                 // org.apache.cordova.statusbar required
-                StatusBar.styleBlackOpaque();                
+                StatusBar.styleBlackOpaque();
             }
+
+            try {
+                var notificationOpenedCallback = function (jsonData) {
+                    console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+                };
+
+                window.plugins.OneSignal.setLogLevel(4, 4);
+
+                window.plugins.OneSignal
+                    .startInit("233d6f63-8ead-4ee7-8e69-03f4088a075a")
+                    .handleNotificationOpened(notificationOpenedCallback)
+                    .endInit();
+
+                window.plugins.OneSignal.getIds(function (ids) {
+                    //alert(ids.userId);
+                });
+
+            } catch (error) {
+                alert((error));
+            }
+
         });
 
         //  // This hooks all auth events to check everything as soon as the app starts
@@ -44,12 +65,12 @@ angular.module('football', ['ionic', 'football.controllers', 'ion-datetime-picke
             })
 
             .state('app',
-            {
-                url: '/app',
-                abstract: true,
-                templateUrl: 'templates/menu.html',
-                controller: 'AppCtrl'
-            }
+                {
+                    url: '/app',
+                    abstract: true,
+                    templateUrl: 'templates/menu.html',
+                    controller: 'AppCtrl'
+                }
             )
             .state('signin', {
                 url: '/loginpage',

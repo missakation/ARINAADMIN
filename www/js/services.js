@@ -97,7 +97,7 @@ angular.module('football.services', [])
                             "city": snapshot.child("city").val(),
                             "telephone": snapshot.child("telephone").val(),
                             "typefloor": mainstadiumSnapshot.child("typefloor").val(),
-                            "numofplayers": mainstadiumSnapshot.child("numplayers").val()
+                            "numofplayers": mainstadiumSnapshot.child("numplayers1").val()
                         };
                         MyMiniStadiums.push(Data);
 
@@ -1011,34 +1011,11 @@ angular.module('football.services', [])
                     var ready = false;
                     try {
 
-                        var query = firebase.database().ref('/telephones/' + newuser.telephone);
-
-                        query.once('value', function (snapshot) {
-
-                            if (snapshot.exists()) {
-
-                                var pid = snapshot.child("uid").val();
-                                var existingcustomer =
-                                    {
-                                        uid: pid,
-                                        telephone: newuser.telephone,
-                                        firstname: newuser.name
-                                    }
-
-                                updates['/admins/' + id + '/mycustomers/' + newPostKey] = existingcustomer;
-                                return firebase.database().ref().update(updates);
-                                // ready = true;
-                            }
-                            else {
-                                updates['/players/' + newPostKey] = usertoadd;
-                                updates['/playersinfo/' + newPostKey] = usertoadd;
-                                updates['/telephones/' + newuser.telephone] = mycustomer;
-                                updates['/admins/' + id + '/mycustomers/' + newPostKey] = mycustomer;
-                                return firebase.database().ref().update(updates);
-                                // ready = true;
-                            }
-
-                        });
+                        updates['/players/' + newPostKey] = usertoadd;
+                        updates['/playersinfo/' + newPostKey] = usertoadd;
+                        updates['/telephones/' + newuser.telephone] = mycustomer;
+                        updates['/admins/' + id + '/mycustomers/' + newPostKey] = mycustomer;
+                        return firebase.database().ref().update(updates);
 
                     }
                     catch (error) {
@@ -1046,7 +1023,6 @@ angular.module('football.services', [])
                     }
 
 
-                    return firebase.database().ref().update(updates);
                 }
 
 
@@ -1184,6 +1160,12 @@ angular.module('football.services', [])
                 updates['/admins/' + id + '/mycustomers/' + Customer.key + '/telephone'] = Customer.telephone;
                 updates['/admins/' + id + '/mycustomers/' + Customer.key + '/firstname'] = Customer.firstname;
 
+                updates['/players/' + Customer.key + '/telephone'] = Customer.telephone;
+                updates['/players/' + Customer.key + '/firstname'] = Customer.firstname;
+
+                updates['/playersinfo/' + Customer.key + '/telephone'] = Customer.telephone;
+                updates['/playersinfo/' + Customer.key + '/firstname'] = Customer.firstname;
+
                 return firebase.database().ref().update(updates);
 
             },
@@ -1194,6 +1176,8 @@ angular.module('football.services', [])
 
                 var updates = {};
                 updates['/admins/' + id + '/mycustomers/' + Customer.key] = null;
+                updates['/players/' + Customer.key] = null;
+                updates['/playersinfo/' + Customer.key] = null;
 
                 return firebase.database().ref().update(updates);
 
