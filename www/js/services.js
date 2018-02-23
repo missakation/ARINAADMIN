@@ -502,9 +502,38 @@ angular.module('football.services', [])
                         Customers = [];
                         snapshot.forEach(function (PlayerSnapshot) {
                             var numbookings = 0;
+							var showedUp =0;
                             if (PlayerSnapshot.child("upcomingmatches").exists()) {
                                 numbookings = PlayerSnapshot.child("upcomingmatches").numChildren();
                             }
+							var allBookings = [];
+							allBookings = PlayerSnapshot.child("upcomingmatches");
+							allBookings.forEach(function(match){
+								if(match.child("fullstartdate").exists() && match.child("didnotshowup").exists() && match.child("cancelled").exists())
+								{
+									var matchDate 	= new Date(match.child("fullstartdate").val());
+									var xshowup 	= match.child("didnotshowup").val();
+									var canceld		= match.child("cancelled").val();
+									var now = new Date();
+									if(matchDate < now && !xshowup && !canceld)
+									{
+										showedUp++;
+									}
+								}
+							});
+							
+							/**for(i=0; i < numbookings; i++)
+							{
+								var curBooking = allBookings[i];
+								if("fullstartdate" in curBooking && "cancelled" in curBooking && "didnotshowup" in curBooking)
+								{
+									if(curBooking.fullstartdate < new Date() && !curBooking.cancelled && !curBooking.didnotshowup)
+									{
+										showedUp++;
+										console.log(allBookings[i].fullstartdate);
+									}
+								}								
+							}**/
 
                             var Data = {
                                 "key": PlayerSnapshot.key,
@@ -516,6 +545,7 @@ angular.module('football.services', [])
                                 "cancelled": PlayerSnapshot.child("cancelled").val(),
                                 "didnotshowup": PlayerSnapshot.child("didnotshowup").val(),
                                 "cancelledweather": PlayerSnapshot.child("cancelledweather").val(),
+								"showedUp": showedUp
 
                             };
                             Customers.push(Data);
