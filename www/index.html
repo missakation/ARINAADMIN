@@ -49,7 +49,7 @@
 
     <script src="lib/ionic-rating/ionic-rating.min.js"></script>
 
-    <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase.js"></script>
+    <!-- <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase.js"></script>
     <script>
         var config = {
             apiKey: "AIzaSyDiBc8qXZEvw7XrtEqqyWwH2k8YnCP2EeI",
@@ -62,7 +62,22 @@
         // Get a reference to the storage service, which is used to create references in your storage bucket
         var storage = firebase.storage();
 
-    </script>
+    </script> -->
+	
+	
+	<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
+	<script>
+	  // Initialize Firebase
+	  var config = {
+		apiKey: "AIzaSyDH11brhERp48i_1ivj23xc5aarmxoCd9w",
+		authDomain: "arinadev-59e9d.firebaseapp.com",
+		databaseURL: "https://arinadev-59e9d.firebaseio.com",
+		projectId: "arinadev-59e9d",
+		storageBucket: "arinadev-59e9d.appspot.com",
+		messagingSenderId: "121077515932"
+	  };
+	  firebase.initializeApp(config);
+	</script>
 
 <script src="lib/ion-datetime-picker/release/ion-datetime-picker.min.js"></script>
 <link href="lib/ion-datetime-picker/release/ion-datetime-picker.min.css" rel="stylesheet">

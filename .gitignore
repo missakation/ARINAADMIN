@@ -4,3 +4,5 @@ temp/
 *.log
 *.swp
 platforms/
+
+www/index.html
