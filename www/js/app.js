@@ -25,7 +25,7 @@ angular.module('football', ['ionic', 'football.controllers', 'ion-datetime-picke
                     console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
                 };
 
-                window.plugins.OneSignal.setLogLevel(4, 4);
+                
 
                 window.plugins.OneSignal
                     .startInit("233d6f63-8ead-4ee7-8e69-03f4088a075a")
