@@ -2254,7 +2254,6 @@ console.log($scope.selectedcustomer.bookings);
                 if (!$scope.nointernet) {
                     try {
 
-
                         $ionicLoading.show({
                             content: 'Loading',
                             animation: 'fade-in',
@@ -2262,6 +2261,7 @@ console.log($scope.selectedcustomer.bookings);
                             maxWidth: 200,
                             showDelay: 0
                         });
+
                         AdminStore.GetMyStadiums(function (leagues) {
                             $scope.mystadiums = leagues;
                             $scope.promotion.stadium = $scope.mystadiums[0].key;
@@ -2366,7 +2366,7 @@ console.log($scope.selectedcustomer.bookings);
                                         $scope.promotion.endtime.setMonth(d.getMonth());
 
                                         if (daynumber == 7) {
-
+                                            
                                             $scope.promotion.starttime.setDate(d.getDate() + (daynumber + 7 - d.getDay()) % 7);
                                             $scope.promotion.endtime.setDate(d.getDate() + (daynumber + 7 - d.getDay()) % 7);
                                         }

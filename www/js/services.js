@@ -152,7 +152,7 @@ angular.module('football.services', [])
 
 
                                         startdate.setMinutes(minischedule.child('minute').val());
-                                        startdate.setFullYear(year);										
+                                        startdate.setFullYear(year);
                                         startdate.setDate(minischedule.child('day').val());
                                         startdate.setMonth(month);
                                         startdate.setHours(minischedule.child('hour').val());
@@ -160,7 +160,7 @@ angular.module('football.services', [])
                                         var enddate = new Date();
 
                                         enddate.setMinutes(minischedule.child('minute').val());
-                                        enddate.setFullYear(year);										
+                                        enddate.setFullYear(year);
                                         enddate.setDate(minischedule.child('day').val());
                                         enddate.setMonth(month);
                                         enddate.setHours(minischedule.child('hour').val());
@@ -257,7 +257,7 @@ angular.module('football.services', [])
 
 
                                                 startdate.setMinutes(schedules.child('minute').val());
-                                                startdate.setFullYear(schedules.child('year').val());												
+                                                startdate.setFullYear(schedules.child('year').val());
                                                 startdate.setDate(schedules.child('day').val());
                                                 startdate.setMonth(schedules.child('month').val());
                                                 startdate.setHours(schedules.child('hour').val());
@@ -502,26 +502,24 @@ angular.module('football.services', [])
                         Customers = [];
                         snapshot.forEach(function (PlayerSnapshot) {
                             var numbookings = 0;
-							var showedUp =0;
+                            var showedUp = 0;
                             if (PlayerSnapshot.child("upcomingmatches").exists()) {
                                 numbookings = PlayerSnapshot.child("upcomingmatches").numChildren();
                             }
-							var allBookings = [];
-							allBookings = PlayerSnapshot.child("upcomingmatches");
-							allBookings.forEach(function(match){
-								if(match.child("fullstartdate").exists() && match.child("didnotshowup").exists() && match.child("cancelled").exists())
-								{
-									var matchDate 	= new Date(match.child("fullstartdate").val());
-									var xshowup 	= match.child("didnotshowup").val();
-									var canceld		= match.child("cancelled").val();
-									var now = new Date();
-									if(matchDate < now && !xshowup && !canceld)
-									{
-										showedUp++;
-									}
-								}
-							});
-							
+                            var allBookings = [];
+                            allBookings = PlayerSnapshot.child("upcomingmatches");
+                            allBookings.forEach(function (match) {
+                                if (match.child("fullstartdate").exists() && match.child("didnotshowup").exists() && match.child("cancelled").exists()) {
+                                    var matchDate = new Date(match.child("fullstartdate").val());
+                                    var xshowup = match.child("didnotshowup").val();
+                                    var canceld = match.child("cancelled").val();
+                                    var now = new Date();
+                                    if (matchDate < now && !xshowup && !canceld) {
+                                        showedUp++;
+                                    }
+                                }
+                            });
+
 							/**for(i=0; i < numbookings; i++)
 							{
 								var curBooking = allBookings[i];
@@ -545,7 +543,7 @@ angular.module('football.services', [])
                                 "cancelled": PlayerSnapshot.child("cancelled").val(),
                                 "didnotshowup": PlayerSnapshot.child("didnotshowup").val(),
                                 "cancelledweather": PlayerSnapshot.child("cancelledweather").val(),
-								"showedUp": showedUp
+                                "showedUp": showedUp
 
                             };
                             Customers.push(Data);
@@ -772,14 +770,14 @@ angular.module('football.services', [])
                         var references = [];
 
                         for (i = 1; i < numslots; i++) {
-                            search.date.setMinutes(search.date.getMinutes() + 30);
+                            maindate.setMinutes(maindate.getMinutes() + 30);
 
                             newkey = subkey +
-                                search.date.getFullYear().toString() +
-                                search.date.getMonth().toString() +
-                                search.date.getDate().toString() +
-                                search.date.getHours().toString() +
-                                search.date.getMinutes().toString()
+                                maindate.getFullYear().toString() +
+                                maindate.getMonth().toString() +
+                                maindate.getDate().toString() +
+                                maindate.getHours().toString() +
+                                maindate.getMinutes().toString()
 
                             var refdata = {
                                 key: newkey
@@ -794,11 +792,11 @@ angular.module('football.services', [])
                                 extrakeys.forEach(function (element) {
 
                                     newkey = element +
-                                        search.date.getFullYear().toString() +
-                                        search.date.getMonth().toString() +
-                                        search.date.getDate().toString() +
-                                        search.date.getHours().toString() +
-                                        search.date.getMinutes().toString()
+                                        maindate.getFullYear().toString() +
+                                        maindate.getMonth().toString() +
+                                        maindate.getDate().toString() +
+                                        maindate.getHours().toString() +
+                                        maindate.getMinutes().toString()
 
                                     var refdata = {
                                         key: newkey
@@ -811,11 +809,11 @@ angular.module('football.services', [])
                                 }, this);
                             }
                             newkey = subkey +
-                                search.date.getFullYear().toString() +
-                                search.date.getMonth().toString() +
-                                search.date.getDate().toString() +
-                                search.date.getHours().toString() +
-                                search.date.getMinutes().toString()
+                                maindate.getFullYear().toString() +
+                                maindate.getMonth().toString() +
+                                maindate.getDate().toString() +
+                                maindate.getHours().toString() +
+                                maindate.getMinutes().toString()
 
                             var refdata = {
                                 key: newkey
@@ -844,7 +842,7 @@ angular.module('football.services', [])
                             year: year,
                             total: details.price,
                             bookedadmin: true,
-                            fullstartdate: search.date,
+                            fullstartdate: maindate,
                             fullenddate: "",
                             iscombined: details.iscombined
                         };
@@ -876,18 +874,18 @@ angular.module('football.services', [])
 
                         maindate.setDate(maindate.getDate() + 7);
 
-                        search.date.setFullYear(maindate.getFullYear());                        
-                        search.date.setDate(maindate.getDate());
-						search.date.setMonth(maindate.getMonth());
-                        search.date.setHours(maindate.getHours());
-                        search.date.setMinutes(maindate.getMinutes());
+                        maindate.setFullYear(maindate.getFullYear());
+                        maindate.setDate(maindate.getDate());
+                        maindate.setMonth(maindate.getMonth());
+                        maindate.setHours(maindate.getHours());
+                        maindate.setMinutes(maindate.getMinutes());
 
-                        var year = search.date.getFullYear();
-                        var month = search.date.getMonth();
-                        var day = search.date.getDate();
+                        var year = maindate.getFullYear();
+                        var month = maindate.getMonth();
+                        var day = maindate.getDate();
 
-                        var hour = search.date.getHours();
-                        var minute = search.date.getMinutes();
+                        var hour = maindate.getHours();
+                        var minute = maindate.getMinutes();
 
                     }
 
@@ -1109,6 +1107,7 @@ angular.module('football.services', [])
                     promotion.endminute = promotion.endtime.getMinutes();
 
                     promotion.daynumber = daynumber;
+                    promotion.DateIssued = new Date();
 
 
                     var promkey = firebase.database().ref().child('/promotions/' + promotion.stadium + '/' + promotion.ministadium).push().key;
@@ -1152,7 +1151,14 @@ angular.module('football.services', [])
                                     weekly: promotions.child("weekly").val(),
                                     newprice: promotions.child("newprice").val(),
 
+                                    startyear: promotions.child("startyear").val(),
+                                    startdate: promotions.child("startdate").val(),
+                                    startmonth: promotions.child("startmonth").val(),
+                                    starthour: promotions.child("starthour").val(),
+                                    startminute: promotions.child("startminute").val(),
+                                    DateIssued: new Date(promotions.child("DateIssued").val()),
                                 };
+
                                 MyPromotions.push(Data);
 
                             })
@@ -1227,7 +1233,7 @@ angular.module('football.services', [])
                             var isadmin = challenges.child("admin").val() == myid;
 
                             challengedate.setMinutes(challenges.child("minute").val());
-                            challengedate.setFullYear(challenges.child("year").val());							
+                            challengedate.setFullYear(challenges.child("year").val());
                             challengedate.setDate(challenges.child("day").val());
                             challengedate.setMonth(challenges.child("month").val());
                             challengedate.setHours(challenges.child("hour").val());
